@@ -1,22 +1,22 @@
-///| 测试SQLite基础操作
+///| Test basic SQLite operations
 test "SQLite open and close" {
-  // 测试内存数据库连接
+  // test in-memory database connection
   let db = { val: @sqlite3sys.Sqlite3::init() }
   let result = @sqlite3sys.sqlite3_open(
     @sqlite3sys.CStr::from_string(":memory:"),
     db,
   )
 
-  // 检查连接是否成功
+  // verify connection success
   assert_true(result == @sqlite3sys.SQLITE_OK)
   assert_false(@sqlite3sys.Sqlite3::is_nullptr(db.val))
 
-  // 关闭数据库
+  // close database
   let close_result = @sqlite3sys.sqlite3_close(db.val)
   assert_true(close_result == @sqlite3sys.SQLITE_OK)
 }
 
-///| 测试SQL执行
+///| Test SQL execution
 test "simple sql execution" {
   let db = { val: @sqlite3sys.Sqlite3::init() }
   let result = @sqlite3sys.sqlite3_open(
@@ -25,7 +25,7 @@ test "simple sql execution" {
   )
   assert_true(result == @sqlite3sys.SQLITE_OK)
 
-  // 创建表
+  // create table
   let create_sql = @sqlite3sys.CStr::from_string(
     "CREATE TABLE test (id INTEGER PRIMARY KEY, name TEXT)",
   )
@@ -76,7 +76,7 @@ test "prepared statements" {
   )
   |> ignore
 
-  // 准备插入语句
+  // prepare insert statement
   let stmt = { val: @sqlite3sys.Sqlite3_stmt::init() }
   let prepare_sql = @sqlite3sys.CStr::from_string(
     "INSERT INTO users (name, age) VALUES (?, ?)",
@@ -86,7 +86,7 @@ test "prepared statements" {
     prepare_sql,
     -1,
     stmt,
-    @sqlite3sys.Sqlite3::to_void_ptr(@sqlite3sys.Sqlite3::init()),
+    @ref.new(@sqlite3sys.CStr::from_string("")),
   )
   assert_true(prepare_result == @sqlite3sys.SQLITE_OK)
   assert_false(@sqlite3sys.Sqlite3_stmt::is_nullptr(stmt.val))
@@ -103,11 +103,11 @@ test "prepared statements" {
   let bind_age = @sqlite3sys.sqlite3_bind_int(stmt.val, 2, 25)
   assert_true(bind_age == @sqlite3sys.SQLITE_OK)
 
-  // 执行语句
+  // execute statement
   let step_result = @sqlite3sys.sqlite3_step(stmt.val)
   assert_true(step_result == @sqlite3sys.SQLITE_DONE)
 
-  // 清理
+  // cleanup
   @sqlite3sys.sqlite3_finalize(stmt.val) |> ignore
   @sqlite3sys.sqlite3_close(db.val) |> ignore
 }
@@ -143,7 +143,7 @@ test "querying data" {
     ),
     -1,
     stmt,
-    @sqlite3sys.Sqlite3::to_void_ptr(@sqlite3sys.Sqlite3::init()),
+    @ref.new(@sqlite3sys.CStr::from_string("")),
   )
   |> ignore
   let step_result = @sqlite3sys.sqlite3_step(stmt.val)
@@ -230,7 +230,7 @@ test "handling different data types" {
     @sqlite3sys.CStr::from_string("INSERT INTO types_test VALUES (?, ?, ?, ?)"),
     -1,
     stmt,
-    @sqlite3sys.Sqlite3::to_void_ptr(@sqlite3sys.Sqlite3::init()),
+    @ref.new(@sqlite3sys.CStr::from_string("")),
   )
   |> ignore
 
@@ -258,7 +258,7 @@ test "handling different data types" {
     @sqlite3sys.CStr::from_string("SELECT * FROM types_test"),
     -1,
     select_stmt,
-    @sqlite3sys.Sqlite3::to_void_ptr(@sqlite3sys.Sqlite3::init()),
+    @ref.new(@sqlite3sys.CStr::from_string("")),
   )
   |> ignore
   assert_true(

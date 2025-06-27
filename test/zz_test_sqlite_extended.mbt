@@ -41,7 +41,7 @@ test "statement busy readonly status" {
     @sqlite3sys.CStr::from_string("SELECT 1"),
     -1,
     stmt,
-    @sqlite3sys.Sqlite3::to_void_ptr(@sqlite3sys.Sqlite3::init()),
+    @ref.new(@sqlite3sys.CStr::from_string("")),
   )
   |> ignore
 

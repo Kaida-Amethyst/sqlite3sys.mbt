@@ -1,26 +1,31 @@
 ///| Test parameter binding and statement reuse
 test "parameter count and names" {
   let db = { val: @sqlite3sys.Sqlite3::init() }
-  @sqlite3sys.sqlite3_open(@sqlite3sys.CStr::from_string(":memory:"), db) |> ignore
-
+  @sqlite3sys.sqlite3_open(@sqlite3sys.CStr::from_string(":memory:"), db)
+  |> ignore
   @sqlite3sys.sqlite3_exec(
     db.val,
-    @sqlite3sys.CStr::from_string("CREATE TABLE param_test (id INTEGER, name TEXT, age INTEGER)"),
+    @sqlite3sys.CStr::from_string(
+      "CREATE TABLE param_test (id INTEGER, name TEXT, age INTEGER)",
+    ),
     fn(_data, _cols, _values, _names) { 0 },
     @sqlite3sys.Sqlite3::to_void_ptr(@sqlite3sys.Sqlite3::init()),
     @sqlite3sys.Sqlite3::to_void_ptr(@sqlite3sys.Sqlite3::init()),
-  ) |> ignore
+  )
+  |> ignore
 
   // Prepare statement with named parameters
   let stmt = { val: @sqlite3sys.Sqlite3_stmt::init() }
   @sqlite3sys.sqlite3_prepare_v2(
     db.val,
-    @sqlite3sys.CStr::from_string("INSERT INTO param_test (id, name, age) VALUES (?1, :name, @age)"),
+    @sqlite3sys.CStr::from_string(
+      "INSERT INTO param_test (id, name, age) VALUES (?1, :name, @age)",
+    ),
     -1,
     stmt,
-    @sqlite3sys.Sqlite3::to_void_ptr(@sqlite3sys.Sqlite3::init()),
-  ) |> ignore
-
+    @ref.new(@sqlite3sys.CStr::from_string("")),
+  )
+  |> ignore
 
   // Check parameter count
   let param_count = @sqlite3sys.sqlite3_bind_parameter_count(stmt.val)
@@ -48,16 +53,14 @@ test "parameter count and names" {
   // Test parameter index lookup
   let name_index = @sqlite3sys.sqlite3_bind_parameter_index(
     stmt.val,
-    @sqlite3sys.CStr::from_string(":name")
+    @sqlite3sys.CStr::from_string(":name"),
   )
   assert_true(name_index == 2)
-
   let age_index = @sqlite3sys.sqlite3_bind_parameter_index(
     stmt.val,
-    @sqlite3sys.CStr::from_string("@age")
+    @sqlite3sys.CStr::from_string("@age"),
   )
   assert_true(age_index == 3)
-
   @sqlite3sys.sqlite3_finalize(stmt.val) |> ignore
   @sqlite3sys.sqlite3_close(db.val) |> ignore
 }
@@ -65,25 +68,31 @@ test "parameter count and names" {
 ///| Test statement reset and reuse
 test "statement reset and clear bindings" {
   let db = { val: @sqlite3sys.Sqlite3::init() }
-  @sqlite3sys.sqlite3_open(@sqlite3sys.CStr::from_string(":memory:"), db) |> ignore
-
+  @sqlite3sys.sqlite3_open(@sqlite3sys.CStr::from_string(":memory:"), db)
+  |> ignore
   @sqlite3sys.sqlite3_exec(
     db.val,
-    @sqlite3sys.CStr::from_string("CREATE TABLE reset_test (id INTEGER, value TEXT)"),
+    @sqlite3sys.CStr::from_string(
+      "CREATE TABLE reset_test (id INTEGER, value TEXT)",
+    ),
     fn(_data, _cols, _values, _names) { 0 },
     @sqlite3sys.Sqlite3::to_void_ptr(@sqlite3sys.Sqlite3::init()),
     @sqlite3sys.Sqlite3::to_void_ptr(@sqlite3sys.Sqlite3::init()),
-  ) |> ignore
+  )
+  |> ignore
 
   // Prepare insert statement
   let stmt = { val: @sqlite3sys.Sqlite3_stmt::init() }
   @sqlite3sys.sqlite3_prepare_v2(
     db.val,
-    @sqlite3sys.CStr::from_string("INSERT INTO reset_test (id, value) VALUES (?, ?)"),
+    @sqlite3sys.CStr::from_string(
+      "INSERT INTO reset_test (id, value) VALUES (?, ?)",
+    ),
     -1,
     stmt,
-    @sqlite3sys.Sqlite3::to_void_ptr(@sqlite3sys.Sqlite3::init()),
-  ) |> ignore
+    @ref.new(@sqlite3sys.CStr::from_string("")),
+  )
+  |> ignore
 
   // First execution
   @sqlite3sys.sqlite3_bind_int(stmt.val, 1, 1) |> ignore
@@ -92,9 +101,9 @@ test "statement reset and clear bindings" {
     2,
     @sqlite3sys.CStr::from_string("first"),
     -1,
-    fn(_ptr) { }
-  ) |> ignore
-
+    fn(_ptr) {  },
+  )
+  |> ignore
   assert_true(@sqlite3sys.sqlite3_step(stmt.val) == @sqlite3sys.SQLITE_DONE)
 
   // Reset the statement for reuse
@@ -108,9 +117,9 @@ test "statement reset and clear bindings" {
     2,
     @sqlite3sys.CStr::from_string("second"),
     -1,
-    fn(_ptr) { }
-  ) |> ignore
-
+    fn(_ptr) {  },
+  )
+  |> ignore
   assert_true(@sqlite3sys.sqlite3_step(stmt.val) == @sqlite3sys.SQLITE_DONE)
 
   // Clear bindings and reset
@@ -120,7 +129,6 @@ test "statement reset and clear bindings" {
 
   // Third execution with NULL values (since bindings are cleared)
   assert_true(@sqlite3sys.sqlite3_step(stmt.val) == @sqlite3sys.SQLITE_DONE)
-
   @sqlite3sys.sqlite3_finalize(stmt.val) |> ignore
 
   // Verify all three records were inserted
@@ -130,13 +138,14 @@ test "statement reset and clear bindings" {
     @sqlite3sys.CStr::from_string("SELECT COUNT(*) FROM reset_test"),
     -1,
     count_stmt,
-    @sqlite3sys.Sqlite3::to_void_ptr(@sqlite3sys.Sqlite3::init()),
-  ) |> ignore
-
-  assert_true(@sqlite3sys.sqlite3_step(count_stmt.val) == @sqlite3sys.SQLITE_ROW)
+    @ref.new(@sqlite3sys.CStr::from_string("")),
+  )
+  |> ignore
+  assert_true(
+    @sqlite3sys.sqlite3_step(count_stmt.val) == @sqlite3sys.SQLITE_ROW,
+  )
   let count = @sqlite3sys.sqlite3_column_int(count_stmt.val, 0)
   assert_true(count == 3)
-
   @sqlite3sys.sqlite3_finalize(count_stmt.val) |> ignore
   @sqlite3sys.sqlite3_close(db.val) |> ignore
 }
@@ -144,24 +153,30 @@ test "statement reset and clear bindings" {
 ///| Test multiple rows iteration
 test "multiple rows iteration" {
   let db = { val: @sqlite3sys.Sqlite3::init() }
-  @sqlite3sys.sqlite3_open(@sqlite3sys.CStr::from_string(":memory:"), db) |> ignore
+  @sqlite3sys.sqlite3_open(@sqlite3sys.CStr::from_string(":memory:"), db)
+  |> ignore
 
   // Setup test data
   @sqlite3sys.sqlite3_exec(
     db.val,
-    @sqlite3sys.CStr::from_string("CREATE TABLE iter_test (id INTEGER, name TEXT)"),
+    @sqlite3sys.CStr::from_string(
+      "CREATE TABLE iter_test (id INTEGER, name TEXT)",
+    ),
     fn(_data, _cols, _values, _names) { 0 },
     @sqlite3sys.Sqlite3::to_void_ptr(@sqlite3sys.Sqlite3::init()),
     @sqlite3sys.Sqlite3::to_void_ptr(@sqlite3sys.Sqlite3::init()),
-  ) |> ignore
-
+  )
+  |> ignore
   @sqlite3sys.sqlite3_exec(
     db.val,
-    @sqlite3sys.CStr::from_string("INSERT INTO iter_test VALUES (1, 'Alice'), (2, 'Bob'), (3, 'Charlie')"),
+    @sqlite3sys.CStr::from_string(
+      "INSERT INTO iter_test VALUES (1, 'Alice'), (2, 'Bob'), (3, 'Charlie')",
+    ),
     fn(_data, _cols, _values, _names) { 0 },
     @sqlite3sys.Sqlite3::to_void_ptr(@sqlite3sys.Sqlite3::init()),
     @sqlite3sys.Sqlite3::to_void_ptr(@sqlite3sys.Sqlite3::init()),
-  ) |> ignore
+  )
+  |> ignore
 
   // Query all rows
   let stmt = { val: @sqlite3sys.Sqlite3_stmt::init() }
@@ -170,8 +185,9 @@ test "multiple rows iteration" {
     @sqlite3sys.CStr::from_string("SELECT id, name FROM iter_test ORDER BY id"),
     -1,
     stmt,
-    @sqlite3sys.Sqlite3::to_void_ptr(@sqlite3sys.Sqlite3::init()),
-  ) |> ignore
+    @ref.new(@sqlite3sys.CStr::from_string("")),
+  )
+  |> ignore
 
   // Iterate through rows using a simple while-like approach
   let mut row_count = 0
@@ -207,9 +223,7 @@ test "multiple rows iteration" {
       done = true
     }
   }
-
   assert_true(row_count == 3)
-
   @sqlite3sys.sqlite3_finalize(stmt.val) |> ignore
   @sqlite3sys.sqlite3_close(db.val) |> ignore
-} 
+}
