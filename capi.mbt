@@ -297,7 +297,7 @@ pub extern "C" fn sqlite3_vsnprintf(
 
 //const char * sqlite3_bind_parameter_name(sqlite3_stmt *, int);
 
-///|
+///| REVIEW: This function cause unknow problem in Moonbit.
 pub extern "C" fn sqlite3_bind_parameter_name(
   pStmt : Sqlite3_stmt,
   i : Int

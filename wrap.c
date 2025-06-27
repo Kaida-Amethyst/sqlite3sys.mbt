@@ -1,6 +1,7 @@
 #include <sqlite3.h>
 #include <stdlib.h>
 #include <string.h>
+#include <stdio.h>
 #include "moonbit.h"
 
 
@@ -83,6 +84,10 @@ void *moonbit_str_to_c_str(moonbit_string_t ms) {
 }
 
 moonbit_string_t cstr_to_moonbit_str(void *ptr) {
+  if (NULL == ptr) {
+    printf("Serious error: cstr_to_moonbit_str called with NULL pointer\n");
+    exit(1);
+  }
   char *cptr = (char *)ptr;
   int32_t len = strlen(cptr);
   moonbit_string_t ms = moonbit_make_string(len, 0);
@@ -94,6 +99,10 @@ moonbit_string_t cstr_to_moonbit_str(void *ptr) {
 }
 
 moonbit_string_t c_str_to_moonbit_str_with_length(void *ptr, unsigned len) {
+  if (NULL == ptr) {
+    printf("Serious error: cstr_to_moonbit_str called with NULL pointer\n");
+    exit(1);
+  }
   char *cptr = (char *)ptr;
   moonbit_string_t ms = moonbit_make_string(len, 0);
   for (int i = 0; i < len; i++) {
