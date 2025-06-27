@@ -1240,7 +1240,7 @@ pub extern "C" fn sqlite3_prepare16(
   zSql : AnyType,
   nByte : Int,
   ppStmt : Ref[Sqlite3_stmt],
-  pzTail : Ref[CStr]
+  pzTail : Ref[AnyType]
 ) -> Int = "sqlite3_prepare16"
 
 //int sqlite3_prepare16_v2(sqlite3 * db, const void * zSql, int nByte, sqlite3_stmt ** ppStmt, const void ** pzTail);
@@ -1251,7 +1251,7 @@ pub extern "C" fn sqlite3_prepare16_v2(
   zSql : AnyType,
   nByte : Int,
   ppStmt : Ref[Sqlite3_stmt],
-  pzTail : AnyType
+  pzTail : Ref[AnyType]
 ) -> Int = "sqlite3_prepare16_v2"
 
 //int sqlite3_prepare16_v3(sqlite3 * db, const void * zSql, int nByte, unsigned int prepFlags, sqlite3_stmt ** ppStmt, const void ** pzTail);
@@ -1263,7 +1263,7 @@ pub extern "C" fn sqlite3_prepare16_v3(
   nByte : Int,
   prepFlags : UInt,
   ppStmt : Ref[Sqlite3_stmt],
-  pzTail : AnyType
+  pzTail : Ref[AnyType]
 ) -> Int = "sqlite3_prepare16_v3"
 
 //int sqlite3_prepare_v2(sqlite3 * db, const char * zSql, int nByte, sqlite3_stmt ** ppStmt, const char ** pzTail);
@@ -1274,7 +1274,7 @@ pub extern "C" fn sqlite3_prepare_v2(
   zSql : CStr,
   nByte : Int,
   ppStmt : Ref[Sqlite3_stmt],
-  pzTail : AnyType
+  pzTail : Ref[CStr]
 ) -> Int = "sqlite3_prepare_v2"
 
 //int sqlite3_prepare_v3(sqlite3 * db, const char * zSql, int nByte, unsigned int prepFlags, sqlite3_stmt ** ppStmt, const char ** pzTail);
@@ -1286,7 +1286,7 @@ pub extern "C" fn sqlite3_prepare_v3(
   nByte : Int,
   prepFlags : UInt,
   ppStmt : Ref[Sqlite3_stmt],
-  pzTail : AnyType
+  pzTail : Ref[CStr]
 ) -> Int = "sqlite3_prepare_v3"
 //int sqlite3_release_memory(int);
 
