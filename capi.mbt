@@ -893,7 +893,7 @@ pub extern "C" fn sqlite3_create_function(
   eTextRep : Int,
   pApp : AnyType,
   xFunc : FuncRef[(Sqlite3_context, Int, FixedArray[Sqlite3_value]) -> Unit],
-  xStep : FuncRef[(Sqlite3_context, Int, AnyType) -> Unit],
+  xStep : FuncRef[(Sqlite3_context, Int, FixedArray[Sqlite3_value]) -> Unit],
   xFinal : FuncRef[(Sqlite3_context) -> Unit]
 ) -> Int = "sqlite3_create_function"
 
@@ -907,7 +907,7 @@ pub extern "C" fn sqlite3_create_function16(
   eTextRep : Int,
   pApp : AnyType,
   xFunc : FuncRef[(Sqlite3_context, Int, FixedArray[Sqlite3_value]) -> Unit],
-  xStep : FuncRef[(Sqlite3_context, Int, AnyType) -> Unit],
+  xStep : FuncRef[(Sqlite3_context, Int, FixedArray[Sqlite3_value]) -> Unit],
   xFinal : FuncRef[(Sqlite3_context) -> Unit]
 ) -> Int = "sqlite3_create_function16"
 
@@ -921,7 +921,7 @@ pub extern "C" fn sqlite3_create_function_v2(
   eTextRep : Int,
   pApp : AnyType,
   xFunc : FuncRef[(Sqlite3_context, Int, FixedArray[Sqlite3_value]) -> Unit],
-  xStep : FuncRef[(Sqlite3_context, Int, AnyType) -> Unit],
+  xStep : FuncRef[(Sqlite3_context, Int, FixedArray[Sqlite3_value]) -> Unit],
   xFinal : FuncRef[(Sqlite3_context) -> Unit],
   xDestroy : FuncRef[(AnyType) -> Unit]
 ) -> Int = "sqlite3_create_function_v2"
@@ -957,7 +957,7 @@ pub extern "C" fn sqlite3_create_window_function(
   xStep : FuncRef[(Sqlite3_context, Int, FixedArray[Sqlite3_value]) -> Unit],
   xFinal : FuncRef[(Sqlite3_context) -> Unit],
   xValue : FuncRef[(Sqlite3_context) -> Unit],
-  xInverse : FuncRef[(Sqlite3_context, Int, AnyType) -> Unit],
+  xInverse : FuncRef[(Sqlite3_context, Int, FixedArray[Sqlite3_value]) -> Unit],
   xDestroy : FuncRef[(AnyType) -> Unit]
 ) -> Int = "sqlite3_create_window_function"
 //int sqlite3_data_count(sqlite3_stmt * pStmt);
