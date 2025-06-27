@@ -42,8 +42,6 @@
 
 5. `moon clean && moon test --target native --release`：这个命令会运行多次（大约20次），以保证没有随机bug，`moon clean`会清除已经编译的内容。
 
-6. `moon test --target native --enable-coverage && moon coverage report -f summary`: 这两个命令搭配使用，用于诊断代码覆盖率。
-
 # AI的主要任务
 
 1. 检查每一个api接口是否有良好的对应。也就是类型对应是否正确。有模糊的地方，需要写报告。
