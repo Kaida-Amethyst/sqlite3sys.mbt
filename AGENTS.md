@@ -16,6 +16,12 @@
 
 - `sqlite3_define.h`: 将sqlite3中定义宏单独拿出，用于const.mbt的来源。
 
+- `problems_record.md`: 记录存在但很难解决的问题。
+
+# 如何查看编译出来的c代码
+
+运行`moon test --target native`后，可以在`target`目录下找到`.c`文件。
+
 # 当前版本AI的权限
 
 - 目前本仓库的版本定义为alpha，AI拥有极大的权限，可以修改仓库下的任意代码。
