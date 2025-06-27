@@ -1,0 +1,14 @@
+{
+  "is-main": false,
+  "import": [
+    "Kaida-Amethyst/sqlite3sys"
+  ],
+  "test-import": [
+    "Kaida-Amethyst/sqlite3sys"
+  ],
+  "link" : {
+    "native" : {
+      "cc-link-flags" : "-lsqlite3"
+    }
+  },
+}

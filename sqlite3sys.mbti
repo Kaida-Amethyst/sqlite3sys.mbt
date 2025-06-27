@@ -1,0 +1,685 @@
+package "Kaida-Amethyst/sqlite3sys"
+
+// Values
+fn sqlite3_aggregate_context(Sqlite3_context, Int) -> AnyType
+
+fn sqlite3_aggregate_count(Sqlite3_context) -> Int
+
+fn sqlite3_auto_extension(FuncRef[() -> Unit]) -> Int
+
+fn sqlite3_autovacuum_pages(Sqlite3, FuncRef[(AnyType, CStr, UInt, UInt, UInt) -> UInt], AnyType, FuncRef[(AnyType) -> AnyType]) -> Int
+
+fn sqlite3_backup_finish(Sqlite3_backup) -> Int
+
+fn sqlite3_backup_init(Sqlite3, CStr, Sqlite3, CStr) -> Sqlite3_backup
+
+fn sqlite3_backup_pagecount(Sqlite3_backup) -> Int
+
+fn sqlite3_backup_remaining(Sqlite3_backup) -> Int
+
+fn sqlite3_backup_step(Sqlite3_backup, Int) -> Int
+
+fn sqlite3_bind_blob(Sqlite3_stmt, Int, AnyType, Int, FuncRef[(AnyType) -> AnyType]) -> Int
+
+fn sqlite3_bind_blob64(Sqlite3_stmt, Int, AnyType, UInt, FuncRef[(AnyType) -> AnyType]) -> Int
+
+fn sqlite3_bind_double(Sqlite3_stmt, Int, Double) -> Int
+
+fn sqlite3_bind_int(Sqlite3_stmt, Int, Int) -> Int
+
+fn sqlite3_bind_int64(Sqlite3_stmt, Int, Int64) -> Int
+
+fn sqlite3_bind_null(Sqlite3_stmt, Int) -> Int
+
+fn sqlite3_bind_parameter_count(Sqlite3_stmt) -> Int
+
+fn sqlite3_bind_parameter_index(Sqlite3_stmt, CStr) -> Int
+
+fn sqlite3_bind_parameter_name(Sqlite3_stmt, Int) -> CStr
+
+fn sqlite3_bind_pointer(Sqlite3_stmt, Int, AnyType, CStr, FuncRef[(AnyType) -> Unit]) -> Int
+
+fn sqlite3_bind_text(Sqlite3_stmt, Int, CStr, Int, FuncRef[(AnyType) -> Unit]) -> Int
+
+fn sqlite3_bind_text16(Sqlite3_stmt, Int, AnyType, Int, FuncRef[(AnyType) -> Unit]) -> Int
+
+fn sqlite3_bind_text64(Sqlite3_stmt, Int, CStr, UInt64, FuncRef[(AnyType) -> Unit], Byte) -> Int
+
+fn sqlite3_bind_value(Sqlite3_stmt, Int, Sqlite3_value) -> Int
+
+fn sqlite3_bind_zeroblob(Sqlite3_stmt, Int, Int) -> Int
+
+fn sqlite3_bind_zeroblob64(Sqlite3_stmt, Int, UInt64) -> Int
+
+fn sqlite3_blob_bytes(Sqlite3_blob) -> Int
+
+fn sqlite3_blob_close(Sqlite3_blob) -> Int
+
+fn sqlite3_blob_open(Sqlite3, CStr, CStr, CStr, Int64, Int, Ref[Sqlite3_blob]) -> Int
+
+fn sqlite3_blob_read(Sqlite3_blob, AnyType, Int, Int) -> Int
+
+fn sqlite3_blob_reopen(Sqlite3_blob, Int64) -> Int
+
+fn sqlite3_blob_write(Sqlite3_blob, AnyType, Int, Int) -> Int
+
+fn sqlite3_busy_handler(Sqlite3, FuncRef[(AnyType, Int) -> Int], AnyType) -> Int
+
+fn sqlite3_busy_timeout(Sqlite3, Int) -> Int
+
+fn sqlite3_cancel_auto_extension(FuncRef[() -> Unit]) -> Int
+
+fn sqlite3_changes(Sqlite3) -> Int
+
+fn sqlite3_changes64(Sqlite3) -> Int64
+
+fn sqlite3_clear_bindings(Sqlite3_stmt) -> Int
+
+fn sqlite3_close(Sqlite3) -> Int
+
+fn sqlite3_close_v2(Sqlite3) -> Int
+
+fn sqlite3_collation_needed(Sqlite3, AnyType, FuncRef[(AnyType, Sqlite3, Int, CStr) -> Unit]) -> Int
+
+fn sqlite3_collation_needed16(Sqlite3, AnyType, FuncRef[(AnyType, Sqlite3, Int, AnyType) -> Unit]) -> Int
+
+fn sqlite3_column_blob(Sqlite3_stmt, Int) -> AnyType
+
+fn sqlite3_column_bytes(Sqlite3_stmt, Int) -> Int
+
+fn sqlite3_column_bytes16(Sqlite3_stmt, Int) -> Int
+
+fn sqlite3_column_count(Sqlite3_stmt) -> Int
+
+fn sqlite3_column_database_name(Sqlite3_stmt, Int) -> CStr
+
+fn sqlite3_column_database_name16(Sqlite3_stmt, Int) -> AnyType
+
+fn sqlite3_column_decltype(Sqlite3_stmt, Int) -> CStr
+
+fn sqlite3_column_decltype16(Sqlite3_stmt, Int) -> AnyType
+
+fn sqlite3_column_double(Sqlite3_stmt, Int) -> Double
+
+fn sqlite3_column_int(Sqlite3_stmt, Int) -> Int
+
+fn sqlite3_column_int64(Sqlite3_stmt, Int) -> Int64
+
+fn sqlite3_column_name(Sqlite3_stmt, Int) -> CStr
+
+fn sqlite3_column_name16(Sqlite3_stmt, Int) -> AnyType
+
+fn sqlite3_column_origin_name(Sqlite3_stmt, Int) -> CStr
+
+fn sqlite3_column_origin_name16(Sqlite3_stmt, Int) -> AnyType
+
+fn sqlite3_column_table_name(Sqlite3_stmt, Int) -> CStr
+
+fn sqlite3_column_table_name16(Sqlite3_stmt, Int) -> AnyType
+
+fn sqlite3_column_text(Sqlite3_stmt, Int) -> CStr
+
+fn sqlite3_column_text16(Sqlite3_stmt, Int) -> AnyType
+
+fn sqlite3_column_type(Sqlite3_stmt, Int) -> Int
+
+fn sqlite3_column_value(Sqlite3_stmt, Int) -> Sqlite3_value
+
+fn sqlite3_commit_hook(Sqlite3, FuncRef[(AnyType) -> Int], AnyType) -> AnyType
+
+fn sqlite3_compileoption_get(Int) -> CStr
+
+fn sqlite3_compileoption_used(CStr) -> Int
+
+fn sqlite3_complete(CStr) -> Int
+
+fn sqlite3_complete16(AnyType) -> Int
+
+fn sqlite3_config(Int) -> Int
+
+fn sqlite3_context_db_handle(Sqlite3_context) -> Sqlite3
+
+fn sqlite3_create_collation(Sqlite3, CStr, Int, AnyType, FuncRef[(AnyType, Int, AnyType, Int, AnyType) -> Int]) -> Int
+
+fn sqlite3_create_collation16(Sqlite3, AnyType, Int, AnyType, FuncRef[(AnyType, Int, AnyType, Int, AnyType) -> Int]) -> Int
+
+fn sqlite3_create_collation_v2(Sqlite3, CStr, Int, AnyType, FuncRef[(AnyType, Int, AnyType, Int, AnyType) -> Int], FuncRef[(AnyType) -> Unit]) -> Int
+
+fn sqlite3_create_filename(CStr, CStr, CStr, Int, FixedArray[CStr]) -> Sqlite3_filename
+
+fn sqlite3_create_function(Sqlite3, CStr, Int, Int, AnyType, FuncRef[(Sqlite3_context, Int, FixedArray[Sqlite3_value]) -> Unit], FuncRef[(Sqlite3_context, Int, AnyType) -> Unit], FuncRef[(Sqlite3_context) -> Unit]) -> Int
+
+fn sqlite3_create_function16(Sqlite3, AnyType, Int, Int, AnyType, FuncRef[(Sqlite3_context, Int, FixedArray[Sqlite3_value]) -> Unit], FuncRef[(Sqlite3_context, Int, AnyType) -> Unit], FuncRef[(Sqlite3_context) -> Unit]) -> Int
+
+fn sqlite3_create_function_v2(Sqlite3, CStr, Int, Int, AnyType, FuncRef[(Sqlite3_context, Int, FixedArray[Sqlite3_value]) -> Unit], FuncRef[(Sqlite3_context, Int, AnyType) -> Unit], FuncRef[(Sqlite3_context) -> Unit], FuncRef[(AnyType) -> Unit]) -> Int
+
+fn sqlite3_create_module(Sqlite3, CStr, Sqlite3_module, AnyType) -> Int
+
+fn sqlite3_create_module_v2(Sqlite3, CStr, Sqlite3_module, AnyType, FuncRef[(AnyType) -> Unit]) -> Int
+
+fn sqlite3_create_window_function(Sqlite3, CStr, Int, Int, AnyType, FuncRef[(Sqlite3_context, Int, FixedArray[Sqlite3_value]) -> Unit], FuncRef[(Sqlite3_context) -> Unit], FuncRef[(Sqlite3_context) -> Unit], FuncRef[(Sqlite3_context, Int, AnyType) -> Unit], FuncRef[(AnyType) -> Unit]) -> Int
+
+fn sqlite3_data_count(Sqlite3_stmt) -> Int
+
+fn sqlite3_database_file_object(CStr) -> Sqlite3_file
+
+fn sqlite3_db_cacheflush(Sqlite3) -> Int
+
+fn sqlite3_db_config(Sqlite3, Int) -> Int
+
+fn sqlite3_db_filename(Sqlite3, CStr) -> Sqlite3_filename
+
+fn sqlite3_db_handle(Sqlite3_stmt) -> Sqlite3
+
+fn sqlite3_db_mutex(Sqlite3) -> Sqlite3_mutex
+
+fn sqlite3_db_name(Sqlite3, Int) -> CStr
+
+fn sqlite3_db_readonly(Sqlite3, CStr) -> Int
+
+fn sqlite3_db_release_memory(Sqlite3) -> Int
+
+fn sqlite3_db_status(Sqlite3, Int, AnyType, AnyType, Int) -> Int
+
+fn sqlite3_declare_vtab(Sqlite3, CStr) -> Int
+
+fn sqlite3_deserialize(Sqlite3, CStr, CStr, Int64, Int64, UInt) -> Int
+
+fn sqlite3_drop_modules(Sqlite3, Ref[CStr]) -> Int
+
+fn sqlite3_enable_load_extension(Sqlite3, Int) -> Int
+
+fn sqlite3_enable_shared_cache(Int) -> Int
+
+fn sqlite3_errcode(Sqlite3) -> Int
+
+fn sqlite3_errmsg(Sqlite3) -> CStr
+
+fn sqlite3_errmsg16(Sqlite3) -> AnyType
+
+fn sqlite3_error_offset(Sqlite3) -> Int
+
+fn sqlite3_errstr(Int) -> CStr
+
+fn sqlite3_exec(Sqlite3, CStr, FuncRef[(AnyType, Int, Ref[CStr], Ref[CStr]) -> Int], AnyType, AnyType) -> Int
+
+fn sqlite3_expanded_sql(Sqlite3_stmt) -> CStr
+
+fn sqlite3_expired(Sqlite3_stmt) -> Int
+
+fn sqlite3_extended_errcode(Sqlite3) -> Int
+
+fn sqlite3_extended_result_codes(Sqlite3, Int) -> Int
+
+fn sqlite3_file_control(Sqlite3, CStr, Int, AnyType) -> Int
+
+fn sqlite3_filename_database(Sqlite3_filename) -> CStr
+
+fn sqlite3_filename_journal(Sqlite3_filename) -> CStr
+
+fn sqlite3_filename_wal(Sqlite3_filename) -> CStr
+
+fn sqlite3_finalize(Sqlite3_stmt) -> Int
+
+fn sqlite3_free(AnyType) -> Unit
+
+fn sqlite3_free_filename(Sqlite3_filename) -> Unit
+
+fn sqlite3_free_table(Ref[CStr]) -> Unit
+
+fn sqlite3_get_autocommit(Sqlite3) -> Int
+
+fn sqlite3_get_auxdata(Sqlite3_context, Int) -> AnyType
+
+fn sqlite3_get_clientdata(Sqlite3, CStr) -> AnyType
+
+#deprecated
+fn sqlite3_get_table(Sqlite3, CStr, AnyType, AnyType, AnyType, Ref[CStr]) -> Int
+
+fn sqlite3_global_recover() -> Int
+
+fn sqlite3_hard_heap_limit64(Int64) -> Int64
+
+fn sqlite3_initialize() -> Int
+
+fn sqlite3_interrupt(Sqlite3) -> Unit
+
+fn sqlite3_is_interrupted(Sqlite3) -> Int
+
+fn sqlite3_keyword_check(CStr, Int) -> Int
+
+fn sqlite3_keyword_count() -> Int
+
+fn sqlite3_keyword_name(Int, Ref[CStr], Ref[Int]) -> Int
+
+fn sqlite3_last_insert_rowid(Sqlite3) -> Int64
+
+fn sqlite3_libversion() -> CStr
+
+fn sqlite3_libversion_number() -> Int
+
+fn sqlite3_limit(Sqlite3, Int, Int) -> Int
+
+fn sqlite3_load_extension(Sqlite3, CStr, CStr, AnyType) -> Int
+
+fn sqlite3_log(Int, CStr) -> Unit
+
+fn sqlite3_malloc(Int) -> AnyType
+
+fn sqlite3_malloc64(UInt64) -> AnyType
+
+fn sqlite3_memory_alarm(FuncRef[(AnyType, Int64, Int) -> Unit], AnyType, Int64) -> Int
+
+fn sqlite3_memory_highwater(Int) -> Int64
+
+fn sqlite3_memory_used() -> Int64
+
+fn sqlite3_mprintf(CStr) -> CStr
+
+fn sqlite3_msize(AnyType) -> UInt64
+
+fn sqlite3_mutex_alloc(Int) -> Sqlite3_mutex
+
+fn sqlite3_mutex_enter(Sqlite3_mutex) -> Unit
+
+fn sqlite3_mutex_free(Sqlite3_mutex) -> Unit
+
+fn sqlite3_mutex_held(Sqlite3_mutex) -> Int
+
+fn sqlite3_mutex_leave(Sqlite3_mutex) -> Unit
+
+fn sqlite3_mutex_notheld(Sqlite3_mutex) -> Int
+
+fn sqlite3_mutex_try(Sqlite3_mutex) -> Int
+
+fn sqlite3_next_stmt(Sqlite3, Sqlite3_stmt) -> Sqlite3_stmt
+
+fn sqlite3_open(CStr, Ref[Sqlite3]) -> Int
+
+fn sqlite3_open16(AnyType, Ref[Sqlite3]) -> Int
+
+fn sqlite3_open_v2(CStr, Ref[Sqlite3], Int, CStr) -> Int
+
+fn sqlite3_os_end() -> Int
+
+fn sqlite3_os_init() -> Int
+
+fn sqlite3_overload_function(Sqlite3, CStr, Int) -> Int
+
+fn sqlite3_prepare(Sqlite3, CStr, Int, Ref[Sqlite3_stmt], Ref[CStr]) -> Int
+
+fn sqlite3_prepare16(Sqlite3, AnyType, Int, Ref[Sqlite3_stmt], Ref[CStr]) -> Int
+
+fn sqlite3_prepare16_v2(Sqlite3, AnyType, Int, Ref[Sqlite3_stmt], AnyType) -> Int
+
+fn sqlite3_prepare16_v3(Sqlite3, AnyType, Int, UInt, Ref[Sqlite3_stmt], AnyType) -> Int
+
+fn sqlite3_prepare_v2(Sqlite3, CStr, Int, Ref[Sqlite3_stmt], AnyType) -> Int
+
+fn sqlite3_prepare_v3(Sqlite3, CStr, Int, UInt, Ref[Sqlite3_stmt], AnyType) -> Int
+
+fn sqlite3_profile(Sqlite3, FuncRef[(AnyType, CStr, UInt64) -> Unit], AnyType) -> AnyType
+
+fn sqlite3_progress_handler(Sqlite3, Int, FuncRef[(AnyType) -> Int], AnyType) -> Unit
+
+fn sqlite3_randomness(Int, AnyType) -> Unit
+
+fn sqlite3_realloc(AnyType, Int) -> AnyType
+
+fn sqlite3_realloc64(AnyType, UInt64) -> AnyType
+
+fn sqlite3_release_memory(Int) -> Int
+
+fn sqlite3_reset(Sqlite3_stmt) -> Int
+
+fn sqlite3_reset_auto_extension() -> Unit
+
+fn sqlite3_result_blob(Sqlite3_context, AnyType, Int, FuncRef[(AnyType) -> Unit]) -> Unit
+
+fn sqlite3_result_blob64(Sqlite3_context, AnyType, UInt64, FuncRef[(AnyType) -> Unit]) -> Unit
+
+fn sqlite3_result_double(Sqlite3_context, Double) -> Unit
+
+fn sqlite3_result_error(Sqlite3_context, CStr, Int) -> Unit
+
+fn sqlite3_result_error16(Sqlite3_context, AnyType, Int) -> Unit
+
+fn sqlite3_result_error_code(Sqlite3_context, Int) -> Unit
+
+fn sqlite3_result_error_nomem(Sqlite3_context) -> Unit
+
+fn sqlite3_result_error_toobig(Sqlite3_context) -> Unit
+
+fn sqlite3_result_int(Sqlite3_context, Int) -> Unit
+
+fn sqlite3_result_int64(Sqlite3_context, Int64) -> Unit
+
+fn sqlite3_result_null(Sqlite3_context) -> Unit
+
+fn sqlite3_result_pointer(Sqlite3_context, AnyType, CStr, FuncRef[(AnyType) -> Unit]) -> Unit
+
+fn sqlite3_result_subtype(Sqlite3_context, UInt) -> Unit
+
+fn sqlite3_result_text(Sqlite3_context, CStr, Int, FuncRef[(AnyType) -> Unit]) -> Unit
+
+fn sqlite3_result_text16(Sqlite3_context, AnyType, Int, FuncRef[(AnyType) -> Unit]) -> Unit
+
+fn sqlite3_result_text16be(Sqlite3_context, AnyType, Int, FuncRef[(AnyType) -> Unit]) -> Unit
+
+fn sqlite3_result_text16le(Sqlite3_context, AnyType, Int, FuncRef[(AnyType) -> Unit]) -> Unit
+
+fn sqlite3_result_text64(Sqlite3_context, CStr, UInt64, FuncRef[(AnyType) -> Unit], Byte) -> Unit
+
+fn sqlite3_result_value(Sqlite3_context, Sqlite3_value) -> Unit
+
+fn sqlite3_result_zeroblob(Sqlite3_context, Int) -> Unit
+
+fn sqlite3_result_zeroblob64(Sqlite3_context, UInt64) -> Int
+
+fn sqlite3_rollback_hook(Sqlite3, FuncRef[(AnyType) -> Unit], AnyType) -> AnyType
+
+fn sqlite3_rtree_geometry_callback(Sqlite3, CStr, FuncRef[(AnyType, Int, AnyType, AnyType) -> Int], AnyType) -> Int
+
+fn sqlite3_rtree_query_callback(Sqlite3, CStr, FuncRef[(AnyType) -> Int], AnyType, FuncRef[(AnyType) -> Unit]) -> Int
+
+fn sqlite3_serialize(Sqlite3, CStr, AnyType, UInt) -> CStr
+
+fn sqlite3_set_authorizer(Sqlite3, FuncRef[(AnyType, Int, CStr, CStr, CStr, CStr) -> Int], AnyType) -> Int
+
+fn sqlite3_set_auxdata(Sqlite3_context, Int, AnyType, FuncRef[(AnyType) -> Unit]) -> Unit
+
+fn sqlite3_set_clientdata(Sqlite3, CStr, AnyType, FuncRef[(AnyType) -> Unit]) -> Int
+
+fn sqlite3_set_last_insert_rowid(Sqlite3, Int64) -> Unit
+
+fn sqlite3_setlk_timeout(Sqlite3, Int, Int) -> Int
+
+fn sqlite3_shutdown() -> Int
+
+fn sqlite3_sleep(Int) -> Int
+
+fn sqlite3_snapshot_cmp(Sqlite3_snapshot, Sqlite3_snapshot) -> Int
+
+fn sqlite3_snapshot_free(Sqlite3_snapshot) -> Unit
+
+fn sqlite3_snapshot_get(Sqlite3, CStr, Ref[Sqlite3_snapshot]) -> Int
+
+fn sqlite3_snapshot_open(Sqlite3, CStr, Sqlite3_snapshot) -> Int
+
+fn sqlite3_snapshot_recover(Sqlite3, CStr) -> Int
+
+fn sqlite3_snprintf(Int, CStr, CStr) -> CStr
+
+fn sqlite3_soft_heap_limit(Int) -> Unit
+
+fn sqlite3_soft_heap_limit64(Int64) -> Int64
+
+fn sqlite3_sourceid() -> CStr
+
+fn sqlite3_sql(Sqlite3_stmt) -> CStr
+
+fn sqlite3_status(Int, AnyType, AnyType, Int) -> Int
+
+fn sqlite3_status64(Int, AnyType, AnyType, Int) -> Int
+
+fn sqlite3_step(Sqlite3_stmt) -> Int
+
+fn sqlite3_stmt_busy(Sqlite3_stmt) -> Int
+
+fn sqlite3_stmt_explain(Sqlite3_stmt, Int) -> Int
+
+fn sqlite3_stmt_isexplain(Sqlite3_stmt) -> Int
+
+fn sqlite3_stmt_readonly(Sqlite3_stmt) -> Int
+
+fn sqlite3_stmt_scanstatus(Sqlite3_stmt, Int, Int, AnyType) -> Int
+
+fn sqlite3_stmt_scanstatus_reset(Sqlite3_stmt) -> Unit
+
+fn sqlite3_stmt_scanstatus_v2(Sqlite3_stmt, Int, Int, Int, AnyType) -> Int
+
+fn sqlite3_stmt_status(Sqlite3_stmt, Int, Int) -> Int
+
+fn sqlite3_str_append(Sqlite3_str, CStr, Int) -> Unit
+
+fn sqlite3_str_appendall(Sqlite3_str, CStr) -> Unit
+
+fn sqlite3_str_appendchar(Sqlite3_str, Int, Byte) -> Unit
+
+fn sqlite3_str_appendf(Sqlite3_str, CStr) -> Unit
+
+fn sqlite3_str_errcode(Sqlite3_str) -> Int
+
+fn sqlite3_str_finish(Sqlite3_str) -> CStr
+
+fn sqlite3_str_length(Sqlite3_str) -> Int
+
+fn sqlite3_str_new(Sqlite3) -> Sqlite3_str
+
+fn sqlite3_str_reset(Sqlite3_str) -> Unit
+
+fn sqlite3_str_value(Sqlite3_str) -> CStr
+
+fn sqlite3_str_vappendf(Sqlite3_str, CStr, Int) -> Unit
+
+fn sqlite3_strglob(CStr, CStr) -> Int
+
+fn sqlite3_stricmp(CStr, CStr) -> Int
+
+fn sqlite3_strlike(CStr, CStr, UInt) -> Int
+
+fn sqlite3_strnicmp(CStr, CStr, Int) -> Int
+
+fn sqlite3_system_errno(Sqlite3) -> Int
+
+fn sqlite3_table_column_metadata(Sqlite3, CStr, CStr, CStr, AnyType, AnyType, AnyType, AnyType, AnyType) -> Int
+
+fn sqlite3_test_control(Int) -> Int
+
+fn sqlite3_thread_cleanup() -> Unit
+
+fn sqlite3_threadsafe() -> Int
+
+fn sqlite3_total_changes(Sqlite3) -> Int
+
+fn sqlite3_total_changes64(Sqlite3) -> Int64
+
+fn sqlite3_trace(Sqlite3, FuncRef[(AnyType, CStr) -> Unit], AnyType) -> AnyType
+
+fn sqlite3_trace_v2(Sqlite3, UInt, FuncRef[(UInt, AnyType, AnyType, AnyType) -> Int], AnyType) -> Int
+
+fn sqlite3_transfer_bindings(Sqlite3_stmt, Sqlite3_stmt) -> Int
+
+fn sqlite3_txn_state(Sqlite3, CStr) -> Int
+
+fn sqlite3_unlock_notify(Sqlite3, FuncRef[(AnyType, Int) -> Unit], AnyType) -> Int
+
+fn sqlite3_update_hook(Sqlite3, FuncRef[(AnyType, Int, CStr, CStr, Int64) -> Unit], AnyType) -> AnyType
+
+fn sqlite3_uri_boolean(Sqlite3_filename, CStr, Int) -> Int
+
+fn sqlite3_uri_int64(Sqlite3_filename, CStr, Int64) -> Int64
+
+fn sqlite3_uri_key(Sqlite3_filename, Int) -> CStr
+
+fn sqlite3_uri_parameter(Sqlite3_filename, CStr) -> CStr
+
+fn sqlite3_user_data(Sqlite3_context) -> AnyType
+
+fn sqlite3_value_blob(Sqlite3_value) -> AnyType
+
+fn sqlite3_value_bytes(Sqlite3_value) -> Int
+
+fn sqlite3_value_bytes16(Sqlite3_value) -> Int
+
+fn sqlite3_value_double(Sqlite3_value) -> Double
+
+fn sqlite3_value_dup(Sqlite3_value) -> Sqlite3_value
+
+fn sqlite3_value_encoding(Sqlite3_value) -> Int
+
+fn sqlite3_value_free(Sqlite3_value) -> Unit
+
+fn sqlite3_value_frombind(Sqlite3_value) -> Int
+
+fn sqlite3_value_int(Sqlite3_value) -> Int
+
+fn sqlite3_value_int64(Sqlite3_value) -> Int64
+
+fn sqlite3_value_nochange(Sqlite3_value) -> Int
+
+fn sqlite3_value_numeric_type(Sqlite3_value) -> Int
+
+fn sqlite3_value_pointer(Sqlite3_value, CStr) -> AnyType
+
+fn sqlite3_value_subtype(Sqlite3_value) -> UInt
+
+fn sqlite3_value_text(Sqlite3_value) -> CStr
+
+fn sqlite3_value_text16(Sqlite3_value) -> AnyType
+
+fn sqlite3_value_text16be(Sqlite3_value) -> AnyType
+
+fn sqlite3_value_text16le(Sqlite3_value) -> AnyType
+
+fn sqlite3_value_type(Sqlite3_value) -> Int
+
+fn sqlite3_vfs_find(CStr) -> Sqlite3_vfs
+
+fn sqlite3_vfs_register(Sqlite3_vfs, Int) -> Int
+
+fn sqlite3_vfs_unregister(Sqlite3_vfs) -> Int
+
+fn sqlite3_vmprintf(CStr, Int) -> CStr
+
+fn sqlite3_vsnprintf(Int, CStr, CStr, Int) -> CStr
+
+fn sqlite3_vtab_collation(Sqlite3_index_info, Int) -> CStr
+
+fn sqlite3_vtab_config(Sqlite3, Int) -> Int
+
+fn sqlite3_vtab_distinct(Sqlite3_index_info) -> Int
+
+fn sqlite3_vtab_in(Sqlite3_index_info, Int, Int) -> Int
+
+fn sqlite3_vtab_in_first(Sqlite3_value, Ref[Sqlite3_value]) -> Int
+
+fn sqlite3_vtab_in_next(Sqlite3_value, Ref[Sqlite3_value]) -> Int
+
+fn sqlite3_vtab_nochange(Sqlite3_context) -> Int
+
+fn sqlite3_vtab_on_conflict(Sqlite3) -> Int
+
+fn sqlite3_vtab_rhs_value(Sqlite3_index_info, Int, Ref[Sqlite3_value]) -> Int
+
+fn sqlite3_wal_autocheckpoint(Sqlite3, Int) -> Int
+
+fn sqlite3_wal_checkpoint(Sqlite3, CStr) -> Int
+
+fn sqlite3_wal_checkpoint_v2(Sqlite3, CStr, Int, AnyType, AnyType) -> Int
+
+fn sqlite3_wal_hook(Sqlite3, FuncRef[(AnyType, Sqlite3, CStr, Int) -> Int], AnyType) -> AnyType
+
+fn sqlite3_win32_set_directory(UInt64, AnyType) -> Int
+
+fn sqlite3_win32_set_directory16(UInt64, AnyType) -> Int
+
+fn sqlite3_win32_set_directory8(UInt64, CStr) -> Int
+
+// Types and methods
+type AnyType
+
+type CStr
+fn CStr::convert_to_moonbit_string(Self) -> String
+fn CStr::convert_to_moonbit_string_with_length(Self, UInt) -> String
+fn CStr::from_string(String) -> Self
+fn CStr::is_nullptr(Self) -> Bool
+
+type Sqlite3
+fn Sqlite3::from_void_ptr(AnyType) -> Self
+fn Sqlite3::init() -> Self
+fn Sqlite3::is_nullptr(Self) -> Bool
+fn Sqlite3::to_void_ptr(Self) -> AnyType
+
+type Sqlite3_backup
+fn Sqlite3_backup::from_void_ptr(AnyType) -> Self
+fn Sqlite3_backup::init() -> Self
+fn Sqlite3_backup::is_nullptr(Self) -> Bool
+fn Sqlite3_backup::to_void_ptr(Self) -> AnyType
+
+type Sqlite3_blob
+fn Sqlite3_blob::from_void_ptr(AnyType) -> Self
+fn Sqlite3_blob::init() -> Self
+fn Sqlite3_blob::is_nullptr(Self) -> Bool
+fn Sqlite3_blob::to_void_ptr(Self) -> AnyType
+
+type Sqlite3_context
+fn Sqlite3_context::from_void_ptr(AnyType) -> Self
+fn Sqlite3_context::init() -> Self
+fn Sqlite3_context::is_nullptr(Self) -> Bool
+fn Sqlite3_context::to_void_ptr(Self) -> AnyType
+
+type Sqlite3_file
+fn Sqlite3_file::from_void_ptr(AnyType) -> Self
+fn Sqlite3_file::init() -> Self
+fn Sqlite3_file::is_nullptr(Self) -> Bool
+fn Sqlite3_file::to_void_ptr(Self) -> AnyType
+
+type Sqlite3_filename
+fn Sqlite3_filename::from_void_ptr(AnyType) -> Self
+fn Sqlite3_filename::init() -> Self
+fn Sqlite3_filename::is_nullptr(Self) -> Bool
+fn Sqlite3_filename::to_void_ptr(Self) -> AnyType
+
+type Sqlite3_index_info
+fn Sqlite3_index_info::from_void_ptr(AnyType) -> Self
+fn Sqlite3_index_info::init() -> Self
+fn Sqlite3_index_info::is_nullptr(Self) -> Bool
+fn Sqlite3_index_info::to_void_ptr(Self) -> AnyType
+
+type Sqlite3_module
+fn Sqlite3_module::from_void_ptr(AnyType) -> Self
+fn Sqlite3_module::init() -> Self
+fn Sqlite3_module::is_nullptr(Self) -> Bool
+fn Sqlite3_module::to_void_ptr(Self) -> AnyType
+
+type Sqlite3_mutex
+fn Sqlite3_mutex::from_void_ptr(AnyType) -> Self
+fn Sqlite3_mutex::init() -> Self
+fn Sqlite3_mutex::is_nullptr(Self) -> Bool
+fn Sqlite3_mutex::to_void_ptr(Self) -> AnyType
+
+type Sqlite3_snapshot
+fn Sqlite3_snapshot::from_void_ptr(AnyType) -> Self
+fn Sqlite3_snapshot::init() -> Self
+fn Sqlite3_snapshot::is_nullptr(Self) -> Bool
+fn Sqlite3_snapshot::to_void_ptr(Self) -> AnyType
+
+type Sqlite3_stmt
+fn Sqlite3_stmt::from_void_ptr(AnyType) -> Self
+fn Sqlite3_stmt::init() -> Self
+fn Sqlite3_stmt::is_nullptr(Self) -> Bool
+fn Sqlite3_stmt::to_void_ptr(Self) -> AnyType
+
+type Sqlite3_str
+fn Sqlite3_str::from_void_ptr(AnyType) -> Self
+fn Sqlite3_str::init() -> Self
+fn Sqlite3_str::is_nullptr(Self) -> Bool
+fn Sqlite3_str::to_void_ptr(Self) -> AnyType
+
+type Sqlite3_value
+fn Sqlite3_value::from_void_ptr(AnyType) -> Self
+fn Sqlite3_value::init() -> Self
+fn Sqlite3_value::is_nullptr(Self) -> Bool
+fn Sqlite3_value::to_void_ptr(Self) -> AnyType
+
+type Sqlite3_vfs
+fn Sqlite3_vfs::from_void_ptr(AnyType) -> Self
+fn Sqlite3_vfs::init() -> Self
+fn Sqlite3_vfs::is_nullptr(Self) -> Bool
+fn Sqlite3_vfs::to_void_ptr(Self) -> AnyType
+
+// Type aliases
+
+// Traits
+
