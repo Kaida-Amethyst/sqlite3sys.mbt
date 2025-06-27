@@ -18,6 +18,20 @@
 
 - `problems_record.md`: 记录存在但很难解决的问题。
 
+# Moonbit C-FFI机制
+
+基本如类型`Int`，`Double`等是一一对应的。`Int -> int`, `Double -> double`。
+
+Moonbit定义的复合类型，如String，Array等在`~/.moon/include/moonbit.h`
+
+通过`type X`定义的类型，在C侧都是`void*`，无论是`type Sqlite3`还是`type CStr`，编译成C都是`void*`。调用函数时需要依赖C语言的隐式类型转换。
+
+moonbit的函数`(A, B, C) -> D`实际上是一个闭包，转换成C是一个结构体，只有`FuncRef[(A, B, C) -> D]`转换成C才是一个函数指针。
+
+`FixedArray[T]` 转换成C是一个`T*`, C函数如果需要传入一个C对象序列就要传入这个。
+
+`Ref[T]` 转换成C是一个结构体，但是可以当做`T*`来看待。
+
 # 如何查看编译出来的c代码
 
 运行`moon test --target native`后，可以在`target`目录下找到`.c`文件。
