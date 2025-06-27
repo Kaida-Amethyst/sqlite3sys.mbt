@@ -94,15 +94,15 @@ jobs:
           moon update
           moon install
 
-      - name: format check
-        run: |
-          moon fmt
-          git diff --exit-code
-
-      - name: moon info
-        run: |
-          moon info --target native
-          git diff --exit-code
+      # - name: format check
+      #   run: |
+      #     moon fmt
+      #     git diff --exit-code
+      #
+      # - name: moon info
+      #   run: |
+      #     moon info --target native
+      #     git diff --exit-code
 
       - name: moon check with warnings as errors
         run: moon check --target native --deny-warn

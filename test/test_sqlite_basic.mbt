@@ -117,7 +117,6 @@ test "querying data" {
   let db = { val: @sqlite3sys.Sqlite3::init() }
   @sqlite3sys.sqlite3_open(@sqlite3sys.CStr::from_string(":memory:"), db)
   |> ignore
-
   @sqlite3sys.sqlite3_exec(
     db.val,
     @sqlite3sys.CStr::from_string(
@@ -136,7 +135,6 @@ test "querying data" {
     @sqlite3sys.Sqlite3::to_void_ptr(@sqlite3sys.Sqlite3::init()),
   )
   |> ignore
-
   let stmt = { val: @sqlite3sys.Sqlite3_stmt::init() }
   @sqlite3sys.sqlite3_prepare_v2(
     db.val,
