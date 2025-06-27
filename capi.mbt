@@ -534,7 +534,7 @@ pub extern "C" fn sqlite3_autovacuum_pages(
   db : Sqlite3,
   xCallback : FuncRef[(AnyType, CStr, UInt, UInt, UInt) -> UInt],
   pArg : AnyType,
-  xDestroy : FuncRef[(AnyType) -> AnyType]
+  xDestroy : FuncRef[(AnyType) -> Unit]
 ) -> Int = "sqlite3_autovacuum_pages"
 
 //int sqlite3_backup_finish(sqlite3_backup * p);
@@ -565,7 +565,7 @@ pub extern "C" fn sqlite3_bind_blob(
   i : Int,
   zData : AnyType,
   n : Int,
-  xDel : FuncRef[(AnyType) -> AnyType]
+  xDel : FuncRef[(AnyType) -> Unit]
 ) -> Int = "sqlite3_bind_blob"
 
 //int sqlite3_bind_blob64(sqlite3_stmt *, int, const void *, sqlite3_uint64, void (*)(void *));
@@ -576,7 +576,7 @@ pub extern "C" fn sqlite3_bind_blob64(
   i : Int,
   zData : AnyType,
   n : UInt,
-  xDel : FuncRef[(AnyType) -> AnyType]
+  xDel : FuncRef[(AnyType) -> Unit]
 ) -> Int = "sqlite3_bind_blob64"
 
 //int sqlite3_bind_double(sqlite3_stmt *, int, double);
