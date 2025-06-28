@@ -104,8 +104,8 @@ jobs:
       #     moon info --target native
       #     git diff --exit-code
 
-      - name: moon check with warnings as errors
-        run: moon check --target native --deny-warn
+      # - name: moon check
+      #   run: moon check --target native
 
       - name: Setup MSVC
         if: ${{ matrix.os.name == 'windows-latest' }}

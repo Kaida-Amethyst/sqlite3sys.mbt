@@ -56,7 +56,7 @@ moonbit的函数`(A, B, C) -> D`实际上是一个闭包，转换成C是一个�
 
 2. `moon info --target native`，获取`.mbti`文件，这个文件保存了所有函数接口的类型信息。相当于一份代码地图。
 
-3. `moon check --target native --deny-warn`，静态分析，会将所有警告都当做错误。
+3. `moon check --target native`，静态分析，特别地，会把所有没有使用过的函数列出来。
 
 4. `moon test --target native`：测试所有代码，包括文档中的代码块。
 
@@ -67,6 +67,12 @@ moonbit的函数`(A, B, C) -> D`实际上是一个闭包，转换成C是一个�
 1. 检查每一个api接口是否有良好的对应。也就是类型对应是否正确。有模糊的地方，需要写报告。
 
 2. 在test下编写测试，看一些函数能否正常运转。需要注意，不要测试哪些与平台或者版本强相关的接口，例如test块中不要测`libversion`这个函数。
+
+3. 编写测试的时候，注意使用一些没有使用过的函数接口，使用`moon check --target native`会输出警告，其中一些就会提示哪些函数没有使用过。比较简便的方式是`moon check --target native --output-json > diag.json` 得到一个diag.json的诊断列表，接着使用`grep -rn "Unused function\'sqlite3" diag.json` 来快速得到所有没有使用的sqlite3接口。根据这些提示来新创建test文件来测试。
+
+4. 所有测试文件都需要以`test_`开头，`.mbt`结尾，不可以通过删除capi.mbt下的接口来消去warning！
+
+5. 一旦发现某个函数的使用会导致异常行为，例如core dump，程序无法正常退出，或者得到了预期不符的结果，需要记录在problem_record.md下。
 
 # Moonbit中的一些语法糖(本仓库中不一定会用到)
 

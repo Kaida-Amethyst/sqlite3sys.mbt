@@ -3,5 +3,10 @@
   "supported-targets" : ["native"],
   "native-stub" : [
     "wrap.c"
-  ]
+  ],
+  "link" : {
+    "native" : {
+      "cc-link-flags" : "-lsqlite3"
+    }
+  },
 }
