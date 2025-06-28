@@ -42,13 +42,18 @@ moonbit的函数`(A, B, C) -> D`实际上是一个闭包，转换成C是一个�
 
 # moonbit命令
 
-- `moon check --target native`: 运行静态分析器，检查代码是否有类型错误，但不包括文档中的代码。
+- `moon check --target native`: 运行静态分析器，检查代码是否有类型错误，是否有没有使用过的函数，或者是其他的问题。
 
 - `moon test --target native`：运行所有测试，包括在注释文档中的用`moonbit`标记的代码块。
 
 - `moon test --target native -p test`: 只运行`test`目录下的测试。
 
 - `moon test --target native --verbose`: 会多输出一些额外的内容来辅助测试。
+
+- `moon info --target native`: 从代码库中生成`.mbti`文件，因此不要直接改.mbti文件，而是使用这个命令。
+
+- `moon fmt`: 格式化代码，因此不要手动格式化，使用这个命令。
+
 
 # 在github上CI运行的任务
 
