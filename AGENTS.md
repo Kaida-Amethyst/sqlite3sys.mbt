@@ -42,15 +42,15 @@ moonbit的函数`(A, B, C) -> D`实际上是一个闭包，转换成C是一个�
 
 # moonbit命令
 
-- `moon check --target native`: 运行静态分析器，检查代码是否有类型错误，是否有没有使用过的函数，或者是其他的问题。
+- `moon check`: 运行静态分析器，检查代码是否有类型错误，是否有没有使用过的函数，或者是其他的问题。
 
-- `moon test --target native`：运行所有测试，包括在注释文档中的用`moonbit`标记的代码块。
+- `moon test`：运行所有测试，包括在注释文档中的用`moonbit`标记的代码块。
 
-- `moon test --target native -p test`: 只运行`test`目录下的测试。
+- `moon test -p test`: 只运行`test`目录下的测试。
 
-- `moon test --target native --verbose`: 会多输出一些额外的内容来辅助测试。
+- `moon test --verbose`: 会多输出一些额外的内容来辅助测试。
 
-- `moon info --target native`: 从代码库中生成`.mbti`文件，因此不要直接改.mbti文件，而是使用这个命令。
+- `moon info`: 从代码库中生成`.mbti`文件，因此不要直接改.mbti文件，而是使用这个命令。
 
 - `moon fmt`: 格式化代码，因此不要手动格式化，使用这个命令。
 
@@ -59,13 +59,13 @@ moonbit的函数`(A, B, C) -> D`实际上是一个闭包，转换成C是一个�
 
 1. `moon fmt`，格式化代码。
 
-2. `moon info --target native`，获取`.mbti`文件，这个文件保存了所有函数接口的类型信息。相当于一份代码地图。
+2. `moon info`，获取`.mbti`文件，这个文件保存了所有函数接口的类型信息。相当于一份代码地图。
 
-3. `moon check --target native`，静态分析，特别地，会把所有没有使用过的函数列出来。
+3. `moon check`，静态分析，特别地，会把所有没有使用过的函数列出来。
 
-4. `moon test --target native`：测试所有代码，包括文档中的代码块。
+4. `moon test`：测试所有代码，包括文档中的代码块。
 
-5. `moon clean && moon test --target native --release`：这个命令会运行多次（大约20次），以保证没有随机bug，`moon clean`会清除已经编译的内容。
+5. `moon clean && moon test --release`：这个命令会运行多次（大约20次），以保证没有随机bug，`moon clean`会清除已经编译的内容。
 
 # AI的主要任务
 
@@ -215,3 +215,55 @@ fn main {
 每一次提交任务，必须`moon test --target native`命令让所有测试通过。
 
 `.mbt`代码文件必须使用英文，不可以使用中文，这是因为在部分平台下，代码文件出现中文可能会出现编译错误，如果发现.mbt出现中文，需要修改成英文。
+
+# Project Agents.md Guide
+
+This is a [MoonBit](https://docs.moonbitlang.com) project.
+
+## Project Structure
+
+- MoonBit packages are organized per directory, for each directory, there is a
+  `moon.pkg.json` file listing its dependencies. Each package has its files and
+  blackbox test files (common, ending in `_test.mbt`) and whitebox test files
+  (ending in `_wbtest.mbt`).
+
+- In the toplevel directory, this is a `moon.mod.json` file listing about the
+  module and some meta information.
+
+## Coding convention
+
+- MoonBit code is organized in block style, each block is separated by `///|`,
+  the order of each block is irrelevant. In some refactorings, you can process
+  block by block independently.
+
+- Try to keep deprecated blocks in file called `deprecated.mbt` in each
+  directory.
+
+## Tooling
+
+- `moon fmt` is used to format your code properly.
+
+- `moon info` is used to update the generated interface of the package, each
+  package has a generated interface file `.mbti`, it is a brief formal
+  description of the package. If nothing in `.mbti` changes, this means your
+  change does not bring the visible changes to the external package users, it is
+  typically a safe refactoring.
+
+- In the last step, run `moon info && moon fmt` to update the interface and
+  format the code. Check the diffs of `.mbti` file to see if the changes are
+  expected.
+
+- Run `moon test` to check the test is passed. MoonBit supports snapshot
+  testing, so when your changes indeed change the behavior of the code, you
+  should run `moon test --update` to update the snapshot.
+
+- You can run `moon check` to check the code is linted correctly.
+
+- When writing tests, you are encouraged to use `inspect` and run
+  `moon test --update` to update the snapshots, only use assertions like
+  `assert_eq` when you are in some loops where each snapshot may vary. You can
+  use `moon coverage analyze > uncovered.log` to see which parts of your code
+  are not covered by tests.
+
+- agent-todo.md has some small tasks that are easy for AI to pick up, agent is
+  welcome to finish the tasks and check the box when you are done

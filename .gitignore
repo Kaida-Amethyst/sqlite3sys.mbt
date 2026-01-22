@@ -3,3 +3,4 @@ target/
 .DS_Stort
 test_filename.db
 diag.json
+_build
