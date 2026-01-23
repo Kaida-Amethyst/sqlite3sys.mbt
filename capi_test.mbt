@@ -1,7 +1,7 @@
 ///| Test basic SQLite operations
 test "SQLite open and close" {
   // test in-memory database connection
-  let db = { val: Sqlite3::init() }
+  let db = Ref::new(Sqlite3::init())
   let result = sqlite3_open(
     CStr::from_string(":memory:"),
     db,
@@ -18,7 +18,7 @@ test "SQLite open and close" {
 
 ///| Test SQL execution
 test "simple sql execution" {
-  let db = { val: Sqlite3::init() }
+  let db = Ref::new(Sqlite3::init())
   let result = sqlite3_open(
     CStr::from_string(":memory:"),
     db,
@@ -59,7 +59,7 @@ test "simple sql execution" {
 
 ///| Test prepared statements
 test "prepared statements" {
-  let db = { val: Sqlite3::init() }
+  let db = Ref::new(Sqlite3::init())
   sqlite3_open(CStr::from_string(":memory:"), db)
   |> ignore
 
@@ -77,7 +77,7 @@ test "prepared statements" {
   |> ignore
 
   // prepare insert statement
-  let stmt = { val: Sqlite3_stmt::init() }
+  let stmt = Ref::new(Sqlite3_stmt::init())
   let prepare_sql = CStr::from_string(
     "INSERT INTO users (name, age) VALUES (?, ?)",
   )
@@ -86,7 +86,7 @@ test "prepared statements" {
     prepare_sql,
     -1,
     stmt,
-    @ref.new(CStr::from_string("")),
+    Ref::new(CStr::from_string("")),
   )
   assert_true(prepare_result == SQLITE_OK)
   assert_false(Sqlite3_stmt::is_nullptr(stmt.val))
@@ -114,7 +114,7 @@ test "prepared statements" {
 
 ///| 
 test "querying data" {
-  let db = { val: Sqlite3::init() }
+  let db = Ref::new(Sqlite3::init())
   sqlite3_open(CStr::from_string(":memory:"), db)
   |> ignore
   sqlite3_exec(
@@ -135,7 +135,7 @@ test "querying data" {
     Sqlite3::to_void_ptr(Sqlite3::init()),
   )
   |> ignore
-  let stmt = { val: Sqlite3_stmt::init() }
+  let stmt = Ref::new(Sqlite3_stmt::init())
   sqlite3_prepare_v2(
     db.val,
     CStr::from_string(
@@ -143,7 +143,7 @@ test "querying data" {
     ),
     -1,
     stmt,
-    @ref.new(CStr::from_string("")),
+    Ref::new(CStr::from_string("")),
   )
   |> ignore
   let step_result = sqlite3_step(stmt.val)
@@ -177,7 +177,7 @@ test "querying data" {
 
 ///|
 test "error handling" {
-  let db = { val: Sqlite3::init() }
+  let db = Ref::new(Sqlite3::init())
   sqlite3_open(CStr::from_string(":memory:"), db)
   |> ignore
 
@@ -207,7 +207,7 @@ test "error handling" {
 
 ///|
 test "handling different data types" {
-  let db = { val: Sqlite3::init() }
+  let db = Ref::new(Sqlite3::init())
   sqlite3_open(CStr::from_string(":memory:"), db)
   |> ignore
 
@@ -224,13 +224,13 @@ test "handling different data types" {
   |> ignore
 
   // prepare an insert statement
-  let stmt = { val: Sqlite3_stmt::init() }
+  let stmt = Ref::new(Sqlite3_stmt::init())
   sqlite3_prepare_v2(
     db.val,
     CStr::from_string("INSERT INTO types_test VALUES (?, ?, ?, ?)"),
     -1,
     stmt,
-    @ref.new(CStr::from_string("")),
+    Ref::new(CStr::from_string("")),
   )
   |> ignore
 
@@ -252,13 +252,13 @@ test "handling different data types" {
   sqlite3_finalize(stmt.val) |> ignore
 
   // query the data back
-  let select_stmt = { val: Sqlite3_stmt::init() }
+  let select_stmt = Ref::new(Sqlite3_stmt::init())
   sqlite3_prepare_v2(
     db.val,
     CStr::from_string("SELECT * FROM types_test"),
     -1,
     select_stmt,
-    @ref.new(CStr::from_string("")),
+    Ref::new(CStr::from_string("")),
   )
   |> ignore
   assert_true(
@@ -278,5 +278,48 @@ test "handling different data types" {
   let null_type = sqlite3_column_type(select_stmt.val, 3)
   assert_true(null_type == SQLITE_NULL)
   sqlite3_finalize(select_stmt.val) |> ignore
+  sqlite3_close(db.val) |> ignore
+}
+
+///| Tests for additional statement-related APIs
+test "prepare_v3 and statement inspection" {
+  let db = Ref::new(Sqlite3::init())
+  sqlite3_open(CStr::from_string(":memory:"), db) |> ignore
+  let stmt = Ref::new(Sqlite3_stmt::init())
+  // prepare statement with two parameters using prepare_v3
+  sqlite3_prepare_v3(
+    db.val,
+    CStr::from_string("SELECT ?1 + ?2"),
+    -1,
+    0,
+    stmt,
+    Ref::new(CStr::from_string("")),
+  )
+  |> ignore
+
+  // bind parameters
+  sqlite3_bind_int(stmt.val, 1, 3) |> ignore
+  sqlite3_bind_int(stmt.val, 2, 4) |> ignore
+
+  // expanded SQL should contain the bound values
+  let expanded = sqlite3_expanded_sql(stmt.val)
+  let expanded_str = CStr::convert_to_moonbit_string(expanded)
+  assert_true(expanded_str.contains("3"))
+  assert_true(expanded_str.contains("4"))
+
+  // readonly query
+  let is_ro = sqlite3_stmt_readonly(stmt.val)
+  assert_true(is_ro == 1)
+
+  // statement should not be busy before stepping
+  assert_true(sqlite3_stmt_busy(stmt.val) == 0)
+
+  // step once, expect a row
+  assert_true(sqlite3_step(stmt.val) == SQLITE_ROW)
+  assert_true(sqlite3_stmt_busy(stmt.val) == 1)
+  // finalize the row
+  sqlite3_step(stmt.val) |> ignore
+  assert_true(sqlite3_stmt_busy(stmt.val) == 0)
+  sqlite3_finalize(stmt.val) |> ignore
   sqlite3_close(db.val) |> ignore
 }

@@ -351,6 +351,7 @@ pub extern "C" fn sqlite3_vsnprintf(
 //const char * sqlite3_bind_parameter_name(sqlite3_stmt *, int);
 
 ///| REVIEW: This function cause unknow problem in Moonbit.
+#borrow(pStmt)
 pub extern "C" fn sqlite3_bind_parameter_name(
   pStmt : Sqlite3_stmt,
   i : Int
@@ -359,6 +360,7 @@ pub extern "C" fn sqlite3_bind_parameter_name(
 //const char * sqlite3_column_database_name(sqlite3_stmt *, int);
 
 ///|
+#borrow(pStmt)
 pub extern "C" fn sqlite3_column_database_name(
   pStmt : Sqlite3_stmt,
   iCol : Int
@@ -367,6 +369,7 @@ pub extern "C" fn sqlite3_column_database_name(
 //const char * sqlite3_column_decltype(sqlite3_stmt *, int);
 
 ///|
+#borrow(pStmt)
 pub extern "C" fn sqlite3_column_decltype(
   pStmt : Sqlite3_stmt,
   iCol : Int
@@ -375,11 +378,13 @@ pub extern "C" fn sqlite3_column_decltype(
 //const char * sqlite3_column_name(sqlite3_stmt *, int N);
 
 ///|
+#borrow(pStmt)
 pub extern "C" fn sqlite3_column_name(pStmt : Sqlite3_stmt, n : Int) -> CStr = "sqlite3_column_name"
 
 //const char * sqlite3_column_origin_name(sqlite3_stmt *, int);
 
 ///|
+#borrow(pStmt)
 pub extern "C" fn sqlite3_column_origin_name(
   pStmt : Sqlite3_stmt,
   iCol : Int
@@ -388,6 +393,7 @@ pub extern "C" fn sqlite3_column_origin_name(
 //const char * sqlite3_column_table_name(sqlite3_stmt *, int);
 
 ///|
+#borrow(pStmt)
 pub extern "C" fn sqlite3_column_table_name(
   pStmt : Sqlite3_stmt,
   iCol : Int
@@ -401,11 +407,13 @@ pub extern "C" fn sqlite3_compileoption_get(n : Int) -> CStr = "sqlite3_compileo
 //const char * sqlite3_db_name(sqlite3 * db, int N);
 
 ///|
+#borrow(db)
 pub extern "C" fn sqlite3_db_name(db : Sqlite3, n : Int) -> CStr = "sqlite3_db_name"
 
 //const char * sqlite3_errmsg(sqlite3 *);
 
 ///|
+#borrow(db)
 pub extern "C" fn sqlite3_errmsg(db : Sqlite3) -> CStr = "sqlite3_errmsg"
 
 //const char * sqlite3_errstr(int);
@@ -416,16 +424,19 @@ pub extern "C" fn sqlite3_errstr(rc : Int) -> CStr = "sqlite3_errstr"
 //const char * sqlite3_filename_database(sqlite3_filename);
 
 ///|
+#borrow(z)
 pub extern "C" fn sqlite3_filename_database(z : Sqlite3_filename) -> CStr = "sqlite3_filename_database"
 
 //const char * sqlite3_filename_journal(sqlite3_filename);
 
 ///|
+#borrow(z)
 pub extern "C" fn sqlite3_filename_journal(z : Sqlite3_filename) -> CStr = "sqlite3_filename_journal"
 
 //const char * sqlite3_filename_wal(sqlite3_filename);
 
 ///|
+#borrow(z)
 pub extern "C" fn sqlite3_filename_wal(z : Sqlite3_filename) -> CStr = "sqlite3_filename_wal"
 
 //const char * sqlite3_libversion();
@@ -441,16 +452,19 @@ pub extern "C" fn sqlite3_sourceid() -> CStr = "sqlite3_sourceid"
 //const char * sqlite3_sql(sqlite3_stmt * pStmt);
 
 ///|
+#borrow(pStmt)
 pub extern "C" fn sqlite3_sql(pStmt : Sqlite3_stmt) -> CStr = "sqlite3_sql"
 
 //const char * sqlite3_uri_key(sqlite3_filename z, int N);
 
 ///|
+#borrow(z)
 pub extern "C" fn sqlite3_uri_key(z : Sqlite3_filename, n : Int) -> CStr = "sqlite3_uri_key"
 
 //const char * sqlite3_uri_parameter(sqlite3_filename z, const char * zParam);
 
 ///|
+#borrow(z, zParam)
 pub extern "C" fn sqlite3_uri_parameter(
   z : Sqlite3_filename,
   zParam : CStr
@@ -459,6 +473,7 @@ pub extern "C" fn sqlite3_uri_parameter(
 //const char * sqlite3_vtab_collation(sqlite3_index_info *, int);
 
 ///|
+#borrow(pIdxInfo)
 pub extern "C" fn sqlite3_vtab_collation(
   pIdxInfo : Sqlite3_index_info,
   iCons : Int
@@ -467,16 +482,19 @@ pub extern "C" fn sqlite3_vtab_collation(
 //const unsigned char * sqlite3_column_text(sqlite3_stmt *, int iCol);
 
 ///|
+#borrow(pStmt)
 pub extern "C" fn sqlite3_column_text(pStmt : Sqlite3_stmt, iCol : Int) -> CStr = "sqlite3_column_text"
 
 //const unsigned char * sqlite3_value_text(sqlite3_value *);
 
 ///|
+#borrow(value)
 pub extern "C" fn sqlite3_value_text(value : Sqlite3_value) -> CStr = "sqlite3_value_text"
 
 //const void * sqlite3_column_blob(sqlite3_stmt *, int iCol);
 
 ///|
+#borrow(pStmt)
 pub extern "C" fn sqlite3_column_blob(
   pStmt : Sqlite3_stmt,
   iCol : Int
@@ -485,6 +503,7 @@ pub extern "C" fn sqlite3_column_blob(
 //const void * sqlite3_column_database_name16(sqlite3_stmt *, int);
 
 ///|
+#borrow(pStmt)
 pub extern "C" fn sqlite3_column_database_name16(
   pStmt : Sqlite3_stmt,
   iCol : Int
@@ -493,6 +512,7 @@ pub extern "C" fn sqlite3_column_database_name16(
 //const void * sqlite3_column_decltype16(sqlite3_stmt *, int);
 
 ///|
+#borrow(pStmt)
 pub extern "C" fn sqlite3_column_decltype16(
   pStmt : Sqlite3_stmt,
   iCol : Int
@@ -501,6 +521,7 @@ pub extern "C" fn sqlite3_column_decltype16(
 //const void * sqlite3_column_name16(sqlite3_stmt *, int N);
 
 ///|
+#borrow(pStmt)
 pub extern "C" fn sqlite3_column_name16(
   pStmt : Sqlite3_stmt,
   n : Int
@@ -509,6 +530,7 @@ pub extern "C" fn sqlite3_column_name16(
 //const void * sqlite3_column_origin_name16(sqlite3_stmt *, int);
 
 ///|
+#borrow(pStmt)
 pub extern "C" fn sqlite3_column_origin_name16(
   pStmt : Sqlite3_stmt,
   iCol : Int
@@ -517,6 +539,7 @@ pub extern "C" fn sqlite3_column_origin_name16(
 //const void * sqlite3_column_table_name16(sqlite3_stmt *, int);
 
 ///|
+#borrow(pStmt)
 pub extern "C" fn sqlite3_column_table_name16(
   pStmt : Sqlite3_stmt,
   iCol : Int
@@ -525,6 +548,7 @@ pub extern "C" fn sqlite3_column_table_name16(
 //const void * sqlite3_column_text16(sqlite3_stmt *, int iCol);
 
 ///|
+#borrow(pStmt)
 pub extern "C" fn sqlite3_column_text16(
   pStmt : Sqlite3_stmt,
   iCol : Int
@@ -533,31 +557,37 @@ pub extern "C" fn sqlite3_column_text16(
 //const void * sqlite3_errmsg16(sqlite3 *);
 
 ///|
+#borrow(db)
 pub extern "C" fn sqlite3_errmsg16(db : Sqlite3) -> AnyType = "sqlite3_errmsg16"
 
 //const void * sqlite3_value_blob(sqlite3_value *);
 
 ///|
+#borrow(value)
 pub extern "C" fn sqlite3_value_blob(value : Sqlite3_value) -> AnyType = "sqlite3_value_blob"
 
 //const void * sqlite3_value_text16(sqlite3_value *);
 
 ///|
+#borrow(value)
 pub extern "C" fn sqlite3_value_text16(value : Sqlite3_value) -> AnyType = "sqlite3_value_text16"
 
 //const void * sqlite3_value_text16be(sqlite3_value *);
 
 ///|
+#borrow(value)
 pub extern "C" fn sqlite3_value_text16be(value : Sqlite3_value) -> AnyType = "sqlite3_value_text16be"
 
 //const void * sqlite3_value_text16le(sqlite3_value *);
 
 ///|
+#borrow(value)
 pub extern "C" fn sqlite3_value_text16le(value : Sqlite3_value) -> AnyType = "sqlite3_value_text16le"
 
 //double sqlite3_column_double(sqlite3_stmt *, int iCol);
 
 ///|
+#borrow(pStmt)
 pub extern "C" fn sqlite3_column_double(
   pStmt : Sqlite3_stmt,
   iCol : Int
@@ -566,11 +596,13 @@ pub extern "C" fn sqlite3_column_double(
 //double sqlite3_value_double(sqlite3_value *);
 
 ///|
+#borrow(value)
 pub extern "C" fn sqlite3_value_double(value : Sqlite3_value) -> Double = "sqlite3_value_double"
 
 //int sqlite3_aggregate_count(sqlite3_context *);
 
 ///|
+#borrow(context)
 pub extern "C" fn sqlite3_aggregate_count(context : Sqlite3_context) -> Int = "sqlite3_aggregate_count"
 
 //int sqlite3_auto_extension(void (*)() xEntryPoint);
@@ -583,6 +615,7 @@ pub extern "C" fn sqlite3_auto_extension(
 //int sqlite3_autovacuum_pages(sqlite3 * db, unsigned int (*)(void *, const char *, unsigned int, unsigned int, unsigned int), void *, void (*)(void *));
 
 ///|
+#borrow(db, pArg)
 pub extern "C" fn sqlite3_autovacuum_pages(
   db : Sqlite3,
   xCallback : FuncRef[(AnyType, CStr, UInt, UInt, UInt) -> UInt],
@@ -593,26 +626,31 @@ pub extern "C" fn sqlite3_autovacuum_pages(
 //int sqlite3_backup_finish(sqlite3_backup * p);
 
 ///|
+#borrow(p)
 pub extern "C" fn sqlite3_backup_finish(p : Sqlite3_backup) -> Int = "sqlite3_backup_finish"
 
 //int sqlite3_backup_pagecount(sqlite3_backup * p);
 
 ///|
+#borrow(p)
 pub extern "C" fn sqlite3_backup_pagecount(p : Sqlite3_backup) -> Int = "sqlite3_backup_pagecount"
 
 //int sqlite3_backup_remaining(sqlite3_backup * p);
 
 ///|
+#borrow(p)
 pub extern "C" fn sqlite3_backup_remaining(p : Sqlite3_backup) -> Int = "sqlite3_backup_remaining"
 
 //int sqlite3_backup_step(sqlite3_backup * p, int nPage);
 
 ///|
+#borrow(p)
 pub extern "C" fn sqlite3_backup_step(p : Sqlite3_backup, nPage : Int) -> Int = "sqlite3_backup_step"
 
 //int sqlite3_bind_blob(sqlite3_stmt *, int, const void *, int n, void (*)(void *));
 
 ///|
+#borrow(pStmt, zData)
 pub extern "C" fn sqlite3_bind_blob(
   pStmt : Sqlite3_stmt,
   i : Int,
@@ -624,6 +662,7 @@ pub extern "C" fn sqlite3_bind_blob(
 //int sqlite3_bind_blob64(sqlite3_stmt *, int, const void *, sqlite3_uint64, void (*)(void *));
 
 ///|
+#borrow(pStmt, zData)
 pub extern "C" fn sqlite3_bind_blob64(
   pStmt : Sqlite3_stmt,
   i : Int,
@@ -635,6 +674,7 @@ pub extern "C" fn sqlite3_bind_blob64(
 //int sqlite3_bind_double(sqlite3_stmt *, int, double);
 
 ///|
+#borrow(pStmt)
 pub extern "C" fn sqlite3_bind_double(
   pStmt : Sqlite3_stmt,
   i : Int,
@@ -644,6 +684,7 @@ pub extern "C" fn sqlite3_bind_double(
 //int sqlite3_bind_int(sqlite3_stmt *, int, int);
 
 ///|
+#borrow(pStmt)
 pub extern "C" fn sqlite3_bind_int(
   pStmt : Sqlite3_stmt,
   i : Int,
@@ -653,6 +694,7 @@ pub extern "C" fn sqlite3_bind_int(
 //int sqlite3_bind_int64(sqlite3_stmt *, int, sqlite3_int64);
 
 ///|
+#borrow(pStmt)
 pub extern "C" fn sqlite3_bind_int64(
   pStmt : Sqlite3_stmt,
   i : Int,
@@ -662,16 +704,19 @@ pub extern "C" fn sqlite3_bind_int64(
 //int sqlite3_bind_null(sqlite3_stmt *, int);
 
 ///|
+#borrow(pStmt)
 pub extern "C" fn sqlite3_bind_null(pStmt : Sqlite3_stmt, i : Int) -> Int = "sqlite3_bind_null"
 
 //int sqlite3_bind_parameter_count(sqlite3_stmt *);
 
 ///|
+#borrow(pStmt)
 pub extern "C" fn sqlite3_bind_parameter_count(pStmt : Sqlite3_stmt) -> Int = "sqlite3_bind_parameter_count"
 
 //int sqlite3_bind_parameter_index(sqlite3_stmt *, const char * zName);
 
 ///|
+#borrow(pStmt, zName)
 pub extern "C" fn sqlite3_bind_parameter_index(
   pStmt : Sqlite3_stmt,
   zName : CStr
@@ -680,6 +725,7 @@ pub extern "C" fn sqlite3_bind_parameter_index(
 //int sqlite3_bind_pointer(sqlite3_stmt *, int, void *, const char *, void (*)(void *));
 
 ///|
+#borrow(pStmt, pPtr, zPType)
 pub extern "C" fn sqlite3_bind_pointer(
   pStmt : Sqlite3_stmt,
   i : Int,
@@ -691,6 +737,7 @@ pub extern "C" fn sqlite3_bind_pointer(
 //int sqlite3_bind_text(sqlite3_stmt *, int, const char *, int, void (*)(void *));
 
 ///|
+#borrow(pStmt, z)
 pub extern "C" fn sqlite3_bind_text(
   pStmt : Sqlite3_stmt,
   i : Int,
@@ -702,6 +749,7 @@ pub extern "C" fn sqlite3_bind_text(
 //int sqlite3_bind_text16(sqlite3_stmt *, int, const void *, int, void (*)(void *));
 
 ///|
+#borrow(pStmt, z)
 pub extern "C" fn sqlite3_bind_text16(
   pStmt : Sqlite3_stmt,
   i : Int,
@@ -713,6 +761,7 @@ pub extern "C" fn sqlite3_bind_text16(
 //int sqlite3_bind_text64(sqlite3_stmt *, int, const char *, sqlite3_uint64, void (*)(void *), unsigned char encoding);
 
 ///|
+#borrow(pStmt, z)
 pub extern "C" fn sqlite3_bind_text64(
   pStmt : Sqlite3_stmt,
   i : Int,
@@ -725,6 +774,7 @@ pub extern "C" fn sqlite3_bind_text64(
 //int sqlite3_bind_value(sqlite3_stmt *, int, const sqlite3_value *);
 
 ///|
+#borrow(pStmt, pValue)
 pub extern "C" fn sqlite3_bind_value(
   pStmt : Sqlite3_stmt,
   i : Int,
@@ -734,6 +784,7 @@ pub extern "C" fn sqlite3_bind_value(
 //int sqlite3_bind_zeroblob(sqlite3_stmt *, int, int n);
 
 ///|
+#borrow(pStmt)
 pub extern "C" fn sqlite3_bind_zeroblob(
   pStmt : Sqlite3_stmt,
   i : Int,
@@ -743,6 +794,7 @@ pub extern "C" fn sqlite3_bind_zeroblob(
 //int sqlite3_bind_zeroblob64(sqlite3_stmt *, int, sqlite3_uint64);
 
 ///|
+#borrow(pStmt)
 pub extern "C" fn sqlite3_bind_zeroblob64(
   pStmt : Sqlite3_stmt,
   i : Int,
@@ -752,16 +804,19 @@ pub extern "C" fn sqlite3_bind_zeroblob64(
 //int sqlite3_blob_bytes(sqlite3_blob *);
 
 ///|
+#borrow(pBlob)
 pub extern "C" fn sqlite3_blob_bytes(pBlob : Sqlite3_blob) -> Int = "sqlite3_blob_bytes"
 
 //int sqlite3_blob_close(sqlite3_blob *);
 
 ///|
+#borrow(pBlob)
 pub extern "C" fn sqlite3_blob_close(pBlob : Sqlite3_blob) -> Int = "sqlite3_blob_close"
 
 //int sqlite3_blob_open(sqlite3 *, const char * zDb, const char * zTable, const char * zColumn, sqlite3_int64 iRow, int flags, sqlite3_blob ** ppBlob);
 
 ///|
+#borrow(db, zDb, zTable, zColumn, ppBlob)
 pub extern "C" fn sqlite3_blob_open(
   db : Sqlite3,
   zDb : CStr,
@@ -775,6 +830,7 @@ pub extern "C" fn sqlite3_blob_open(
 //int sqlite3_blob_read(sqlite3_blob *, void * Z, int N, int iOffset);
 
 ///|
+#borrow(pBlob, z)
 pub extern "C" fn sqlite3_blob_read(
   pBlob : Sqlite3_blob,
   z : AnyType,
@@ -785,6 +841,7 @@ pub extern "C" fn sqlite3_blob_read(
 //int sqlite3_blob_reopen(sqlite3_blob *, sqlite3_int64);
 
 ///|
+#borrow(pBlob)
 pub extern "C" fn sqlite3_blob_reopen(
   pBlob : Sqlite3_blob,
   rowid : Int64
@@ -793,6 +850,7 @@ pub extern "C" fn sqlite3_blob_reopen(
 //int sqlite3_blob_write(sqlite3_blob *, const void * z, int n, int iOffset);
 
 ///|
+#borrow(pBlob, z)
 pub extern "C" fn sqlite3_blob_write(
   pBlob : Sqlite3_blob,
   z : AnyType,
@@ -802,6 +860,7 @@ pub extern "C" fn sqlite3_blob_write(
 //int sqlite3_busy_handler(sqlite3 *, int (*)(void *, int), void *);
 
 ///|
+#borrow(db, pArg)
 pub extern "C" fn sqlite3_busy_handler(
   db : Sqlite3,
   xBusy : FuncRef[(AnyType, Int) -> Int],
@@ -811,6 +870,7 @@ pub extern "C" fn sqlite3_busy_handler(
 //int sqlite3_busy_timeout(sqlite3 *, int ms);
 
 ///|
+#borrow(db)
 pub extern "C" fn sqlite3_busy_timeout(db : Sqlite3, ms : Int) -> Int = "sqlite3_busy_timeout"
 
 //int sqlite3_cancel_auto_extension(void (*)() xEntryPoint);
@@ -822,25 +882,30 @@ pub extern "C" fn sqlite3_cancel_auto_extension(
 //int sqlite3_changes(sqlite3 *);
 
 ///|
+#borrow(db)
 pub extern "C" fn sqlite3_changes(db : Sqlite3) -> Int = "sqlite3_changes"
 
 //int sqlite3_clear_bindings(sqlite3_stmt *);
 
 ///|
+#borrow(pStmt)
 pub extern "C" fn sqlite3_clear_bindings(pStmt : Sqlite3_stmt) -> Int = "sqlite3_clear_bindings"
 
 //int sqlite3_close(sqlite3 *);
 
 ///|
+#borrow(db)
 pub extern "C" fn sqlite3_close(db : Sqlite3) -> Int = "sqlite3_close"
 
 //int sqlite3_close_v2(sqlite3 *);
 
 ///|
+#borrow(db)
 pub extern "C" fn sqlite3_close_v2(db : Sqlite3) -> Int = "sqlite3_close_v2"
 //int sqlite3_collation_needed(sqlite3 *, void *, void (*)(void *, sqlite3 *, int, const char *));
 
 ///|
+#borrow(db, pCollNeededArg)
 pub extern "C" fn sqlite3_collation_needed(
   db : Sqlite3,
   pCollNeededArg : AnyType,
@@ -850,6 +915,7 @@ pub extern "C" fn sqlite3_collation_needed(
 //int sqlite3_collation_needed16(sqlite3 *, void *, void (*)(void *, sqlite3 *, int, const void *));
 
 ///|
+#borrow(db, pCollNeededArg)
 pub extern "C" fn sqlite3_collation_needed16(
   db : Sqlite3,
   pCollNeededArg : AnyType,
@@ -858,11 +924,13 @@ pub extern "C" fn sqlite3_collation_needed16(
 //int sqlite3_column_bytes(sqlite3_stmt *, int iCol);
 
 ///|
+#borrow(pStmt)
 pub extern "C" fn sqlite3_column_bytes(pStmt : Sqlite3_stmt, iCol : Int) -> Int = "sqlite3_column_bytes"
 
 //int sqlite3_column_bytes16(sqlite3_stmt *, int iCol);
 
 ///|
+#borrow(pStmt)
 pub extern "C" fn sqlite3_column_bytes16(
   pStmt : Sqlite3_stmt,
   iCol : Int
@@ -871,30 +939,36 @@ pub extern "C" fn sqlite3_column_bytes16(
 //int sqlite3_column_count(sqlite3_stmt * pStmt);
 
 ///|
+#borrow(pStmt)
 pub extern "C" fn sqlite3_column_count(pStmt : Sqlite3_stmt) -> Int = "sqlite3_column_count"
 
 //int sqlite3_column_int(sqlite3_stmt *, int iCol);
 
 ///|
+#borrow(pStmt)
 pub extern "C" fn sqlite3_column_int(pStmt : Sqlite3_stmt, iCol : Int) -> Int = "sqlite3_column_int"
 
 //int sqlite3_column_type(sqlite3_stmt *, int iCol);
 
 ///|
+#borrow(pStmt)
 pub extern "C" fn sqlite3_column_type(pStmt : Sqlite3_stmt, iCol : Int) -> Int = "sqlite3_column_type"
 //int sqlite3_compileoption_used(const char * zOptName);
 
 ///|
+#borrow(zOptName)
 pub extern "C" fn sqlite3_compileoption_used(zOptName : CStr) -> Int = "sqlite3_compileoption_used"
 
 //int sqlite3_complete(const char * sql);
 
 ///|
+#borrow(sql)
 pub extern "C" fn sqlite3_complete(sql : CStr) -> Int = "sqlite3_complete"
 
 //int sqlite3_complete16(const void * sql);
 
 ///|
+#borrow(sql)
 pub extern "C" fn sqlite3_complete16(sql : AnyType) -> Int = "sqlite3_complete16"
 
 //int sqlite3_config(int);
@@ -905,6 +979,7 @@ pub extern "C" fn sqlite3_config(option : Int) -> Int = "sqlite3_config"
 //int sqlite3_create_collation(sqlite3 *, const char * zName, int eTextRep, void * pArg, int (*)(void *, int, const void *, int, const void *) xCompare);
 
 ///|
+#borrow(db, zName, pArg)
 pub extern "C" fn sqlite3_create_collation(
   db : Sqlite3,
   zName : CStr,
@@ -916,6 +991,7 @@ pub extern "C" fn sqlite3_create_collation(
 //int sqlite3_create_collation16(sqlite3 *, const void * zName, int eTextRep, void * pArg, int (*)(void *, int, const void *, int, const void *) xCompare);
 
 ///|
+#borrow(db, zName, pArg)
 pub extern "C" fn sqlite3_create_collation16(
   db : Sqlite3,
   zName : AnyType,
@@ -927,6 +1003,7 @@ pub extern "C" fn sqlite3_create_collation16(
 //int sqlite3_create_collation_v2(sqlite3 *, const char * zName, int eTextRep, void * pArg, int (*)(void *, int, const void *, int, const void *) xCompare, void (*)(void *) xDestroy);
 
 ///|
+#borrow(db, zName, pArg)
 pub extern "C" fn sqlite3_create_collation_v2(
   db : Sqlite3,
   zName : CStr,
@@ -939,6 +1016,7 @@ pub extern "C" fn sqlite3_create_collation_v2(
 //int sqlite3_create_function(sqlite3 * db, const char * zFunctionName, int nArg, int eTextRep, void * pApp, void (*)(sqlite3_context *, int, sqlite3_value **) xFunc, void (*)(sqlite3_context *, int, sqlite3_value **) xStep, void (*)(sqlite3_context *) xFinal);
 
 ///|
+#borrow(db, zFunctionName, pApp)
 pub extern "C" fn sqlite3_create_function(
   db : Sqlite3,
   zFunctionName : CStr,
@@ -953,6 +1031,7 @@ pub extern "C" fn sqlite3_create_function(
 //int sqlite3_create_function16(sqlite3 * db, const void * zFunctionName, int nArg, int eTextRep, void * pApp, void (*)(sqlite3_context *, int, sqlite3_value **) xFunc, void (*)(sqlite3_context *, int, sqlite3_value **) xStep, void (*)(sqlite3_context *) xFinal);
 
 ///|
+#borrow(db, zFunctionName, pApp)
 pub extern "C" fn sqlite3_create_function16(
   db : Sqlite3,
   zFunctionName : AnyType,
@@ -967,6 +1046,7 @@ pub extern "C" fn sqlite3_create_function16(
 //int sqlite3_create_function_v2(sqlite3 * db, const char * zFunctionName, int nArg, int eTextRep, void * pApp, void (*)(sqlite3_context *, int, sqlite3_value **) xFunc, void (*)(sqlite3_context *, int, sqlite3_value **) xStep, void (*)(sqlite3_context *) xFinal, void (*)(void *) xDestroy);
 
 ///|
+#borrow(db, zFunctionName, pApp)
 pub extern "C" fn sqlite3_create_function_v2(
   db : Sqlite3,
   zFunctionName : CStr,
@@ -981,6 +1061,7 @@ pub extern "C" fn sqlite3_create_function_v2(
 //int sqlite3_create_module(sqlite3 * db, const char * zName, const sqlite3_module * p, void * pClientData);
 
 ///|
+#borrow(db, zName, p, pClientData)
 pub extern "C" fn sqlite3_create_module(
   db : Sqlite3,
   zName : CStr,
@@ -991,6 +1072,7 @@ pub extern "C" fn sqlite3_create_module(
 //int sqlite3_create_module_v2(sqlite3 * db, const char * zName, const sqlite3_module * p, void * pClientData, void (*)(void *) xDestroy);
 
 ///|
+#borrow(db, zName, p, pClientData)
 pub extern "C" fn sqlite3_create_module_v2(
   db : Sqlite3,
   zName : CStr,
@@ -1001,6 +1083,7 @@ pub extern "C" fn sqlite3_create_module_v2(
 //int sqlite3_create_window_function(sqlite3 * db, const char * zFunctionName, int nArg, int eTextRep, void * pApp, void (*)(sqlite3_context *, int, sqlite3_value **) xStep, void (*)(sqlite3_context *) xFinal, void (*)(sqlite3_context *) xValue, void (*)(sqlite3_context *, int, sqlite3_value **) xInverse, void (*)(void *) xDestroy);
 
 ///|
+#borrow(db, zFunctionName, pApp)
 pub extern "C" fn sqlite3_create_window_function(
   db : Sqlite3,
   zFunctionName : CStr,
@@ -1016,31 +1099,37 @@ pub extern "C" fn sqlite3_create_window_function(
 //int sqlite3_data_count(sqlite3_stmt * pStmt);
 
 ///|
+#borrow(pStmt)
 pub extern "C" fn sqlite3_data_count(pStmt : Sqlite3_stmt) -> Int = "sqlite3_data_count"
 
 //int sqlite3_db_cacheflush(sqlite3 *);
 
 ///|
+#borrow(db)
 pub extern "C" fn sqlite3_db_cacheflush(db : Sqlite3) -> Int = "sqlite3_db_cacheflush"
 
 //int sqlite3_db_config(sqlite3 *, int op);
 
 ///|
+#borrow(db)
 pub extern "C" fn sqlite3_db_config(db : Sqlite3, op : Int) -> Int = "sqlite3_db_config"
 
 //int sqlite3_db_readonly(sqlite3 * db, const char * zDbName);
 
 ///|
+#borrow(db, zDbName)
 pub extern "C" fn sqlite3_db_readonly(db : Sqlite3, zDbName : CStr) -> Int = "sqlite3_db_readonly"
 
 //int sqlite3_db_release_memory(sqlite3 *);
 
 ///|
+#borrow(db)
 pub extern "C" fn sqlite3_db_release_memory(db : Sqlite3) -> Int = "sqlite3_db_release_memory"
 
 //int sqlite3_db_status(sqlite3 *, int op, int * pCur, int * pHiwtr, int resetFlg);
 
 ///|
+#borrow(db, pCur, pHiwtr)
 pub extern "C" fn sqlite3_db_status(
   db : Sqlite3,
   op : Int,
@@ -1052,11 +1141,13 @@ pub extern "C" fn sqlite3_db_status(
 //int sqlite3_declare_vtab(sqlite3 *, const char * zSQL);
 
 ///|
+#borrow(db, zSQL)
 pub extern "C" fn sqlite3_declare_vtab(db : Sqlite3, zSQL : CStr) -> Int = "sqlite3_declare_vtab"
 
 //int sqlite3_deserialize(sqlite3 * db, const char * zSchema, unsigned char * pData, sqlite3_int64 szDb, sqlite3_int64 szBuf, unsigned int mFlags);
 
 ///|
+#borrow(db, zSchema, pData)
 pub extern "C" fn sqlite3_deserialize(
   db : Sqlite3,
   zSchema : CStr,
@@ -1069,11 +1160,13 @@ pub extern "C" fn sqlite3_deserialize(
 //int sqlite3_drop_modules(sqlite3 * db, const char ** azKeep);
 
 ///|
+#borrow(db, azKeep)
 pub extern "C" fn sqlite3_drop_modules(db : Sqlite3, azKeep : Ref[CStr]) -> Int = "sqlite3_drop_modules"
 
 //int sqlite3_enable_load_extension(sqlite3 * db, int onoff);
 
 ///|
+#borrow(db)
 pub extern "C" fn sqlite3_enable_load_extension(
   db : Sqlite3,
   onoff : Int
@@ -1087,16 +1180,19 @@ pub extern "C" fn sqlite3_enable_shared_cache(enable : Int) -> Int = "sqlite3_en
 //int sqlite3_errcode(sqlite3 * db);
 
 ///|
+#borrow(db)
 pub extern "C" fn sqlite3_errcode(db : Sqlite3) -> Int = "sqlite3_errcode"
 
 //int sqlite3_error_offset(sqlite3 * db);
 
 ///|
+#borrow(db)
 pub extern "C" fn sqlite3_error_offset(db : Sqlite3) -> Int = "sqlite3_error_offset"
 
 //int sqlite3_exec(sqlite3 *, const char * sql, int (*)(void *, int, char **, char **) callback, void *, char ** errmsg);
 
 ///|
+#borrow(db, sql, data, errmsg)
 pub extern "C" fn sqlite3_exec(
   db : Sqlite3,
   sql : CStr,
@@ -1108,16 +1204,19 @@ pub extern "C" fn sqlite3_exec(
 //int sqlite3_expired(sqlite3_stmt *);
 
 ///|
+#borrow(pStmt)
 pub extern "C" fn sqlite3_expired(pStmt : Sqlite3_stmt) -> Int = "sqlite3_expired"
 
 //int sqlite3_extended_errcode(sqlite3 * db);
 
 ///|
+#borrow(db)
 pub extern "C" fn sqlite3_extended_errcode(db : Sqlite3) -> Int = "sqlite3_extended_errcode"
 
 //int sqlite3_extended_result_codes(sqlite3 *, int onoff);
 
 ///|
+#borrow(db)
 pub extern "C" fn sqlite3_extended_result_codes(
   db : Sqlite3,
   onoff : Int
@@ -1126,6 +1225,7 @@ pub extern "C" fn sqlite3_extended_result_codes(
 //int sqlite3_file_control(sqlite3 *, const char * zDbName, int op, void *);
 
 ///|
+#borrow(db, zDbName, data)
 pub extern "C" fn sqlite3_file_control(
   db : Sqlite3,
   zDbName : CStr,
@@ -1136,16 +1236,19 @@ pub extern "C" fn sqlite3_file_control(
 //int sqlite3_finalize(sqlite3_stmt * pStmt);
 
 ///|
+#borrow(pStmt)
 pub extern "C" fn sqlite3_finalize(pStmt : Sqlite3_stmt) -> Int = "sqlite3_finalize"
 //int sqlite3_get_autocommit(sqlite3 *);
 
 ///|
+#borrow(db)
 pub extern "C" fn sqlite3_get_autocommit(db : Sqlite3) -> Int = "sqlite3_get_autocommit"
 
 //int sqlite3_get_table(sqlite3 * db, const char * zSql, char *** pazResult, int * pnRow, int * pnColumn, char ** pzErrmsg);
 
 ///|
 #deprecated("not sure the pazResult's pub type")
+#borrow(db, zSql, pazResult, pnRow, pnColumn, pzErrmsg)
 pub extern "C" fn sqlite3_get_table(
   db : Sqlite3,
   zSql : CStr,
@@ -1168,11 +1271,13 @@ pub extern "C" fn sqlite3_initialize() -> Int = "sqlite3_initialize"
 //int sqlite3_is_interrupted(sqlite3 *);
 
 ///|
+#borrow(db)
 pub extern "C" fn sqlite3_is_interrupted(db : Sqlite3) -> Int = "sqlite3_is_interrupted"
 
 //int sqlite3_keyword_check(const char *, int);
 
 ///|
+#borrow(z)
 pub extern "C" fn sqlite3_keyword_check(z : CStr, n : Int) -> Int = "sqlite3_keyword_check"
 
 //int sqlite3_keyword_count();
@@ -1183,6 +1288,7 @@ pub extern "C" fn sqlite3_keyword_count() -> Int = "sqlite3_keyword_count"
 //int sqlite3_keyword_name(int, const char **, int *);
 
 ///|
+#borrow(pzName, pnName)
 pub extern "C" fn sqlite3_keyword_name(
   i : Int,
   pzName : Ref[CStr],
@@ -1197,11 +1303,13 @@ pub extern "C" fn sqlite3_libversion_number() -> Int = "sqlite3_libversion_numbe
 //int sqlite3_limit(sqlite3 *, int id, int newVal);
 
 ///|
+#borrow(db)
 pub extern "C" fn sqlite3_limit(db : Sqlite3, id : Int, newVal : Int) -> Int = "sqlite3_limit"
 
 //int sqlite3_load_extension(sqlite3 * db, const char * zFile, const char * zProc, char ** pzErrMsg);
 
 ///|
+#borrow(db, zFile, zProc, pzErrMsg)
 pub extern "C" fn sqlite3_load_extension(
   db : Sqlite3,
   zFile : CStr,
@@ -1212,6 +1320,7 @@ pub extern "C" fn sqlite3_load_extension(
 //int sqlite3_memory_alarm(void (*)(void *, sqlite3_int64, int), void *, sqlite3_int64);
 
 ///|
+#borrow(pArg)
 pub extern "C" fn sqlite3_memory_alarm(
   xCallback : FuncRef[(AnyType, Int64, Int) -> Unit],
   pArg : AnyType,
@@ -1221,25 +1330,30 @@ pub extern "C" fn sqlite3_memory_alarm(
 //int sqlite3_mutex_held(sqlite3_mutex *);
 
 ///|
+#borrow(mutex)
 pub extern "C" fn sqlite3_mutex_held(mutex : Sqlite3_mutex) -> Int = "sqlite3_mutex_held"
 
 //int sqlite3_mutex_notheld(sqlite3_mutex *);
 
 ///|
+#borrow(mutex)
 pub extern "C" fn sqlite3_mutex_notheld(mutex : Sqlite3_mutex) -> Int = "sqlite3_mutex_notheld"
 
 //int sqlite3_mutex_try(sqlite3_mutex *);
 
 ///|
+#borrow(mutex)
 pub extern "C" fn sqlite3_mutex_try(mutex : Sqlite3_mutex) -> Int = "sqlite3_mutex_try"
 //int sqlite3_open(const char * filename, sqlite3 ** ppDb);
 
 ///|
+#borrow(filename, ppDb)
 pub extern "C" fn sqlite3_open(filename : CStr, ppDb : Ref[Sqlite3]) -> Int = "sqlite3_open"
 
 //int sqlite3_open16(const void * filename, sqlite3 ** ppDb);
 
 ///|
+#borrow(filename, ppDb)
 pub extern "C" fn sqlite3_open16(
   filename : AnyType,
   ppDb : Ref[Sqlite3]
@@ -1248,6 +1362,7 @@ pub extern "C" fn sqlite3_open16(
 //int sqlite3_open_v2(const char * filename, sqlite3 ** ppDb, int flags, const char * zVfs);
 
 ///|
+#borrow(filename, zVfs, ppDb)
 pub extern "C" fn sqlite3_open_v2(
   filename : CStr,
   ppDb : Ref[Sqlite3],
@@ -1268,6 +1383,7 @@ pub extern "C" fn sqlite3_os_init() -> Int = "sqlite3_os_init"
 //int sqlite3_overload_function(sqlite3 *, const char * zFuncName, int nArg);
 
 ///|
+#borrow(db, zFuncName)
 pub extern "C" fn sqlite3_overload_function(
   db : Sqlite3,
   zFuncName : CStr,
@@ -1277,6 +1393,7 @@ pub extern "C" fn sqlite3_overload_function(
 //int sqlite3_prepare(sqlite3 * db, const char * zSql, int nByte, sqlite3_stmt ** ppStmt, const char ** pzTail);
 
 ///|
+#borrow(db, zSql, ppStmt, pzTail)
 pub extern "C" fn sqlite3_prepare(
   db : Sqlite3,
   zSql : CStr,
@@ -1288,6 +1405,7 @@ pub extern "C" fn sqlite3_prepare(
 //int sqlite3_prepare16(sqlite3 * db, const void * zSql, int nByte, sqlite3_stmt ** ppStmt, const void ** pzTail);
 
 ///|
+#borrow(db, zSql, ppStmt, pzTail)
 pub extern "C" fn sqlite3_prepare16(
   db : Sqlite3,
   zSql : AnyType,
@@ -1299,6 +1417,7 @@ pub extern "C" fn sqlite3_prepare16(
 //int sqlite3_prepare16_v2(sqlite3 * db, const void * zSql, int nByte, sqlite3_stmt ** ppStmt, const void ** pzTail);
 
 ///|
+#borrow(db, zSql, ppStmt, pzTail)
 pub extern "C" fn sqlite3_prepare16_v2(
   db : Sqlite3,
   zSql : AnyType,
@@ -1310,6 +1429,7 @@ pub extern "C" fn sqlite3_prepare16_v2(
 //int sqlite3_prepare16_v3(sqlite3 * db, const void * zSql, int nByte, unsigned int prepFlags, sqlite3_stmt ** ppStmt, const void ** pzTail);
 
 ///|
+#borrow(db, zSql, ppStmt, pzTail)
 pub extern "C" fn sqlite3_prepare16_v3(
   db : Sqlite3,
   zSql : AnyType,
@@ -1322,6 +1442,7 @@ pub extern "C" fn sqlite3_prepare16_v3(
 //int sqlite3_prepare_v2(sqlite3 * db, const char * zSql, int nByte, sqlite3_stmt ** ppStmt, const char ** pzTail);
 
 ///|
+#borrow(db, zSql, ppStmt, pzTail)
 pub extern "C" fn sqlite3_prepare_v2(
   db : Sqlite3,
   zSql : CStr,
@@ -1333,6 +1454,7 @@ pub extern "C" fn sqlite3_prepare_v2(
 //int sqlite3_prepare_v3(sqlite3 * db, const char * zSql, int nByte, unsigned int prepFlags, sqlite3_stmt ** ppStmt, const char ** pzTail);
 
 ///|
+#borrow(db, zSql, ppStmt, pzTail)
 pub extern "C" fn sqlite3_prepare_v3(
   db : Sqlite3,
   zSql : CStr,
@@ -1349,11 +1471,13 @@ pub extern "C" fn sqlite3_release_memory(n : Int) -> Int = "sqlite3_release_memo
 //int sqlite3_reset(sqlite3_stmt * pStmt);
 
 ///|
+#borrow(pStmt)
 pub extern "C" fn sqlite3_reset(pStmt : Sqlite3_stmt) -> Int = "sqlite3_reset"
 
 //int sqlite3_result_zeroblob64(sqlite3_context *, sqlite3_uint64 n);
 
 ///|
+#borrow(context)
 pub extern "C" fn sqlite3_result_zeroblob64(
   context : Sqlite3_context,
   n : UInt64
@@ -1362,6 +1486,7 @@ pub extern "C" fn sqlite3_result_zeroblob64(
 //int sqlite3_rtree_geometry_callback(sqlite3 * db, const char * zGeom, int (*)(sqlite3_rtree_geometry *, int, sqlite3_rtree_dbl *, int *) xGeom, void * pContext);
 
 ///|
+#borrow(db, zGeom, pContext)
 pub extern "C" fn sqlite3_rtree_geometry_callback(
   db : Sqlite3,
   zGeom : CStr,
@@ -1372,6 +1497,7 @@ pub extern "C" fn sqlite3_rtree_geometry_callback(
 //int sqlite3_rtree_query_callback(sqlite3 * db, const char * zQueryFunc, int (*)(sqlite3_rtree_query_info *) xQueryFunc, void * pContext, void (*)(void *) xDestructor);
 
 ///|
+#borrow(db, zQueryFunc, pContext)
 pub extern "C" fn sqlite3_rtree_query_callback(
   db : Sqlite3,
   zQueryFunc : CStr,
@@ -1383,6 +1509,7 @@ pub extern "C" fn sqlite3_rtree_query_callback(
 //int sqlite3_set_authorizer(sqlite3 *, int (*)(void *, int, const char *, const char *, const char *, const char *) xAuth, void * pUserData);
 
 ///|
+#borrow(db, pUserData)
 pub extern "C" fn sqlite3_set_authorizer(
   db : Sqlite3,
   xAuth : FuncRef[(AnyType, Int, CStr, CStr, CStr, CStr) -> Int],
@@ -1392,6 +1519,7 @@ pub extern "C" fn sqlite3_set_authorizer(
 //int sqlite3_set_clientdata(sqlite3 *, const char *, void *, void (*)(void *));
 
 ///|
+#borrow(db, zName, pData)
 pub extern "C" fn sqlite3_set_clientdata(
   db : Sqlite3,
   zName : CStr,
@@ -1401,6 +1529,7 @@ pub extern "C" fn sqlite3_set_clientdata(
 //int sqlite3_setlk_timeout(sqlite3 *, int ms, int flags);
 
 ///|
+#borrow(db)
 pub extern "C" fn sqlite3_setlk_timeout(
   db : Sqlite3,
   ms : Int,
@@ -1419,6 +1548,7 @@ pub extern "C" fn sqlite3_sleep(ms : Int) -> Int = "sqlite3_sleep"
 //int sqlite3_snapshot_cmp(sqlite3_snapshot * p1, sqlite3_snapshot * p2);
 
 ///|
+#borrow(p1, p2)
 pub extern "C" fn sqlite3_snapshot_cmp(
   p1 : Sqlite3_snapshot,
   p2 : Sqlite3_snapshot
@@ -1427,6 +1557,7 @@ pub extern "C" fn sqlite3_snapshot_cmp(
 //int sqlite3_snapshot_get(sqlite3 * db, const char * zSchema, sqlite3_snapshot ** ppSnapshot);
 
 ///|
+#borrow(db, zSchema, ppSnapshot)
 pub extern "C" fn sqlite3_snapshot_get(
   db : Sqlite3,
   zSchema : CStr,
@@ -1436,6 +1567,7 @@ pub extern "C" fn sqlite3_snapshot_get(
 //int sqlite3_snapshot_open(sqlite3 * db, const char * zSchema, sqlite3_snapshot * pSnapshot);
 
 ///|
+#borrow(db, zSchema, pSnapshot)
 pub extern "C" fn sqlite3_snapshot_open(
   db : Sqlite3,
   zSchema : CStr,
@@ -1445,10 +1577,12 @@ pub extern "C" fn sqlite3_snapshot_open(
 //int sqlite3_snapshot_recover(sqlite3 * db, const char * zDb);
 
 ///|
+#borrow(db, zDb)
 pub extern "C" fn sqlite3_snapshot_recover(db : Sqlite3, zDb : CStr) -> Int = "sqlite3_snapshot_recover"
 //int sqlite3_status(int op, int * pCurrent, int * pHighwater, int resetFlag);
 
 ///|
+#borrow(pCurrent, pHighwater)
 pub extern "C" fn sqlite3_status(
   op : Int,
   pCurrent : AnyType,
@@ -1459,6 +1593,7 @@ pub extern "C" fn sqlite3_status(
 //int sqlite3_status64(int op, sqlite3_int64 * pCurrent, sqlite3_int64 * pHighwater, int resetFlag);
 
 ///|
+#borrow(pCurrent, pHighwater)
 pub extern "C" fn sqlite3_status64(
   op : Int,
   pCurrent : AnyType,
@@ -1468,16 +1603,19 @@ pub extern "C" fn sqlite3_status64(
 //int sqlite3_step(sqlite3_stmt *);
 
 ///|
+#borrow(pStmt)
 pub extern "C" fn sqlite3_step(pStmt : Sqlite3_stmt) -> Int = "sqlite3_step"
 
 //int sqlite3_stmt_busy(sqlite3_stmt *);
 
 ///|
+#borrow(pStmt)
 pub extern "C" fn sqlite3_stmt_busy(pStmt : Sqlite3_stmt) -> Int = "sqlite3_stmt_busy"
 
 //int sqlite3_stmt_explain(sqlite3_stmt * pStmt, int eMode);
 
 ///|
+#borrow(pStmt)
 pub extern "C" fn sqlite3_stmt_explain(
   pStmt : Sqlite3_stmt,
   eMode : Int
@@ -1486,16 +1624,19 @@ pub extern "C" fn sqlite3_stmt_explain(
 //int sqlite3_stmt_isexplain(sqlite3_stmt * pStmt);
 
 ///|
+#borrow(pStmt)
 pub extern "C" fn sqlite3_stmt_isexplain(pStmt : Sqlite3_stmt) -> Int = "sqlite3_stmt_isexplain"
 
 //int sqlite3_stmt_readonly(sqlite3_stmt * pStmt);
 
 ///|
+#borrow(pStmt)
 pub extern "C" fn sqlite3_stmt_readonly(pStmt : Sqlite3_stmt) -> Int = "sqlite3_stmt_readonly"
 
 //int sqlite3_stmt_scanstatus(sqlite3_stmt * pStmt, int idx, int iScanStatusOp, void * pOut);
 
 ///|
+#borrow(pStmt, pOut)
 pub extern "C" fn sqlite3_stmt_scanstatus(
   pStmt : Sqlite3_stmt,
   idx : Int,
@@ -1506,6 +1647,7 @@ pub extern "C" fn sqlite3_stmt_scanstatus(
 //int sqlite3_stmt_scanstatus_v2(sqlite3_stmt * pStmt, int idx, int iScanStatusOp, int flags, void * pOut);
 
 ///|
+#borrow(pStmt, pOut)
 pub extern "C" fn sqlite3_stmt_scanstatus_v2(
   pStmt : Sqlite3_stmt,
   idx : Int,
@@ -1517,6 +1659,7 @@ pub extern "C" fn sqlite3_stmt_scanstatus_v2(
 //int sqlite3_stmt_status(sqlite3_stmt *, int op, int resetFlg);
 
 ///|
+#borrow(pStmt)
 pub extern "C" fn sqlite3_stmt_status(
   pStmt : Sqlite3_stmt,
   op : Int,
@@ -1526,26 +1669,31 @@ pub extern "C" fn sqlite3_stmt_status(
 //int sqlite3_str_errcode(sqlite3_str *);
 
 ///|
+#borrow(pStr)
 pub extern "C" fn sqlite3_str_errcode(pStr : Sqlite3_str) -> Int = "sqlite3_str_errcode"
 
 //int sqlite3_str_length(sqlite3_str *);
 
 ///|
+#borrow(pStr)
 pub extern "C" fn sqlite3_str_length(pStr : Sqlite3_str) -> Int = "sqlite3_str_length"
 
 //int sqlite3_strglob(const char * zGlob, const char * zStr);
 
 ///|
+#borrow(zGlob, zStr)
 pub extern "C" fn sqlite3_strglob(zGlob : CStr, zStr : CStr) -> Int = "sqlite3_strglob"
 
 //int sqlite3_stricmp(const char *, const char *);
 
 ///|
+#borrow(zLeft, zRight)
 pub extern "C" fn sqlite3_stricmp(zLeft : CStr, zRight : CStr) -> Int = "sqlite3_stricmp"
 
 //int sqlite3_strlike(const char * zGlob, const char * zStr, unsigned int cEsc);
 
 ///|
+#borrow(zGlob, zStr)
 pub extern "C" fn sqlite3_strlike(
   zGlob : CStr,
   zStr : CStr,
@@ -1555,16 +1703,19 @@ pub extern "C" fn sqlite3_strlike(
 //int sqlite3_strnicmp(const char *, const char *, int);
 
 ///|
+#borrow(zLeft, zRight)
 pub extern "C" fn sqlite3_strnicmp(zLeft : CStr, zRight : CStr, n : Int) -> Int = "sqlite3_strnicmp"
 
 //int sqlite3_system_errno(sqlite3 *);
 
 ///|
+#borrow(db)
 pub extern "C" fn sqlite3_system_errno(db : Sqlite3) -> Int = "sqlite3_system_errno"
 
 //int sqlite3_table_column_metadata(sqlite3 * db, const char * zDbName, const char * zTableName, const char * zColumnName, const char ** pzDataType, const char ** pzCollSeq, int * pNotNull, int * pPrimaryKey, int * pAutoinc);
 
 ///|
+#borrow(db, zDbName, zTableName, zColumnName, pzDataType, pzCollSeq, pNotNull, pPrimaryKey, pAutoinc)
 pub extern "C" fn sqlite3_table_column_metadata(
   db : Sqlite3,
   zDbName : CStr,
@@ -1590,10 +1741,12 @@ pub extern "C" fn sqlite3_threadsafe() -> Int = "sqlite3_threadsafe"
 //int sqlite3_total_changes(sqlite3 *);
 
 ///|
+#borrow(db)
 pub extern "C" fn sqlite3_total_changes(db : Sqlite3) -> Int = "sqlite3_total_changes"
 //int sqlite3_trace_v2(sqlite3 *, unsigned int uMask, int (*)(unsigned int, void *, void *, void *) xCallback, void * pCtx);
 
 ///|
+#borrow(db, pCtx)
 pub extern "C" fn sqlite3_trace_v2(
   db : Sqlite3,
   uMask : UInt,
@@ -1603,6 +1756,7 @@ pub extern "C" fn sqlite3_trace_v2(
 //int sqlite3_transfer_bindings(sqlite3_stmt *, sqlite3_stmt *);
 
 ///|
+#borrow(pFrom, pTo)
 pub extern "C" fn sqlite3_transfer_bindings(
   pFrom : Sqlite3_stmt,
   pTo : Sqlite3_stmt
@@ -1611,11 +1765,13 @@ pub extern "C" fn sqlite3_transfer_bindings(
 //int sqlite3_txn_state(sqlite3 *, const char * zSchema);
 
 ///|
+#borrow(db, zSchema)
 pub extern "C" fn sqlite3_txn_state(db : Sqlite3, zSchema : CStr) -> Int = "sqlite3_txn_state"
 
 //int sqlite3_unlock_notify(sqlite3 * pBlocked, void (*)(void **, int) xNotify, void * pNotifyArg);
 
 ///|
+#borrow(pBlocked, pNotifyArg)
 pub extern "C" fn sqlite3_unlock_notify(
   pBlocked : Sqlite3,
   xNotify : FuncRef[(AnyType, Int) -> Unit],
@@ -1625,6 +1781,7 @@ pub extern "C" fn sqlite3_unlock_notify(
 //int sqlite3_uri_boolean(sqlite3_filename z, const char * zParam, int bDefault);
 
 ///|
+#borrow(z, zParam)
 pub extern "C" fn sqlite3_uri_boolean(
   z : Sqlite3_filename,
   zParam : CStr,
@@ -1634,46 +1791,55 @@ pub extern "C" fn sqlite3_uri_boolean(
 //int sqlite3_value_bytes(sqlite3_value *);
 
 ///|
+#borrow(value)
 pub extern "C" fn sqlite3_value_bytes(value : Sqlite3_value) -> Int = "sqlite3_value_bytes"
 
 //int sqlite3_value_bytes16(sqlite3_value *);
 
 ///|
+#borrow(value)
 pub extern "C" fn sqlite3_value_bytes16(value : Sqlite3_value) -> Int = "sqlite3_value_bytes16"
 
 //int sqlite3_value_encoding(sqlite3_value *);
 
 ///|
+#borrow(value)
 pub extern "C" fn sqlite3_value_encoding(value : Sqlite3_value) -> Int = "sqlite3_value_encoding"
 
 //int sqlite3_value_frombind(sqlite3_value *);
 
 ///|
+#borrow(value)
 pub extern "C" fn sqlite3_value_frombind(value : Sqlite3_value) -> Int = "sqlite3_value_frombind"
 
 //int sqlite3_value_int(sqlite3_value *);
 
 ///|
+#borrow(value)
 pub extern "C" fn sqlite3_value_int(value : Sqlite3_value) -> Int = "sqlite3_value_int"
 
 //int sqlite3_value_nochange(sqlite3_value *);
 
 ///|
+#borrow(value)
 pub extern "C" fn sqlite3_value_nochange(value : Sqlite3_value) -> Int = "sqlite3_value_nochange"
 
 //int sqlite3_value_numeric_type(sqlite3_value *);
 
 ///|
+#borrow(value)
 pub extern "C" fn sqlite3_value_numeric_type(value : Sqlite3_value) -> Int = "sqlite3_value_numeric_type"
 
 //int sqlite3_value_type(sqlite3_value *);
 
 ///|
+#borrow(value)
 pub extern "C" fn sqlite3_value_type(value : Sqlite3_value) -> Int = "sqlite3_value_type"
 
 //int sqlite3_vfs_register(sqlite3_vfs *, int makeDflt);
 
 ///|
+#borrow(vfs)
 pub extern "C" fn sqlite3_vfs_register(
   vfs : Sqlite3_vfs,
   makeDflt : Int
@@ -1682,21 +1848,25 @@ pub extern "C" fn sqlite3_vfs_register(
 //int sqlite3_vfs_unregister(sqlite3_vfs *);
 
 ///|
+#borrow(vfs)
 pub extern "C" fn sqlite3_vfs_unregister(vfs : Sqlite3_vfs) -> Int = "sqlite3_vfs_unregister"
 
 //int sqlite3_vtab_config(sqlite3 *, int op);
 
 ///|
+#borrow(db)
 pub extern "C" fn sqlite3_vtab_config(db : Sqlite3, op : Int) -> Int = "sqlite3_vtab_config"
 
 //int sqlite3_vtab_distinct(sqlite3_index_info *);
 
 ///|
+#borrow(pIdxInfo)
 pub extern "C" fn sqlite3_vtab_distinct(pIdxInfo : Sqlite3_index_info) -> Int = "sqlite3_vtab_distinct"
 
 //int sqlite3_vtab_in(sqlite3_index_info *, int iCons, int bHandle);
 
 ///|
+#borrow(pIdxInfo)
 pub extern "C" fn sqlite3_vtab_in(
   pIdxInfo : Sqlite3_index_info,
   iCons : Int,
@@ -1706,6 +1876,7 @@ pub extern "C" fn sqlite3_vtab_in(
 //int sqlite3_vtab_in_first(sqlite3_value * pVal, sqlite3_value ** ppOut);
 
 ///|
+#borrow(pVal, ppOut)
 pub extern "C" fn sqlite3_vtab_in_first(
   pVal : Sqlite3_value,
   ppOut : Ref[Sqlite3_value]
@@ -1714,6 +1885,7 @@ pub extern "C" fn sqlite3_vtab_in_first(
 //int sqlite3_vtab_in_next(sqlite3_value * pVal, sqlite3_value ** ppOut);
 
 ///|
+#borrow(pVal, ppOut)
 pub extern "C" fn sqlite3_vtab_in_next(
   pVal : Sqlite3_value,
   ppOut : Ref[Sqlite3_value]
@@ -1722,16 +1894,19 @@ pub extern "C" fn sqlite3_vtab_in_next(
 //int sqlite3_vtab_nochange(sqlite3_context *);
 
 ///|
+#borrow(context)
 pub extern "C" fn sqlite3_vtab_nochange(context : Sqlite3_context) -> Int = "sqlite3_vtab_nochange"
 
 //int sqlite3_vtab_on_conflict(sqlite3 *);
 
 ///|
+#borrow(db)
 pub extern "C" fn sqlite3_vtab_on_conflict(db : Sqlite3) -> Int = "sqlite3_vtab_on_conflict"
 
 //int sqlite3_vtab_rhs_value(sqlite3_index_info *, int, sqlite3_value ** ppVal);
 
 ///|
+#borrow(pIdxInfo, ppVal)
 pub extern "C" fn sqlite3_vtab_rhs_value(
   pIdxInfo : Sqlite3_index_info,
   j : Int,
@@ -1741,16 +1916,19 @@ pub extern "C" fn sqlite3_vtab_rhs_value(
 //int sqlite3_wal_autocheckpoint(sqlite3 * db, int N);
 
 ///|
+#borrow(db)
 pub extern "C" fn sqlite3_wal_autocheckpoint(db : Sqlite3, n : Int) -> Int = "sqlite3_wal_autocheckpoint"
 
 //int sqlite3_wal_checkpoint(sqlite3 * db, const char * zDb);
 
 ///|
+#borrow(db, zDb)
 pub extern "C" fn sqlite3_wal_checkpoint(db : Sqlite3, zDb : CStr) -> Int = "sqlite3_wal_checkpoint"
 
 //int sqlite3_wal_checkpoint_v2(sqlite3 * db, const char * zDb, int eMode, int * pnLog, int * pnCkpt);
 
 ///|
+#borrow(db, zDb, pnLog, pnCkpt)
 pub extern "C" fn sqlite3_wal_checkpoint_v2(
   db : Sqlite3,
   zDb : CStr,
@@ -1762,6 +1940,7 @@ pub extern "C" fn sqlite3_wal_checkpoint_v2(
 //int sqlite3_win32_set_directory(unsigned long pub type, void * zValue);
 
 ///|
+#borrow(zValue)
 pub extern "C" fn sqlite3_win32_set_directory(
   type_ : UInt64,
   zValue : AnyType
@@ -1770,6 +1949,7 @@ pub extern "C" fn sqlite3_win32_set_directory(
 //int sqlite3_win32_set_directory16(unsigned long pub type, const void * zValue);
 
 ///|
+#borrow(zValue)
 pub extern "C" fn sqlite3_win32_set_directory16(
   type_ : UInt64,
   zValue : AnyType
@@ -1778,6 +1958,7 @@ pub extern "C" fn sqlite3_win32_set_directory16(
 //int sqlite3_win32_set_directory8(unsigned long pub type, const char * zValue);
 
 ///|
+#borrow(zValue)
 pub extern "C" fn sqlite3_win32_set_directory8(
   type_ : UInt64,
   zValue : CStr
@@ -1786,6 +1967,7 @@ pub extern "C" fn sqlite3_win32_set_directory8(
 //sqlite3 * sqlite3_context_db_handle(sqlite3_context *);
 
 ///|
+#borrow(context)
 pub extern "C" fn sqlite3_context_db_handle(
   context : Sqlite3_context
 ) -> Sqlite3 = "sqlite3_context_db_handle"
@@ -1793,11 +1975,13 @@ pub extern "C" fn sqlite3_context_db_handle(
 //sqlite3 * sqlite3_db_handle(sqlite3_stmt *);
 
 ///|
+#borrow(pStmt)
 pub extern "C" fn sqlite3_db_handle(pStmt : Sqlite3_stmt) -> Sqlite3 = "sqlite3_db_handle"
 
 //sqlite3_backup * sqlite3_backup_init(sqlite3 * pDest, const char * zDestName, sqlite3 * pSource, const char * zSourceName);
 
 ///|
+#borrow(pDest, zDestName, pSource, zSourceName)
 pub extern "C" fn sqlite3_backup_init(
   pDest : Sqlite3,
   zDestName : CStr,
@@ -1808,11 +1992,13 @@ pub extern "C" fn sqlite3_backup_init(
 //sqlite3_file * sqlite3_database_file_object(const char *);
 
 ///|
+#borrow(zName)
 pub extern "C" fn sqlite3_database_file_object(zName : CStr) -> Sqlite3_file = "sqlite3_database_file_object"
 
 //sqlite3_filename sqlite3_create_filename(const char * zDatabase, const char * zJournal, const char * zWal, int nParam, const char ** azParam);
 
 ///|
+#borrow(zDatabase, zJournal, zWal, azParam)
 pub extern "C" fn sqlite3_create_filename(
   zDatabase : CStr,
   zJournal : CStr,
@@ -1824,6 +2010,7 @@ pub extern "C" fn sqlite3_create_filename(
 //sqlite3_filename sqlite3_db_filename(sqlite3 * db, const char * zDbName);
 
 ///|
+#borrow(db, zDbName)
 pub extern "C" fn sqlite3_db_filename(
   db : Sqlite3,
   zDbName : CStr
@@ -1832,11 +2019,13 @@ pub extern "C" fn sqlite3_db_filename(
 //sqlite3_int64 sqlite3_changes64(sqlite3 *);
 
 ///|
+#borrow(db)
 pub extern "C" fn sqlite3_changes64(db : Sqlite3) -> Int64 = "sqlite3_changes64"
 
 //sqlite3_int64 sqlite3_column_int64(sqlite3_stmt *, int iCol);
 
 ///|
+#borrow(pStmt)
 pub extern "C" fn sqlite3_column_int64(
   pStmt : Sqlite3_stmt,
   iCol : Int
@@ -1850,6 +2039,7 @@ pub extern "C" fn sqlite3_hard_heap_limit64(n : Int64) -> Int64 = "sqlite3_hard_
 //sqlite3_int64 sqlite3_last_insert_rowid(sqlite3 *);
 
 ///|
+#borrow(db)
 pub extern "C" fn sqlite3_last_insert_rowid(db : Sqlite3) -> Int64 = "sqlite3_last_insert_rowid"
 
 //sqlite3_int64 sqlite3_memory_highwater(int resetFlag);
@@ -1870,11 +2060,13 @@ pub extern "C" fn sqlite3_soft_heap_limit64(n : Int64) -> Int64 = "sqlite3_soft_
 //sqlite3_int64 sqlite3_total_changes64(sqlite3 *);
 
 ///|
+#borrow(db)
 pub extern "C" fn sqlite3_total_changes64(db : Sqlite3) -> Int64 = "sqlite3_total_changes64"
 
 //sqlite3_int64 sqlite3_uri_int64(sqlite3_filename, const char *, sqlite3_int64);
 
 ///|
+#borrow(z, zParam)
 pub extern "C" fn sqlite3_uri_int64(
   z : Sqlite3_filename,
   zParam : CStr,
@@ -1884,11 +2076,13 @@ pub extern "C" fn sqlite3_uri_int64(
 //sqlite3_int64 sqlite3_value_int64(sqlite3_value *);
 
 ///|
+#borrow(value)
 pub extern "C" fn sqlite3_value_int64(value : Sqlite3_value) -> Int64 = "sqlite3_value_int64"
 
 //sqlite3_mutex * sqlite3_db_mutex(sqlite3 *);
 
 ///|
+#borrow(db)
 pub extern "C" fn sqlite3_db_mutex(db : Sqlite3) -> Sqlite3_mutex = "sqlite3_db_mutex"
 
 //sqlite3_mutex * sqlite3_mutex_alloc(int);
@@ -1899,6 +2093,7 @@ pub extern "C" fn sqlite3_mutex_alloc(id : Int) -> Sqlite3_mutex = "sqlite3_mute
 //sqlite3_stmt * sqlite3_next_stmt(sqlite3 * pDb, sqlite3_stmt * pStmt);
 
 ///|
+#borrow(pDb, pStmt)
 pub extern "C" fn sqlite3_next_stmt(
   pDb : Sqlite3,
   pStmt : Sqlite3_stmt
@@ -1907,16 +2102,19 @@ pub extern "C" fn sqlite3_next_stmt(
 //sqlite3_str * sqlite3_str_new(sqlite3 *);
 
 ///|
+#borrow(db)
 pub extern "C" fn sqlite3_str_new(db : Sqlite3) -> Sqlite3_str = "sqlite3_str_new"
 
 //sqlite3_uint64 sqlite3_msize(void *);
 
 ///|
+#borrow(p)
 pub extern "C" fn sqlite3_msize(p : AnyType) -> UInt64 = "sqlite3_msize"
 
 //sqlite3_value * sqlite3_column_value(sqlite3_stmt *, int iCol);
 
 ///|
+#borrow(pStmt)
 pub extern "C" fn sqlite3_column_value(
   pStmt : Sqlite3_stmt,
   iCol : Int
@@ -1925,15 +2123,18 @@ pub extern "C" fn sqlite3_column_value(
 //sqlite3_value * sqlite3_value_dup(const sqlite3_value *);
 
 ///|
+#borrow(pOrig)
 pub extern "C" fn sqlite3_value_dup(pOrig : Sqlite3_value) -> Sqlite3_value = "sqlite3_value_dup"
 
 //sqlite3_vfs * sqlite3_vfs_find(const char * zVfsName);
 
 ///|
+#borrow(zVfsName)
 pub extern "C" fn sqlite3_vfs_find(zVfsName : CStr) -> Sqlite3_vfs = "sqlite3_vfs_find"
 //unsigned char * sqlite3_serialize(sqlite3 * db, const char * zSchema, sqlite3_int64 * piSize, unsigned int mFlags);
 
 ///|
+#borrow(db, zSchema, piSize)
 pub extern "C" fn sqlite3_serialize(
   db : Sqlite3,
   zSchema : CStr,
@@ -1944,10 +2145,12 @@ pub extern "C" fn sqlite3_serialize(
 //unsigned int sqlite3_value_subtype(sqlite3_value *);
 
 ///|
+#borrow(value)
 pub extern "C" fn sqlite3_value_subtype(value : Sqlite3_value) -> UInt = "sqlite3_value_subtype"
 //void * sqlite3_aggregate_context(sqlite3_context *, int nBytes);
 
 ///|
+#borrow(context)
 pub extern "C" fn sqlite3_aggregate_context(
   context : Sqlite3_context,
   nBytes : Int
@@ -1956,6 +2159,7 @@ pub extern "C" fn sqlite3_aggregate_context(
 //void * sqlite3_commit_hook(sqlite3 *, int (*)(void *), void *);
 
 ///|
+#borrow(db, pArg)
 pub extern "C" fn sqlite3_commit_hook(
   db : Sqlite3,
   xCallback : FuncRef[(AnyType) -> Int],
@@ -1965,6 +2169,7 @@ pub extern "C" fn sqlite3_commit_hook(
 //void * sqlite3_get_auxdata(sqlite3_context *, int N);
 
 ///|
+#borrow(context)
 pub extern "C" fn sqlite3_get_auxdata(
   context : Sqlite3_context,
   n : Int
@@ -1973,6 +2178,7 @@ pub extern "C" fn sqlite3_get_auxdata(
 //void * sqlite3_get_clientdata(sqlite3 *, const char *);
 
 ///|
+#borrow(db, zName)
 pub extern "C" fn sqlite3_get_clientdata(db : Sqlite3, zName : CStr) -> AnyType = "sqlite3_get_clientdata"
 
 //void * sqlite3_malloc(int);
@@ -1988,6 +2194,7 @@ pub extern "C" fn sqlite3_malloc64(n : UInt64) -> AnyType = "sqlite3_malloc64"
 //void * sqlite3_profile(sqlite3 *, void (*)(void *, const char *, sqlite3_uint64) xProfile, void *);
 
 ///|
+#borrow(db, pArg)
 pub extern "C" fn sqlite3_profile(
   db : Sqlite3,
   xProfile : FuncRef[(AnyType, CStr, UInt64) -> Unit],
@@ -1997,16 +2204,19 @@ pub extern "C" fn sqlite3_profile(
 //void * sqlite3_realloc(void *, int);
 
 ///|
+#borrow(pOld)
 pub extern "C" fn sqlite3_realloc(pOld : AnyType, n : Int) -> AnyType = "sqlite3_realloc"
 
 //void * sqlite3_realloc64(void *, sqlite3_uint64);
 
 ///|
+#borrow(pOld)
 pub extern "C" fn sqlite3_realloc64(pOld : AnyType, n : UInt64) -> AnyType = "sqlite3_realloc64"
 
 //void * sqlite3_rollback_hook(sqlite3 *, void (*)(void *), void *);
 
 ///|
+#borrow(db, pArg)
 pub extern "C" fn sqlite3_rollback_hook(
   db : Sqlite3,
   xCallback : FuncRef[(AnyType) -> Unit],
@@ -2016,6 +2226,7 @@ pub extern "C" fn sqlite3_rollback_hook(
 //void * sqlite3_trace(sqlite3 *, void (*)(void *, const char *) xTrace, void *);
 
 ///|
+#borrow(db, pArg)
 pub extern "C" fn sqlite3_trace(
   db : Sqlite3,
   xTrace : FuncRef[(AnyType, CStr) -> Unit],
@@ -2025,6 +2236,7 @@ pub extern "C" fn sqlite3_trace(
 //void * sqlite3_update_hook(sqlite3 *, void (*)(void *, int, const char *, const char *, sqlite3_int64), void *);
 
 ///|
+#borrow(db, pArg)
 pub extern "C" fn sqlite3_update_hook(
   db : Sqlite3,
   xCallback : FuncRef[(AnyType, Int, CStr, CStr, Int64) -> Unit],
@@ -2034,11 +2246,13 @@ pub extern "C" fn sqlite3_update_hook(
 //void * sqlite3_user_data(sqlite3_context *);
 
 ///|
+#borrow(context)
 pub extern "C" fn sqlite3_user_data(context : Sqlite3_context) -> AnyType = "sqlite3_user_data"
 
 //void * sqlite3_value_pointer(sqlite3_value *, const char *);
 
 ///|
+#borrow(value, zPType)
 pub extern "C" fn sqlite3_value_pointer(
   value : Sqlite3_value,
   zPType : CStr
@@ -2047,6 +2261,7 @@ pub extern "C" fn sqlite3_value_pointer(
 //void * sqlite3_wal_hook(sqlite3 *, int (*)(void *, sqlite3 *, const char *, int), void *);
 
 ///|
+#borrow(db, pArg)
 pub extern "C" fn sqlite3_wal_hook(
   db : Sqlite3,
   xCallback : FuncRef[(AnyType, Sqlite3, CStr, Int) -> Int],
@@ -2056,46 +2271,55 @@ pub extern "C" fn sqlite3_wal_hook(
 //void sqlite3_free(void *);
 
 ///|
+#borrow(p)
 pub extern "C" fn sqlite3_free(p : AnyType) -> Unit = "sqlite3_free"
 
 //void sqlite3_free_filename(sqlite3_filename);
 
 ///|
+#borrow(filename)
 pub extern "C" fn sqlite3_free_filename(filename : Sqlite3_filename) -> Unit = "sqlite3_free_filename"
 
 //void sqlite3_free_table(char ** result);
 
 ///|
+#borrow(result)
 pub extern "C" fn sqlite3_free_table(result : Ref[CStr]) -> Unit = "sqlite3_free_table"
 
 //void sqlite3_interrupt(sqlite3 *);
 
 ///|
+#borrow(db)
 pub extern "C" fn sqlite3_interrupt(db : Sqlite3) -> Unit = "sqlite3_interrupt"
 
 //void sqlite3_log(int iErrCode, const char * zFormat);
 
 ///|
+#borrow(zFormat)
 pub extern "C" fn sqlite3_log(iErrCode : Int, zFormat : CStr) -> Unit = "sqlite3_log"
 
 //void sqlite3_mutex_enter(sqlite3_mutex *);
 
 ///|
+#borrow(mutex)
 pub extern "C" fn sqlite3_mutex_enter(mutex : Sqlite3_mutex) -> Unit = "sqlite3_mutex_enter"
 
 //void sqlite3_mutex_free(sqlite3_mutex *);
 
 ///|
+#borrow(mutex)
 pub extern "C" fn sqlite3_mutex_free(mutex : Sqlite3_mutex) -> Unit = "sqlite3_mutex_free"
 
 //void sqlite3_mutex_leave(sqlite3_mutex *);
 
 ///|
+#borrow(mutex)
 pub extern "C" fn sqlite3_mutex_leave(mutex : Sqlite3_mutex) -> Unit = "sqlite3_mutex_leave"
 
 //void sqlite3_progress_handler(sqlite3 *, int, int (*)(void *), void *);
 
 ///|
+#borrow(db, pArg)
 pub extern "C" fn sqlite3_progress_handler(
   db : Sqlite3,
   n : Int,
@@ -2106,6 +2330,7 @@ pub extern "C" fn sqlite3_progress_handler(
 //void sqlite3_randomness(int N, void * P);
 
 ///|
+#borrow(p)
 pub extern "C" fn sqlite3_randomness(n : Int, p : AnyType) -> Unit = "sqlite3_randomness"
 
 //void sqlite3_reset_auto_extension();
@@ -2115,6 +2340,7 @@ pub extern "C" fn sqlite3_reset_auto_extension() -> Unit = "sqlite3_reset_auto_e
 //void sqlite3_result_blob(sqlite3_context *, const void *, int, void (*)(void *));
 
 ///|
+#borrow(context, z)
 pub extern "C" fn sqlite3_result_blob(
   context : Sqlite3_context,
   z : AnyType,
@@ -2125,6 +2351,7 @@ pub extern "C" fn sqlite3_result_blob(
 //void sqlite3_result_blob64(sqlite3_context *, const void *, sqlite3_uint64, void (*)(void *));
 
 ///|
+#borrow(context, z)
 pub extern "C" fn sqlite3_result_blob64(
   context : Sqlite3_context,
   z : AnyType,
@@ -2135,6 +2362,7 @@ pub extern "C" fn sqlite3_result_blob64(
 //void sqlite3_result_double(sqlite3_context *, double);
 
 ///|
+#borrow(context)
 pub extern "C" fn sqlite3_result_double(
   context : Sqlite3_context,
   value : Double
@@ -2143,6 +2371,7 @@ pub extern "C" fn sqlite3_result_double(
 //void sqlite3_result_error(sqlite3_context *, const char *, int);
 
 ///|
+#borrow(context, z)
 pub extern "C" fn sqlite3_result_error(
   context : Sqlite3_context,
   z : CStr,
@@ -2152,6 +2381,7 @@ pub extern "C" fn sqlite3_result_error(
 //void sqlite3_result_error16(sqlite3_context *, const void *, int);
 
 ///|
+#borrow(context, z)
 pub extern "C" fn sqlite3_result_error16(
   context : Sqlite3_context,
   z : AnyType,
@@ -2161,6 +2391,7 @@ pub extern "C" fn sqlite3_result_error16(
 //void sqlite3_result_error_code(sqlite3_context *, int);
 
 ///|
+#borrow(context)
 pub extern "C" fn sqlite3_result_error_code(
   context : Sqlite3_context,
   errCode : Int
@@ -2169,11 +2400,13 @@ pub extern "C" fn sqlite3_result_error_code(
 //void sqlite3_result_error_nomem(sqlite3_context *);
 
 ///|
+#borrow(context)
 pub extern "C" fn sqlite3_result_error_nomem(context : Sqlite3_context) -> Unit = "sqlite3_result_error_nomem"
 
 //void sqlite3_result_error_toobig(sqlite3_context *);
 
 ///|
+#borrow(context)
 pub extern "C" fn sqlite3_result_error_toobig(
   context : Sqlite3_context
 ) -> Unit = "sqlite3_result_error_toobig"
@@ -2181,6 +2414,7 @@ pub extern "C" fn sqlite3_result_error_toobig(
 //void sqlite3_result_int(sqlite3_context *, int);
 
 ///|
+#borrow(context)
 pub extern "C" fn sqlite3_result_int(
   context : Sqlite3_context,
   value : Int
@@ -2189,6 +2423,7 @@ pub extern "C" fn sqlite3_result_int(
 //void sqlite3_result_int64(sqlite3_context *, sqlite3_int64);
 
 ///|
+#borrow(context)
 pub extern "C" fn sqlite3_result_int64(
   context : Sqlite3_context,
   value : Int64
@@ -2197,11 +2432,13 @@ pub extern "C" fn sqlite3_result_int64(
 //void sqlite3_result_null(sqlite3_context *);
 
 ///|
+#borrow(context)
 pub extern "C" fn sqlite3_result_null(context : Sqlite3_context) -> Unit = "sqlite3_result_null"
 
 //void sqlite3_result_pointer(sqlite3_context *, void *, const char *, void (*)(void *));
 
 ///|
+#borrow(context, ptr, zPType)
 pub extern "C" fn sqlite3_result_pointer(
   context : Sqlite3_context,
   ptr : AnyType,
@@ -2212,6 +2449,7 @@ pub extern "C" fn sqlite3_result_pointer(
 //void sqlite3_result_subtype(sqlite3_context *, unsigned int);
 
 ///|
+#borrow(context)
 pub extern "C" fn sqlite3_result_subtype(
   context : Sqlite3_context,
   subtype : UInt
@@ -2220,6 +2458,7 @@ pub extern "C" fn sqlite3_result_subtype(
 //void sqlite3_result_text(sqlite3_context *, const char *, int, void (*)(void *));
 
 ///|
+#borrow(context, z)
 pub extern "C" fn sqlite3_result_text(
   context : Sqlite3_context,
   z : CStr,
@@ -2230,6 +2469,7 @@ pub extern "C" fn sqlite3_result_text(
 //void sqlite3_result_text16(sqlite3_context *, const void *, int, void (*)(void *));
 
 ///|
+#borrow(context, z)
 pub extern "C" fn sqlite3_result_text16(
   context : Sqlite3_context,
   z : AnyType,
@@ -2240,6 +2480,7 @@ pub extern "C" fn sqlite3_result_text16(
 //void sqlite3_result_text16be(sqlite3_context *, const void *, int, void (*)(void *));
 
 ///|
+#borrow(context, z)
 pub extern "C" fn sqlite3_result_text16be(
   context : Sqlite3_context,
   z : AnyType,
@@ -2250,6 +2491,7 @@ pub extern "C" fn sqlite3_result_text16be(
 //void sqlite3_result_text16le(sqlite3_context *, const void *, int, void (*)(void *));
 
 ///|
+#borrow(context, z)
 pub extern "C" fn sqlite3_result_text16le(
   context : Sqlite3_context,
   z : AnyType,
@@ -2260,6 +2502,7 @@ pub extern "C" fn sqlite3_result_text16le(
 //void sqlite3_result_text64(sqlite3_context *, const char *, sqlite3_uint64, void (*)(void *), unsigned char encoding);
 
 ///|
+#borrow(context, z)
 pub extern "C" fn sqlite3_result_text64(
   context : Sqlite3_context,
   z : CStr,
@@ -2271,6 +2514,7 @@ pub extern "C" fn sqlite3_result_text64(
 //void sqlite3_result_value(sqlite3_context *, sqlite3_value *);
 
 ///|
+#borrow(context, value)
 pub extern "C" fn sqlite3_result_value(
   context : Sqlite3_context,
   value : Sqlite3_value
@@ -2279,6 +2523,7 @@ pub extern "C" fn sqlite3_result_value(
 //void sqlite3_result_zeroblob(sqlite3_context *, int n);
 
 ///|
+#borrow(context)
 pub extern "C" fn sqlite3_result_zeroblob(
   context : Sqlite3_context,
   n : Int
@@ -2286,6 +2531,7 @@ pub extern "C" fn sqlite3_result_zeroblob(
 //void sqlite3_set_auxdata(sqlite3_context *, int N, void *, void (*)(void *));
 
 ///|
+#borrow(context, data)
 pub extern "C" fn sqlite3_set_auxdata(
   context : Sqlite3_context,
   n : Int,
@@ -2296,6 +2542,7 @@ pub extern "C" fn sqlite3_set_auxdata(
 //void sqlite3_set_last_insert_rowid(sqlite3 *, sqlite3_int64);
 
 ///|
+#borrow(db)
 pub extern "C" fn sqlite3_set_last_insert_rowid(
   db : Sqlite3,
   rowid : Int64
@@ -2304,6 +2551,7 @@ pub extern "C" fn sqlite3_set_last_insert_rowid(
 //void sqlite3_snapshot_free(sqlite3_snapshot *);
 
 ///|
+#borrow(snapshot)
 pub extern "C" fn sqlite3_snapshot_free(snapshot : Sqlite3_snapshot) -> Unit = "sqlite3_snapshot_free"
 
 //void sqlite3_soft_heap_limit(int N);
@@ -2314,11 +2562,13 @@ pub extern "C" fn sqlite3_soft_heap_limit(n : Int) -> Unit = "sqlite3_soft_heap_
 //void sqlite3_stmt_scanstatus_reset(sqlite3_stmt *);
 
 ///|
+#borrow(pStmt)
 pub extern "C" fn sqlite3_stmt_scanstatus_reset(pStmt : Sqlite3_stmt) -> Unit = "sqlite3_stmt_scanstatus_reset"
 
 //void sqlite3_str_append(sqlite3_str *, const char * zIn, int N);
 
 ///|
+#borrow(pStr, zIn)
 pub extern "C" fn sqlite3_str_append(
   pStr : Sqlite3_str,
   zIn : CStr,
@@ -2328,11 +2578,13 @@ pub extern "C" fn sqlite3_str_append(
 //void sqlite3_str_appendall(sqlite3_str *, const char * zIn);
 
 ///|
+#borrow(pStr, zIn)
 pub extern "C" fn sqlite3_str_appendall(pStr : Sqlite3_str, zIn : CStr) -> Unit = "sqlite3_str_appendall"
 
 //void sqlite3_str_appendchar(sqlite3_str *, int N, char C);
 
 ///|
+#borrow(pStr)
 pub extern "C" fn sqlite3_str_appendchar(
   pStr : Sqlite3_str,
   n : Int,
@@ -2342,6 +2594,7 @@ pub extern "C" fn sqlite3_str_appendchar(
 //void sqlite3_str_appendf(sqlite3_str *, const char * zFormat);
 
 ///|
+#borrow(pStr, zFormat)
 pub extern "C" fn sqlite3_str_appendf(
   pStr : Sqlite3_str,
   zFormat : CStr
@@ -2350,11 +2603,13 @@ pub extern "C" fn sqlite3_str_appendf(
 //void sqlite3_str_reset(sqlite3_str *);
 
 ///|
+#borrow(pStr)
 pub extern "C" fn sqlite3_str_reset(pStr : Sqlite3_str) -> Unit = "sqlite3_str_reset"
 
 //void sqlite3_str_vappendf(sqlite3_str *, const char * zFormat, int);
 
 ///|
+#borrow(pStr, zFormat)
 pub extern "C" fn sqlite3_str_vappendf(
   pStr : Sqlite3_str,
   zFormat : CStr,
@@ -2369,4 +2624,5 @@ pub extern "C" fn sqlite3_thread_cleanup() -> Unit = "sqlite3_thread_cleanup"
 //void sqlite3_value_free(sqlite3_value *);
 
 ///|
+#borrow(value)
 pub extern "C" fn sqlite3_value_free(value : Sqlite3_value) -> Unit = "sqlite3_value_free"
