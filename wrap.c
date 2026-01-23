@@ -111,3 +111,103 @@ moonbit_string_t c_str_to_moonbit_str_with_length(void *ptr, unsigned len) {
   // free(ptr);
   return ms;
 }
+
+moonbit_string_t cstr_to_moonbit_str_with_length(void *ptr, unsigned len) {
+  return c_str_to_moonbit_str_with_length(ptr, len);
+}
+
+// Weak stubs for optional SQLite APIs missing from some system builds.
+__attribute__((weak)) int sqlite3_enable_load_extension(sqlite3 *db, int onoff) {
+  (void)db;
+  (void)onoff;
+  return SQLITE_ERROR;
+}
+
+__attribute__((weak)) int sqlite3_load_extension(
+  sqlite3 *db,
+  const char *zFile,
+  const char *zProc,
+  char **pzErrMsg
+) {
+  (void)db;
+  (void)zFile;
+  (void)zProc;
+  if (pzErrMsg != NULL) {
+    *pzErrMsg = NULL;
+  }
+  return SQLITE_ERROR;
+}
+
+__attribute__((weak)) int sqlite3_unlock_notify(
+  sqlite3 *db,
+  void (*xNotify)(void **, int),
+  void *pNotifyArg
+) {
+  (void)db;
+  (void)xNotify;
+  (void)pNotifyArg;
+  return SQLITE_ERROR;
+}
+
+__attribute__((weak)) int sqlite3_setlk_timeout(sqlite3 *db, int ms, int flags) {
+  (void)db;
+  (void)ms;
+  (void)flags;
+  return SQLITE_ERROR;
+}
+
+__attribute__((weak)) int sqlite3_set_clientdata(
+  sqlite3 *db,
+  const char *zKey,
+  void *data,
+  void (*xDelete)(void*)
+) {
+  (void)db;
+  (void)zKey;
+  (void)data;
+  (void)xDelete;
+  return SQLITE_ERROR;
+}
+
+__attribute__((weak)) void *sqlite3_get_clientdata(sqlite3 *db, const char *zKey) {
+  (void)db;
+  (void)zKey;
+  return NULL;
+}
+
+__attribute__((weak)) int sqlite3_mutex_held(sqlite3_mutex *p) {
+  (void)p;
+  return 0;
+}
+
+__attribute__((weak)) int sqlite3_mutex_notheld(sqlite3_mutex *p) {
+  (void)p;
+  return 0;
+}
+
+__attribute__((weak)) int sqlite3_win32_set_directory(
+  unsigned long type,
+  void *zValue
+) {
+  (void)type;
+  (void)zValue;
+  return SQLITE_ERROR;
+}
+
+__attribute__((weak)) int sqlite3_win32_set_directory8(
+  unsigned long type,
+  const char *zValue
+) {
+  (void)type;
+  (void)zValue;
+  return SQLITE_ERROR;
+}
+
+__attribute__((weak)) int sqlite3_win32_set_directory16(
+  unsigned long type,
+  const void *zValue
+) {
+  (void)type;
+  (void)zValue;
+  return SQLITE_ERROR;
+}

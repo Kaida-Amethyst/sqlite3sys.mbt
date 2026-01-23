@@ -1196,7 +1196,7 @@ extern "C" fn sqlite3_error_offset(db : Sqlite3) -> Int = "sqlite3_error_offset"
 extern "C" fn sqlite3_exec(
   db : Sqlite3,
   sql : CStr,
-  callback : FuncRef[(AnyType, Int, Ref[CStr], Ref[CStr]) -> Int],
+  callback : FuncRef[(AnyType, Int, FixedArray[CStr], FixedArray[CStr]) -> Int],
   data : AnyType,
   errmsg : AnyType
 ) -> Int = "sqlite3_exec"
@@ -1247,14 +1247,13 @@ extern "C" fn sqlite3_get_autocommit(db : Sqlite3) -> Int = "sqlite3_get_autocom
 //int sqlite3_get_table(sqlite3 * db, const char * zSql, char *** pazResult, int * pnRow, int * pnColumn, char ** pzErrmsg);
 
 ///|
-#deprecated("not sure the pazResult's pub type")
 #borrow(db, zSql, pazResult, pnRow, pnColumn, pzErrmsg)
 extern "C" fn sqlite3_get_table(
   db : Sqlite3,
   zSql : CStr,
-  pazResult : AnyType,
-  pnRow : AnyType,
-  pnColumn : AnyType,
+  pazResult : Ref[Ref[CStr]],
+  pnRow : Ref[Int],
+  pnColumn : Ref[Int],
   pzErrmsg : Ref[CStr]
 ) -> Int = "sqlite3_get_table"
 
