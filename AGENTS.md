@@ -34,7 +34,7 @@ moonbit的函数`(A, B, C) -> D`实际上是一个闭包，转换成C是一个�
 
 # 如何查看编译出来的c代码
 
-运行`moon test --target native`后，可以在`target`目录下找到`.c`文件。
+运行`moon test`后，可以在`target`目录下找到`.c`文件。
 
 # 当前版本AI的权限
 
@@ -71,11 +71,11 @@ moonbit的函数`(A, B, C) -> D`实际上是一个闭包，转换成C是一个�
 
 1. 检查每一个api接口是否有良好的对应。也就是类型对应是否正确。有模糊的地方，需要写报告。
 
-2. 在test下编写测试，看一些函数能否正常运转。需要注意，不要测试哪些与平台或者版本强相关的接口，例如test块中不要测`libversion`这个函数。
+2. 在test_capi.mbt下编写测试，看binding的函数能否正常运转。
 
-3. 编写测试的时候，注意使用一些没有使用过的函数接口，使用`moon check --target native`会输出警告，其中一些就会提示哪些函数没有使用过。比较简便的方式是`moon check --target native --output-json > diag.json` 得到一个diag.json的诊断列表，接着使用`grep -rn "Unused function\'sqlite3" diag.json` 来快速得到所有没有使用的sqlite3接口。根据这些提示来新创建test文件来测试。
+3. 编写测试的时候，注意使用一些没有使用过的函数接口，使用`moon check`会输出警告，其中一些就会提示哪些函数没有使用过。
 
-4. 所有测试文件都需要以`test_`开头，`.mbt`结尾，不可以通过删除capi.mbt下的接口来消去warning！
+4. 不可以通过删除capi.mbt下的接口来消去warning！
 
 5. 一旦发现某个函数的使用会导致异常行为，例如core dump，程序无法正常退出，或者得到了预期不符的结果，需要记录在problem_record.md下。
 
@@ -212,7 +212,7 @@ fn main {
 
 # 任务提交要求
 
-每一次提交任务，必须`moon test --target native`命令让所有测试通过。
+每一次提交任务，必须`moon test`命令让所有测试通过。
 
 `.mbt`代码文件必须使用英文，不可以使用中文，这是因为在部分平台下，代码文件出现中文可能会出现编译错误，如果发现.mbt出现中文，需要修改成英文。
 
