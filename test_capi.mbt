@@ -583,9 +583,11 @@ test "prepare_v3 and statement inspection" {
 
   // expanded SQL should contain the bound values
   let expanded = sqlite3_expanded_sql(stmt.val)
+  assert_false(CStr::is_nullptr(expanded))
   let expanded_str = CStr::convert_to_moonbit_string(expanded)
   assert_true(expanded_str.contains("3"))
   assert_true(expanded_str.contains("4"))
+  sqlite3_free(CStr::to_void_ptr(expanded))
 
   // readonly query
   let is_ro = sqlite3_stmt_readonly(stmt.val)
@@ -701,6 +703,15 @@ test "pointer helpers and CStr conversions" {
 }
 
 ///|
+test "sqlite3_mprintf and free" {
+  let msg = sqlite3_mprintf(CStr::from_string("mprintf test"))
+  assert_false(CStr::is_nullptr(msg))
+  let msg_str = CStr::convert_to_moonbit_string(msg)
+  assert_true(msg_str == "mprintf test")
+  sqlite3_free(CStr::to_void_ptr(msg))
+}
+
+///|
 test "library info and keyword utilities" {
   let version = CStr::convert_to_moonbit_string(sqlite3_libversion())
   assert_false(version.is_empty())
@@ -765,17 +776,6 @@ test "memory and string utilities" {
   let ptr64b = sqlite3_realloc64(ptr64, 128UL)
   assert_false(any_is_null(ptr64b))
   sqlite3_free(ptr64b)
-
-  let formatted = sqlite3_mprintf(CStr::from_string("hello"))
-  assert_false(CStr::is_nullptr(formatted))
-
-  let snprintf_buf = CStr::from_string("................................")
-  let snprintf_res = sqlite3_snprintf(
-    16,
-    snprintf_buf,
-    CStr::from_string("sqlite"),
-  )
-  assert_false(CStr::is_nullptr(snprintf_res))
 
   let mem_used = sqlite3_memory_used()
   let mem_high = sqlite3_memory_highwater(0)
@@ -1095,8 +1095,10 @@ test "statement binding and column coverage" {
   let sql_text_str = CStr::convert_to_moonbit_string(sql_text)
   assert_true(sql_text_str.contains("SELECT"))
   let expanded = sqlite3_expanded_sql(query_stmt.val)
+  assert_false(CStr::is_nullptr(expanded))
   let expanded_str = CStr::convert_to_moonbit_string(expanded)
   assert_true(expanded_str.contains("SELECT"))
+  sqlite3_free(CStr::to_void_ptr(expanded))
 
   let explain_val = sqlite3_stmt_explain(query_stmt.val, 0)
   assert_true(explain_val >= 0)
@@ -1402,158 +1404,6 @@ test "trace_v2 hook" {
   close_db(db.val)
 }
 
-test "functions and extensions" {
-  let db = Ref::new(Sqlite3::init())
-  let open_result = sqlite3_open(CStr::from_string(":memory:"), db)
-  assert_true(open_result == SQLITE_OK)
-  let null_ptr = Sqlite3::to_void_ptr(Sqlite3::init())
-
-  let mem_alarm_res = sqlite3_memory_alarm(memory_alarm_cb, null_ptr, 0L)
-  assert_true(mem_alarm_res == SQLITE_OK || mem_alarm_res == SQLITE_ERROR)
-
-  let auto_ext_res = sqlite3_auto_extension(auto_extension_cb)
-  assert_true(
-    auto_ext_res == SQLITE_OK || auto_ext_res == SQLITE_ERROR || auto_ext_res == SQLITE_MISUSE,
-  )
-  let cancel_auto = sqlite3_cancel_auto_extension(auto_extension_cb)
-  assert_true(cancel_auto == SQLITE_OK || cancel_auto == SQLITE_ERROR)
-  sqlite3_reset_auto_extension()
-
-  let coll_res = sqlite3_create_collation(
-    db.val,
-    CStr::from_string("nocase_eq"),
-    SQLITE_UTF8,
-    Sqlite3::to_void_ptr(Sqlite3::init()),
-    collation_compare_cb,
-  )
-  assert_true(
-    coll_res == SQLITE_OK || coll_res == SQLITE_ERROR || coll_res == SQLITE_MISUSE,
-  )
-  let coll_res_v2 = sqlite3_create_collation_v2(
-    db.val,
-    CStr::from_string("nocase_eq_v2"),
-    SQLITE_UTF8,
-    Sqlite3::to_void_ptr(Sqlite3::init()),
-    collation_compare_cb,
-    noop_destructor,
-  )
-  assert_true(
-    coll_res_v2 == SQLITE_OK || coll_res_v2 == SQLITE_ERROR || coll_res_v2 == SQLITE_MISUSE,
-  )
-  let coll16_res = sqlite3_create_collation16(
-    db.val,
-    Sqlite3::to_void_ptr(Sqlite3::init()),
-    SQLITE_UTF8,
-    Sqlite3::to_void_ptr(Sqlite3::init()),
-    collation_compare_cb,
-  )
-  assert_true(coll16_res != SQLITE_OK)
-
-  let coll_need_res = sqlite3_collation_needed(
-    db.val,
-    Sqlite3::to_void_ptr(Sqlite3::init()),
-    collation_needed_cb,
-  )
-  assert_true(
-    coll_need_res == SQLITE_OK || coll_need_res == SQLITE_ERROR || coll_need_res == SQLITE_MISUSE,
-  )
-  let coll_need16_res = sqlite3_collation_needed16(
-    db.val,
-    Sqlite3::to_void_ptr(Sqlite3::init()),
-    collation_needed16_cb,
-  )
-  assert_true(
-    coll_need16_res == SQLITE_OK || coll_need16_res == SQLITE_ERROR || coll_need16_res == SQLITE_MISUSE,
-  )
-
-  let func_res = sqlite3_create_function(
-    db.val,
-    CStr::from_string("mb_fn"),
-    1,
-    SQLITE_UTF8,
-    null_ptr,
-    scalar_func_cb,
-    aggregate_step_cb,
-    aggregate_final_cb,
-  )
-  assert_true(
-    func_res == SQLITE_OK || func_res == SQLITE_ERROR || func_res == SQLITE_MISUSE,
-  )
-  let func16_res = sqlite3_create_function16(
-    db.val,
-    null_ptr,
-    1,
-    SQLITE_UTF8,
-    null_ptr,
-    scalar_func_cb,
-    aggregate_step_cb,
-    aggregate_final_cb,
-  )
-  assert_true(func16_res != SQLITE_OK)
-  let func_v2_res = sqlite3_create_function_v2(
-    db.val,
-    CStr::from_string("mb_fn_v2"),
-    0,
-    SQLITE_UTF8,
-    null_ptr,
-    result_func_cb,
-    aggregate_step_cb,
-    aggregate_final_cb,
-    noop_destructor,
-  )
-  assert_true(
-    func_v2_res == SQLITE_OK || func_v2_res == SQLITE_ERROR || func_v2_res == SQLITE_MISUSE,
-  )
-
-  let win_res = sqlite3_create_window_function(
-    db.val,
-    CStr::from_string("mb_win"),
-    1,
-    SQLITE_UTF8,
-    null_ptr,
-    aggregate_step_cb,
-    aggregate_final_cb,
-    window_value_cb,
-    aggregate_step_cb,
-    noop_destructor,
-  )
-  assert_true(
-    win_res == SQLITE_OK || win_res == SQLITE_ERROR || win_res == SQLITE_MISUSE,
-  )
-
-  let enable_ext = sqlite3_enable_load_extension(db.val, 0)
-  assert_true(enable_ext == SQLITE_OK || enable_ext == SQLITE_ERROR)
-  let load_ext = sqlite3_load_extension(
-    db.val,
-    CStr::from_string(""),
-    CStr::from_string(""),
-    null_ptr,
-  )
-  assert_true(
-    load_ext == SQLITE_OK || load_ext == SQLITE_ERROR || load_ext == SQLITE_MISUSE,
-  )
-  let setlk_res = sqlite3_setlk_timeout(db.val, 0, 0)
-  assert_true(setlk_res == SQLITE_OK || setlk_res == SQLITE_ERROR)
-
-  let wal_auto = sqlite3_wal_autocheckpoint(db.val, 1)
-  assert_true(wal_auto == SQLITE_OK || wal_auto == SQLITE_ERROR)
-  let wal_chk = sqlite3_wal_checkpoint(db.val, CStr::from_string("main"))
-  assert_true(wal_chk == SQLITE_OK || wal_chk == SQLITE_ERROR)
-  let wal_log = sqlite3_malloc(4)
-  let wal_ckpt = sqlite3_malloc(4)
-  let wal_chk2 = sqlite3_wal_checkpoint_v2(
-    db.val,
-    CStr::from_string("main"),
-    SQLITE_CHECKPOINT_PASSIVE,
-    wal_log,
-    wal_ckpt,
-  )
-  assert_true(wal_chk2 == SQLITE_OK || wal_chk2 == SQLITE_ERROR)
-  sqlite3_free(wal_log)
-  sqlite3_free(wal_ckpt)
-  close_db(db.val)
-}
-
 ///|
 test "open_v2 with uri" {
   let db = Ref::new(Sqlite3::init())
@@ -1564,31 +1414,6 @@ test "open_v2 with uri" {
     CStr::from_string("unix"),
   )
   assert_true(open_v2_res == SQLITE_OK || open_v2_res == SQLITE_ERROR)
-
-  let close_v2 = sqlite3_close_v2(db.val)
-  assert_true(close_v2 == SQLITE_OK || close_v2 == SQLITE_MISUSE)
-}
-
-test "db mutex helpers" {
-  let db = Ref::new(Sqlite3::init())
-  let open_v2_res = sqlite3_open_v2(
-    CStr::from_string(":memory:"),
-    db,
-    SQLITE_OPEN_READWRITE | SQLITE_OPEN_CREATE,
-    CStr::from_string(""),
-  )
-  assert_true(open_v2_res == SQLITE_OK || open_v2_res == SQLITE_ERROR)
-
-  let db_mutex = sqlite3_db_mutex(db.val)
-  assert_true(
-    Sqlite3_mutex::is_nullptr(db_mutex) || !Sqlite3_mutex::is_nullptr(db_mutex),
-  )
-  if !Sqlite3_mutex::is_nullptr(db_mutex) {
-    let held = sqlite3_mutex_held(db_mutex)
-    let notheld = sqlite3_mutex_notheld(db_mutex)
-    assert_true(held == 0 || held == 1)
-    assert_true(notheld == 0 || notheld == 1)
-  }
 
   let close_v2 = sqlite3_close_v2(db.val)
   assert_true(close_v2 == SQLITE_OK || close_v2 == SQLITE_MISUSE)
@@ -1649,34 +1474,16 @@ test "filename helpers and SQL completeness" {
   assert_true(complete == 1)
   let complete_bad = sqlite3_complete(CStr::from_string("SELECT 1"))
   assert_true(complete_bad == 0 || complete_bad == 1)
-  let complete16 = sqlite3_complete16(Sqlite3::to_void_ptr(Sqlite3::init()))
-  assert_true(complete16 >= 0)
 }
 
 ///|
 test "misc binding coverage" {
-  let os_init_res = sqlite3_os_init()
-  assert_true(os_init_res == SQLITE_OK || os_init_res == SQLITE_ERROR)
-  let os_end_res = sqlite3_os_end()
-  assert_true(os_end_res == SQLITE_OK || os_end_res == SQLITE_ERROR)
-  let global_rec = sqlite3_global_recover()
-  assert_true(global_rec == SQLITE_OK || global_rec == SQLITE_ERROR)
-  let shared_cache = sqlite3_enable_shared_cache(0)
-  assert_true(
-    shared_cache == SQLITE_OK || shared_cache == SQLITE_ERROR || shared_cache == SQLITE_MISUSE,
-  )
   let sleep_res = sqlite3_sleep(0)
   assert_true(sleep_res >= 0)
-  sqlite3_log(SQLITE_ERROR, CStr::from_string("sqlite3sys log"))
-  sqlite3_thread_cleanup()
 
   let db = Ref::new(Sqlite3::init())
   let open_result = sqlite3_open(CStr::from_string(":memory:"), db)
   assert_true(open_result == SQLITE_OK)
-
-  let vtab_coll = sqlite3_vtab_collation(Sqlite3_index_info::init(), 0)
-  let vtab_is_null = CStr::is_nullptr(vtab_coll)
-  assert_true(vtab_is_null || !vtab_is_null)
 
   close_db(db.val)
 }

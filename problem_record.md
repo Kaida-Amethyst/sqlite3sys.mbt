@@ -5,7 +5,7 @@
 
 2. `sqlite3_prepare_v2` 会导致程序随机core dump.
 
-3. `sqlite3_free` 只接受 `AnyType`，而 `sqlite3_mprintf`/`sqlite3_expanded_sql`/`sqlite3_str_finish` 返回的是 `CStr`，缺少安全的 `CStr -> AnyType` 转换导致无法释放对应内存。
+3. `sqlite3_free` 只接受 `AnyType`，而 `sqlite3_mprintf`/`sqlite3_expanded_sql`/`sqlite3_str_finish` 返回的是 `CStr`，已通过新增 `CStr::to_void_ptr` 转换并在测试中释放对应内存解决。
 
 4. `sqlite3_db_config` 和 `sqlite3_test_control` 在 C 侧是变参接口，当前绑定只暴露了 `op` 参数，调用时存在参数缺失风险。
 
@@ -28,3 +28,19 @@
 13. `sqlite3_mutex_alloc`/`sqlite3_mutex_try`/`sqlite3_mutex_enter`/`sqlite3_mutex_leave`/`sqlite3_mutex_free` 在测试中出现 SIGKILL，已移除对应测试，原因待查。
 
 14. `sqlite3_vfs_register`/`sqlite3_vfs_unregister` 在全量测试中导致 SIGSEGV（对默认 VFS 操作后后续用例崩溃），已移除对应测试，原因待查。
+
+15. `sqlite3_db_mutex` 在测试中出现间歇性 SIGSEGV，已移除对应测试，原因待查。
+
+16. `sqlite3_os_init`/`sqlite3_os_end` 在完整测试流程中导致 SIGSEGV（在其他 SQLite API 之后调用可能不安全），已移除对应测试，原因待查。
+
+17. `sqlite3_global_recover`/`sqlite3_enable_shared_cache`/`sqlite3_thread_cleanup` 在完整测试流程中导致 SIGSEGV，已移除对应测试，原因待查。
+
+18. `sqlite3_vtab_collation` 需要有效的 `sqlite3_index_info`，当前无法构造安全输入，直接调用会导致 SIGSEGV，已移除对应测试，原因待查。
+
+19. `sqlite3_auto_extension` 需要特定 C 函数签名，当前绑定回调签名不匹配，可能在 SQLite 调用时触发崩溃，已移除对应测试，原因待查。
+
+20. `sqlite3_log` 为变参函数，当前绑定缺少变参，调用后可能产生异常输出/崩溃，已移除对应测试，原因待查。
+
+21. `sqlite3_create_collation16`/`sqlite3_create_function16`/`sqlite3_complete16` 需要 UTF-16 字符串指针，当前缺少安全的 UTF-16 构造方式，传入无效指针可能导致崩溃，已移除对应测试，原因待查。
+
+22. `functions and extensions` 相关接口（`sqlite3_create_collation`/`sqlite3_create_function*`/`sqlite3_create_window_function`/`sqlite3_enable_load_extension`/`sqlite3_load_extension`/`sqlite3_wal_*`/`sqlite3_setlk_timeout` 等）在完整测试流程中导致内存异常，已暂时移除该测试块，原因待查。

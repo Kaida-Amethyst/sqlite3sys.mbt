@@ -107,6 +107,9 @@ extern "C" fn Sqlite3_module::is_nullptr(ptr : Sqlite3_module) -> Bool = "is_nul
 ///|
 #owned(ptr)
 extern "C" fn CStr::is_nullptr(ptr : CStr) -> Bool = "is_nullptr"
+///|
+#borrow(ptr)
+extern "C" fn CStr::to_void_ptr(ptr : CStr) -> AnyType = "cstr_ptr_to_void_ptr"
 
 ///|
 extern "C" fn Sqlite3::init() -> Sqlite3 = "sqlite3_ptr_init"

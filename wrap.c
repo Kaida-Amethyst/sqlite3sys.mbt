@@ -68,6 +68,7 @@ void* sqlite3_filename_ptr_to_void_ptr(sqlite3_filename *ptr) { return (void *)p
 void* sqlite3_snapshot_ptr_to_void_ptr(sqlite3_snapshot *ptr) { return (void *)ptr; }
 void* sqlite3_index_info_ptr_to_void_ptr(sqlite3_index_info *ptr) { return (void *)ptr; }
 void* sqlite3_module_ptr_to_void_ptr(sqlite3_module *ptr) { return (void *)ptr; }
+void* cstr_ptr_to_void_ptr(const char *ptr) { return (void *)ptr; }
 
 void *moonbit_str_to_c_str(moonbit_string_t ms) {
   int32_t len = Moonbit_array_length(ms);
