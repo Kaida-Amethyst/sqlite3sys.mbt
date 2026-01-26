@@ -999,36 +999,52 @@ pub const SQLITE_WIN32_TEMP_DIRECTORY_TYPE : Int = 2
 // Errors
 
 // Types and methods
+#external
 pub type AnyType
 
+#external
 pub type CStr
 
+#external
 pub type Sqlite3
 
+#external
 pub type Sqlite3_backup
 
+#external
 pub type Sqlite3_blob
 
+#external
 pub type Sqlite3_context
 
+#external
 pub type Sqlite3_file
 
+#external
 pub type Sqlite3_filename
 
+#external
 pub type Sqlite3_index_info
 
+#external
 pub type Sqlite3_module
 
+#external
 pub type Sqlite3_mutex
 
+#external
 pub type Sqlite3_snapshot
 
+#external
 pub type Sqlite3_stmt
 
+#external
 pub type Sqlite3_str
 
+#external
 pub type Sqlite3_value
 
+#external
 pub type Sqlite3_vfs
 
 // Type aliases

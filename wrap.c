@@ -38,6 +38,7 @@ sqlite3_filename sqlite3_filename_ptr_init() { return NULL; }
 sqlite3_snapshot* sqlite3_snapshot_ptr_init() { return NULL; }
 sqlite3_index_info* sqlite3_index_info_ptr_init() { return NULL; }
 sqlite3_module* sqlite3_module_ptr_init() { return NULL; }
+const char* cstr_ptr_init() { return NULL; }
 
 sqlite3* sqlite3_ptr_from_void_ptr(void *ptr) { return (sqlite3 *)ptr; }
 sqlite3_stmt* sqlite3_stmt_ptr_from_void_ptr(void *ptr) { return (sqlite3_stmt *)ptr; }
@@ -69,6 +70,43 @@ void* sqlite3_snapshot_ptr_to_void_ptr(sqlite3_snapshot *ptr) { return (void *)p
 void* sqlite3_index_info_ptr_to_void_ptr(sqlite3_index_info *ptr) { return (void *)ptr; }
 void* sqlite3_module_ptr_to_void_ptr(sqlite3_module *ptr) { return (void *)ptr; }
 void* cstr_ptr_to_void_ptr(const char *ptr) { return (void *)ptr; }
+
+static sqlite3_module sqlite3sys_test_module = {1};
+
+sqlite3_module* sqlite3sys_test_module_ptr() {
+  return &sqlite3sys_test_module;
+}
+
+sqlite3_index_info* sqlite3sys_make_index_info(void) {
+  sqlite3_index_info *info = (sqlite3_index_info *)sqlite3_malloc(sizeof(sqlite3_index_info));
+  if (info == NULL) {
+    return NULL;
+  }
+  memset(info, 0, sizeof(*info));
+  info->nConstraint = 1;
+  info->aConstraint = (struct sqlite3_index_constraint *)sqlite3_malloc(sizeof(struct sqlite3_index_constraint));
+  info->aConstraintUsage = (struct sqlite3_index_constraint_usage *)sqlite3_malloc(sizeof(struct sqlite3_index_constraint_usage));
+  if (info->aConstraint != NULL) {
+    info->aConstraint[0].iColumn = 0;
+    info->aConstraint[0].op = SQLITE_INDEX_CONSTRAINT_EQ;
+    info->aConstraint[0].usable = 1;
+    info->aConstraint[0].iTermOffset = 0;
+  }
+  if (info->aConstraintUsage != NULL) {
+    info->aConstraintUsage[0].argvIndex = 1;
+    info->aConstraintUsage[0].omit = 0;
+  }
+  return info;
+}
+
+void sqlite3sys_free_index_info(sqlite3_index_info *info) {
+  if (info == NULL) {
+    return;
+  }
+  sqlite3_free(info->aConstraint);
+  sqlite3_free(info->aConstraintUsage);
+  sqlite3_free(info);
+}
 
 void *moonbit_str_to_c_str(moonbit_string_t ms) {
   int32_t len = Moonbit_array_length(ms);

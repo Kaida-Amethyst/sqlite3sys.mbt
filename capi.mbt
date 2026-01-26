@@ -112,9 +112,7 @@ extern "C" fn Sqlite3_snapshot::is_nullptr(ptr : Sqlite3_snapshot) -> Bool = "is
 
 ///|
 #borrow(ptr)
-extern "C" fn Sqlite3_index_info::is_nullptr(
-  ptr : Sqlite3_index_info
-) -> Bool = "is_nullptr"
+extern "C" fn Sqlite3_index_info::is_nullptr(ptr : Sqlite3_index_info) -> Bool = "is_nullptr"
 
 ///|
 #borrow(ptr)
@@ -123,6 +121,10 @@ extern "C" fn Sqlite3_module::is_nullptr(ptr : Sqlite3_module) -> Bool = "is_nul
 ///|
 #borrow(ptr)
 extern "C" fn CStr::is_nullptr(ptr : CStr) -> Bool = "is_nullptr"
+
+///|
+extern "C" fn CStr::init() -> CStr = "cstr_ptr_init"
+
 ///|
 #borrow(ptr)
 extern "C" fn CStr::to_void_ptr(ptr : CStr) -> AnyType = "cstr_ptr_to_void_ptr"
@@ -154,24 +156,18 @@ extern "C" fn Sqlite3_context::init() -> Sqlite3_context = "sqlite3_context_ptr_
 
 ///|
 #borrow(ptr)
-extern "C" fn Sqlite3_context::from_void_ptr(
-  ptr : AnyType
-) -> Sqlite3_context = "sqlite3_context_ptr_from_void_ptr"
+extern "C" fn Sqlite3_context::from_void_ptr(ptr : AnyType) -> Sqlite3_context = "sqlite3_context_ptr_from_void_ptr"
 
 ///|
 #borrow(ptr)
-extern "C" fn Sqlite3_context::to_void_ptr(
-  ptr : Sqlite3_context
-) -> AnyType = "sqlite3_context_ptr_to_void_ptr"
+extern "C" fn Sqlite3_context::to_void_ptr(ptr : Sqlite3_context) -> AnyType = "sqlite3_context_ptr_to_void_ptr"
 
 ///|
 extern "C" fn Sqlite3_backup::init() -> Sqlite3_backup = "sqlite3_backup_ptr_init"
 
 ///|
 #borrow(ptr)
-extern "C" fn Sqlite3_backup::from_void_ptr(
-  ptr : AnyType
-) -> Sqlite3_backup = "sqlite3_backup_ptr_from_void_ptr"
+extern "C" fn Sqlite3_backup::from_void_ptr(ptr : AnyType) -> Sqlite3_backup = "sqlite3_backup_ptr_from_void_ptr"
 
 ///|
 #borrow(ptr)
@@ -249,14 +245,12 @@ extern "C" fn Sqlite3_filename::init() -> Sqlite3_filename = "sqlite3_filename_p
 ///|
 #borrow(ptr)
 extern "C" fn Sqlite3_filename::from_void_ptr(
-  ptr : AnyType
+  ptr : AnyType,
 ) -> Sqlite3_filename = "sqlite3_filename_ptr_from_void_ptr"
 
 ///|
 #borrow(ptr)
-extern "C" fn Sqlite3_filename::to_void_ptr(
-  ptr : Sqlite3_filename
-) -> AnyType = "sqlite3_filename_ptr_to_void_ptr"
+extern "C" fn Sqlite3_filename::to_void_ptr(ptr : Sqlite3_filename) -> AnyType = "sqlite3_filename_ptr_to_void_ptr"
 
 ///|
 extern "C" fn Sqlite3_snapshot::init() -> Sqlite3_snapshot = "sqlite3_snapshot_ptr_init"
@@ -264,14 +258,12 @@ extern "C" fn Sqlite3_snapshot::init() -> Sqlite3_snapshot = "sqlite3_snapshot_p
 ///|
 #borrow(ptr)
 extern "C" fn Sqlite3_snapshot::from_void_ptr(
-  ptr : AnyType
+  ptr : AnyType,
 ) -> Sqlite3_snapshot = "sqlite3_snapshot_ptr_from_void_ptr"
 
 ///|
 #borrow(ptr)
-extern "C" fn Sqlite3_snapshot::to_void_ptr(
-  ptr : Sqlite3_snapshot
-) -> AnyType = "sqlite3_snapshot_ptr_to_void_ptr"
+extern "C" fn Sqlite3_snapshot::to_void_ptr(ptr : Sqlite3_snapshot) -> AnyType = "sqlite3_snapshot_ptr_to_void_ptr"
 
 ///|
 extern "C" fn Sqlite3_index_info::init() -> Sqlite3_index_info = "sqlite3_index_info_ptr_init"
@@ -279,13 +271,13 @@ extern "C" fn Sqlite3_index_info::init() -> Sqlite3_index_info = "sqlite3_index_
 ///|
 #borrow(ptr)
 extern "C" fn Sqlite3_index_info::from_void_ptr(
-  ptr : AnyType
+  ptr : AnyType,
 ) -> Sqlite3_index_info = "sqlite3_index_info_ptr_from_void_ptr"
 
 ///|
 #borrow(ptr)
 extern "C" fn Sqlite3_index_info::to_void_ptr(
-  ptr : Sqlite3_index_info
+  ptr : Sqlite3_index_info,
 ) -> AnyType = "sqlite3_index_info_ptr_to_void_ptr"
 
 ///|
@@ -297,9 +289,7 @@ extern "C" fn Sqlite3_module::to_void_ptr(ptr : Sqlite3_module) -> AnyType = "sq
 
 ///|
 #borrow(ptr)
-extern "C" fn Sqlite3_module::from_void_ptr(
-  ptr : AnyType
-) -> Sqlite3_module = "sqlite3_module_ptr_from_void_ptr"
+extern "C" fn Sqlite3_module::from_void_ptr(ptr : AnyType) -> Sqlite3_module = "sqlite3_module_ptr_from_void_ptr"
 
 ///|
 #borrow(str)
@@ -313,7 +303,7 @@ extern "C" fn CStr::convert_to_moonbit_string(str : CStr) -> String = "cstr_to_m
 #borrow(str)
 extern "C" fn CStr::convert_to_moonbit_string_with_length(
   str : CStr,
-  len : UInt
+  len : UInt,
 ) -> String = "cstr_to_moonbit_str_with_length"
 
 //char * sqlite3_expanded_sql(sqlite3_stmt * pStmt);
@@ -332,11 +322,7 @@ extern "C" fn sqlite3_mprintf(zFormat : CStr) -> CStr = "sqlite3_mprintf"
 
 ///|
 #borrow(zBuf, zFormat)
-extern "C" fn sqlite3_snprintf(
-  n : Int,
-  zBuf : CStr,
-  zFormat : CStr
-) -> CStr = "sqlite3_snprintf"
+extern "C" fn sqlite3_snprintf(n : Int, zBuf : CStr, zFormat : CStr) -> CStr = "sqlite3_snprintf"
 
 //char * sqlite3_str_finish(sqlite3_str *);
 
@@ -364,16 +350,17 @@ extern "C" fn sqlite3_vsnprintf(
   n : Int,
   zBuf : CStr,
   zFormat : CStr,
-  nFormat : Int
+  nFormat : Int,
 ) -> CStr = "sqlite3_vsnprintf"
 
 //const char * sqlite3_bind_parameter_name(sqlite3_stmt *, int);
 
-///| REVIEW: This function cause unknow problem in Moonbit.
+///|
+/// REVIEW: This function cause unknow problem in Moonbit.
 #borrow(pStmt)
 extern "C" fn sqlite3_bind_parameter_name(
   pStmt : Sqlite3_stmt,
-  i : Int
+  i : Int,
 ) -> CStr = "sqlite3_bind_parameter_name"
 
 //const char * sqlite3_column_database_name(sqlite3_stmt *, int);
@@ -382,17 +369,14 @@ extern "C" fn sqlite3_bind_parameter_name(
 #borrow(pStmt)
 extern "C" fn sqlite3_column_database_name(
   pStmt : Sqlite3_stmt,
-  iCol : Int
+  iCol : Int,
 ) -> CStr = "sqlite3_column_database_name"
 
 //const char * sqlite3_column_decltype(sqlite3_stmt *, int);
 
 ///|
 #borrow(pStmt)
-extern "C" fn sqlite3_column_decltype(
-  pStmt : Sqlite3_stmt,
-  iCol : Int
-) -> CStr = "sqlite3_column_decltype"
+extern "C" fn sqlite3_column_decltype(pStmt : Sqlite3_stmt, iCol : Int) -> CStr = "sqlite3_column_decltype"
 
 //const char * sqlite3_column_name(sqlite3_stmt *, int N);
 
@@ -406,7 +390,7 @@ extern "C" fn sqlite3_column_name(pStmt : Sqlite3_stmt, n : Int) -> CStr = "sqli
 #borrow(pStmt)
 extern "C" fn sqlite3_column_origin_name(
   pStmt : Sqlite3_stmt,
-  iCol : Int
+  iCol : Int,
 ) -> CStr = "sqlite3_column_origin_name"
 
 //const char * sqlite3_column_table_name(sqlite3_stmt *, int);
@@ -415,7 +399,7 @@ extern "C" fn sqlite3_column_origin_name(
 #borrow(pStmt)
 extern "C" fn sqlite3_column_table_name(
   pStmt : Sqlite3_stmt,
-  iCol : Int
+  iCol : Int,
 ) -> CStr = "sqlite3_column_table_name"
 
 //const char * sqlite3_compileoption_get(int N);
@@ -486,7 +470,7 @@ extern "C" fn sqlite3_uri_key(z : Sqlite3_filename, n : Int) -> CStr = "sqlite3_
 #borrow(z, zParam)
 extern "C" fn sqlite3_uri_parameter(
   z : Sqlite3_filename,
-  zParam : CStr
+  zParam : CStr,
 ) -> CStr = "sqlite3_uri_parameter"
 
 //const char * sqlite3_vtab_collation(sqlite3_index_info *, int);
@@ -495,7 +479,7 @@ extern "C" fn sqlite3_uri_parameter(
 #borrow(pIdxInfo)
 extern "C" fn sqlite3_vtab_collation(
   pIdxInfo : Sqlite3_index_info,
-  iCons : Int
+  iCons : Int,
 ) -> CStr = "sqlite3_vtab_collation"
 
 //const unsigned char * sqlite3_column_text(sqlite3_stmt *, int iCol);
@@ -514,10 +498,7 @@ extern "C" fn sqlite3_value_text(value : Sqlite3_value) -> CStr = "sqlite3_value
 
 ///|
 #borrow(pStmt)
-extern "C" fn sqlite3_column_blob(
-  pStmt : Sqlite3_stmt,
-  iCol : Int
-) -> AnyType = "sqlite3_column_blob"
+extern "C" fn sqlite3_column_blob(pStmt : Sqlite3_stmt, iCol : Int) -> AnyType = "sqlite3_column_blob"
 
 //const void * sqlite3_column_database_name16(sqlite3_stmt *, int);
 
@@ -525,7 +506,7 @@ extern "C" fn sqlite3_column_blob(
 #borrow(pStmt)
 extern "C" fn sqlite3_column_database_name16(
   pStmt : Sqlite3_stmt,
-  iCol : Int
+  iCol : Int,
 ) -> AnyType = "sqlite3_column_database_name16"
 
 //const void * sqlite3_column_decltype16(sqlite3_stmt *, int);
@@ -534,17 +515,14 @@ extern "C" fn sqlite3_column_database_name16(
 #borrow(pStmt)
 extern "C" fn sqlite3_column_decltype16(
   pStmt : Sqlite3_stmt,
-  iCol : Int
+  iCol : Int,
 ) -> AnyType = "sqlite3_column_decltype16"
 
 //const void * sqlite3_column_name16(sqlite3_stmt *, int N);
 
 ///|
 #borrow(pStmt)
-extern "C" fn sqlite3_column_name16(
-  pStmt : Sqlite3_stmt,
-  n : Int
-) -> AnyType = "sqlite3_column_name16"
+extern "C" fn sqlite3_column_name16(pStmt : Sqlite3_stmt, n : Int) -> AnyType = "sqlite3_column_name16"
 
 //const void * sqlite3_column_origin_name16(sqlite3_stmt *, int);
 
@@ -552,7 +530,7 @@ extern "C" fn sqlite3_column_name16(
 #borrow(pStmt)
 extern "C" fn sqlite3_column_origin_name16(
   pStmt : Sqlite3_stmt,
-  iCol : Int
+  iCol : Int,
 ) -> AnyType = "sqlite3_column_origin_name16"
 
 //const void * sqlite3_column_table_name16(sqlite3_stmt *, int);
@@ -561,7 +539,7 @@ extern "C" fn sqlite3_column_origin_name16(
 #borrow(pStmt)
 extern "C" fn sqlite3_column_table_name16(
   pStmt : Sqlite3_stmt,
-  iCol : Int
+  iCol : Int,
 ) -> AnyType = "sqlite3_column_table_name16"
 
 //const void * sqlite3_column_text16(sqlite3_stmt *, int iCol);
@@ -570,7 +548,7 @@ extern "C" fn sqlite3_column_table_name16(
 #borrow(pStmt)
 extern "C" fn sqlite3_column_text16(
   pStmt : Sqlite3_stmt,
-  iCol : Int
+  iCol : Int,
 ) -> AnyType = "sqlite3_column_text16"
 
 //const void * sqlite3_errmsg16(sqlite3 *);
@@ -607,10 +585,7 @@ extern "C" fn sqlite3_value_text16le(value : Sqlite3_value) -> AnyType = "sqlite
 
 ///|
 #borrow(pStmt)
-extern "C" fn sqlite3_column_double(
-  pStmt : Sqlite3_stmt,
-  iCol : Int
-) -> Double = "sqlite3_column_double"
+extern "C" fn sqlite3_column_double(pStmt : Sqlite3_stmt, iCol : Int) -> Double = "sqlite3_column_double"
 
 //double sqlite3_value_double(sqlite3_value *);
 
@@ -627,9 +602,7 @@ extern "C" fn sqlite3_aggregate_count(context : Sqlite3_context) -> Int = "sqlit
 //int sqlite3_auto_extension(void (*)() xEntryPoint);
 
 ///|
-extern "C" fn sqlite3_auto_extension(
-  xEntryPoint : FuncRef[() -> Unit]
-) -> Int = "sqlite3_auto_extension"
+extern "C" fn sqlite3_auto_extension(xEntryPoint : FuncRef[() -> Unit]) -> Int = "sqlite3_auto_extension"
 
 //int sqlite3_autovacuum_pages(sqlite3 * db, unsigned int (*)(void *, const char *, unsigned int, unsigned int, unsigned int), void *, void (*)(void *));
 
@@ -639,7 +612,7 @@ extern "C" fn sqlite3_autovacuum_pages(
   db : Sqlite3,
   xCallback : FuncRef[(AnyType, CStr, UInt, UInt, UInt) -> UInt],
   pArg : AnyType,
-  xDestroy : FuncRef[(AnyType) -> Unit]
+  xDestroy : FuncRef[(AnyType) -> Unit],
 ) -> Int = "sqlite3_autovacuum_pages"
 
 //int sqlite3_backup_finish(sqlite3_backup * p);
@@ -675,7 +648,7 @@ extern "C" fn sqlite3_bind_blob(
   i : Int,
   zData : AnyType,
   n : Int,
-  xDel : FuncRef[(AnyType) -> Unit]
+  xDel : FuncRef[(AnyType) -> Unit],
 ) -> Int = "sqlite3_bind_blob"
 
 //int sqlite3_bind_blob64(sqlite3_stmt *, int, const void *, sqlite3_uint64, void (*)(void *));
@@ -687,7 +660,7 @@ extern "C" fn sqlite3_bind_blob64(
   i : Int,
   zData : AnyType,
   n : UInt,
-  xDel : FuncRef[(AnyType) -> Unit]
+  xDel : FuncRef[(AnyType) -> Unit],
 ) -> Int = "sqlite3_bind_blob64"
 
 //int sqlite3_bind_double(sqlite3_stmt *, int, double);
@@ -697,7 +670,7 @@ extern "C" fn sqlite3_bind_blob64(
 extern "C" fn sqlite3_bind_double(
   pStmt : Sqlite3_stmt,
   i : Int,
-  value : Double
+  value : Double,
 ) -> Int = "sqlite3_bind_double"
 
 //int sqlite3_bind_int(sqlite3_stmt *, int, int);
@@ -707,7 +680,7 @@ extern "C" fn sqlite3_bind_double(
 extern "C" fn sqlite3_bind_int(
   pStmt : Sqlite3_stmt,
   i : Int,
-  value : Int
+  value : Int,
 ) -> Int = "sqlite3_bind_int"
 
 //int sqlite3_bind_int64(sqlite3_stmt *, int, sqlite3_int64);
@@ -717,7 +690,7 @@ extern "C" fn sqlite3_bind_int(
 extern "C" fn sqlite3_bind_int64(
   pStmt : Sqlite3_stmt,
   i : Int,
-  value : Int64
+  value : Int64,
 ) -> Int = "sqlite3_bind_int64"
 
 //int sqlite3_bind_null(sqlite3_stmt *, int);
@@ -738,7 +711,7 @@ extern "C" fn sqlite3_bind_parameter_count(pStmt : Sqlite3_stmt) -> Int = "sqlit
 #borrow(pStmt, zName)
 extern "C" fn sqlite3_bind_parameter_index(
   pStmt : Sqlite3_stmt,
-  zName : CStr
+  zName : CStr,
 ) -> Int = "sqlite3_bind_parameter_index"
 
 //int sqlite3_bind_pointer(sqlite3_stmt *, int, void *, const char *, void (*)(void *));
@@ -750,7 +723,7 @@ extern "C" fn sqlite3_bind_pointer(
   i : Int,
   pPtr : AnyType,
   zPType : CStr,
-  xDestructor : FuncRef[(AnyType) -> Unit]
+  xDestructor : FuncRef[(AnyType) -> Unit],
 ) -> Int = "sqlite3_bind_pointer"
 
 //int sqlite3_bind_text(sqlite3_stmt *, int, const char *, int, void (*)(void *));
@@ -762,7 +735,7 @@ extern "C" fn sqlite3_bind_text(
   i : Int,
   z : CStr,
   n : Int,
-  xDel : FuncRef[(AnyType) -> Unit]
+  xDel : FuncRef[(AnyType) -> Unit],
 ) -> Int = "sqlite3_bind_text"
 
 //int sqlite3_bind_text16(sqlite3_stmt *, int, const void *, int, void (*)(void *));
@@ -774,7 +747,7 @@ extern "C" fn sqlite3_bind_text16(
   i : Int,
   z : AnyType,
   n : Int,
-  xDel : FuncRef[(AnyType) -> Unit]
+  xDel : FuncRef[(AnyType) -> Unit],
 ) -> Int = "sqlite3_bind_text16"
 
 //int sqlite3_bind_text64(sqlite3_stmt *, int, const char *, sqlite3_uint64, void (*)(void *), unsigned char encoding);
@@ -787,7 +760,7 @@ extern "C" fn sqlite3_bind_text64(
   z : CStr,
   n : UInt64,
   xDel : FuncRef[(AnyType) -> Unit],
-  encoding : Byte
+  encoding : Byte,
 ) -> Int = "sqlite3_bind_text64"
 
 //int sqlite3_bind_value(sqlite3_stmt *, int, const sqlite3_value *);
@@ -797,7 +770,7 @@ extern "C" fn sqlite3_bind_text64(
 extern "C" fn sqlite3_bind_value(
   pStmt : Sqlite3_stmt,
   i : Int,
-  pValue : Sqlite3_value
+  pValue : Sqlite3_value,
 ) -> Int = "sqlite3_bind_value"
 
 //int sqlite3_bind_zeroblob(sqlite3_stmt *, int, int n);
@@ -807,7 +780,7 @@ extern "C" fn sqlite3_bind_value(
 extern "C" fn sqlite3_bind_zeroblob(
   pStmt : Sqlite3_stmt,
   i : Int,
-  n : Int
+  n : Int,
 ) -> Int = "sqlite3_bind_zeroblob"
 
 //int sqlite3_bind_zeroblob64(sqlite3_stmt *, int, sqlite3_uint64);
@@ -817,7 +790,7 @@ extern "C" fn sqlite3_bind_zeroblob(
 extern "C" fn sqlite3_bind_zeroblob64(
   pStmt : Sqlite3_stmt,
   i : Int,
-  n : UInt64
+  n : UInt64,
 ) -> Int = "sqlite3_bind_zeroblob64"
 
 //int sqlite3_blob_bytes(sqlite3_blob *);
@@ -843,7 +816,7 @@ extern "C" fn sqlite3_blob_open(
   zColumn : CStr,
   iRow : Int64,
   flags : Int,
-  ppBlob : Ref[Sqlite3_blob]
+  ppBlob : Ref[Sqlite3_blob],
 ) -> Int = "sqlite3_blob_open"
 
 //int sqlite3_blob_read(sqlite3_blob *, void * Z, int N, int iOffset);
@@ -854,17 +827,14 @@ extern "C" fn sqlite3_blob_read(
   pBlob : Sqlite3_blob,
   z : AnyType,
   n : Int,
-  iOffset : Int
+  iOffset : Int,
 ) -> Int = "sqlite3_blob_read"
 
 //int sqlite3_blob_reopen(sqlite3_blob *, sqlite3_int64);
 
 ///|
 #borrow(pBlob)
-extern "C" fn sqlite3_blob_reopen(
-  pBlob : Sqlite3_blob,
-  rowid : Int64
-) -> Int = "sqlite3_blob_reopen"
+extern "C" fn sqlite3_blob_reopen(pBlob : Sqlite3_blob, rowid : Int64) -> Int = "sqlite3_blob_reopen"
 
 //int sqlite3_blob_write(sqlite3_blob *, const void * z, int n, int iOffset);
 
@@ -874,7 +844,7 @@ extern "C" fn sqlite3_blob_write(
   pBlob : Sqlite3_blob,
   z : AnyType,
   n : Int,
-  iOffset : Int
+  iOffset : Int,
 ) -> Int = "sqlite3_blob_write"
 //int sqlite3_busy_handler(sqlite3 *, int (*)(void *, int), void *);
 
@@ -883,7 +853,7 @@ extern "C" fn sqlite3_blob_write(
 extern "C" fn sqlite3_busy_handler(
   db : Sqlite3,
   xBusy : FuncRef[(AnyType, Int) -> Int],
-  pArg : AnyType
+  pArg : AnyType,
 ) -> Int = "sqlite3_busy_handler"
 
 //int sqlite3_busy_timeout(sqlite3 *, int ms);
@@ -896,7 +866,7 @@ extern "C" fn sqlite3_busy_timeout(db : Sqlite3, ms : Int) -> Int = "sqlite3_bus
 
 ///|
 extern "C" fn sqlite3_cancel_auto_extension(
-  xEntryPoint : FuncRef[() -> Unit]
+  xEntryPoint : FuncRef[() -> Unit],
 ) -> Int = "sqlite3_cancel_auto_extension"
 //int sqlite3_changes(sqlite3 *);
 
@@ -928,7 +898,7 @@ extern "C" fn sqlite3_close_v2(db : Sqlite3) -> Int = "sqlite3_close_v2"
 extern "C" fn sqlite3_collation_needed(
   db : Sqlite3,
   pCollNeededArg : AnyType,
-  xCollNeeded : FuncRef[(AnyType, Sqlite3, Int, CStr) -> Unit]
+  xCollNeeded : FuncRef[(AnyType, Sqlite3, Int, CStr) -> Unit],
 ) -> Int = "sqlite3_collation_needed"
 
 //int sqlite3_collation_needed16(sqlite3 *, void *, void (*)(void *, sqlite3 *, int, const void *));
@@ -938,7 +908,7 @@ extern "C" fn sqlite3_collation_needed(
 extern "C" fn sqlite3_collation_needed16(
   db : Sqlite3,
   pCollNeededArg : AnyType,
-  xCollNeeded16 : FuncRef[(AnyType, Sqlite3, Int, AnyType) -> Unit]
+  xCollNeeded16 : FuncRef[(AnyType, Sqlite3, Int, AnyType) -> Unit],
 ) -> Int = "sqlite3_collation_needed16"
 //int sqlite3_column_bytes(sqlite3_stmt *, int iCol);
 
@@ -950,10 +920,7 @@ extern "C" fn sqlite3_column_bytes(pStmt : Sqlite3_stmt, iCol : Int) -> Int = "s
 
 ///|
 #borrow(pStmt)
-extern "C" fn sqlite3_column_bytes16(
-  pStmt : Sqlite3_stmt,
-  iCol : Int
-) -> Int = "sqlite3_column_bytes16"
+extern "C" fn sqlite3_column_bytes16(pStmt : Sqlite3_stmt, iCol : Int) -> Int = "sqlite3_column_bytes16"
 
 //int sqlite3_column_count(sqlite3_stmt * pStmt);
 
@@ -1004,7 +971,7 @@ extern "C" fn sqlite3_create_collation(
   zName : CStr,
   eTextRep : Int,
   pArg : AnyType,
-  xCompare : FuncRef[(AnyType, Int, AnyType, Int, AnyType) -> Int]
+  xCompare : FuncRef[(AnyType, Int, AnyType, Int, AnyType) -> Int],
 ) -> Int = "sqlite3_create_collation"
 
 //int sqlite3_create_collation16(sqlite3 *, const void * zName, int eTextRep, void * pArg, int (*)(void *, int, const void *, int, const void *) xCompare);
@@ -1016,7 +983,7 @@ extern "C" fn sqlite3_create_collation16(
   zName : AnyType,
   eTextRep : Int,
   pArg : AnyType,
-  xCompare : FuncRef[(AnyType, Int, AnyType, Int, AnyType) -> Int]
+  xCompare : FuncRef[(AnyType, Int, AnyType, Int, AnyType) -> Int],
 ) -> Int = "sqlite3_create_collation16"
 
 //int sqlite3_create_collation_v2(sqlite3 *, const char * zName, int eTextRep, void * pArg, int (*)(void *, int, const void *, int, const void *) xCompare, void (*)(void *) xDestroy);
@@ -1029,7 +996,7 @@ extern "C" fn sqlite3_create_collation_v2(
   eTextRep : Int,
   pArg : AnyType,
   xCompare : FuncRef[(AnyType, Int, AnyType, Int, AnyType) -> Int],
-  xDestroy : FuncRef[(AnyType) -> Unit]
+  xDestroy : FuncRef[(AnyType) -> Unit],
 ) -> Int = "sqlite3_create_collation_v2"
 
 //int sqlite3_create_function(sqlite3 * db, const char * zFunctionName, int nArg, int eTextRep, void * pApp, void (*)(sqlite3_context *, int, sqlite3_value **) xFunc, void (*)(sqlite3_context *, int, sqlite3_value **) xStep, void (*)(sqlite3_context *) xFinal);
@@ -1044,7 +1011,7 @@ extern "C" fn sqlite3_create_function(
   pApp : AnyType,
   xFunc : FuncRef[(Sqlite3_context, Int, FixedArray[Sqlite3_value]) -> Unit],
   xStep : FuncRef[(Sqlite3_context, Int, FixedArray[Sqlite3_value]) -> Unit],
-  xFinal : FuncRef[(Sqlite3_context) -> Unit]
+  xFinal : FuncRef[(Sqlite3_context) -> Unit],
 ) -> Int = "sqlite3_create_function"
 
 //int sqlite3_create_function16(sqlite3 * db, const void * zFunctionName, int nArg, int eTextRep, void * pApp, void (*)(sqlite3_context *, int, sqlite3_value **) xFunc, void (*)(sqlite3_context *, int, sqlite3_value **) xStep, void (*)(sqlite3_context *) xFinal);
@@ -1059,7 +1026,7 @@ extern "C" fn sqlite3_create_function16(
   pApp : AnyType,
   xFunc : FuncRef[(Sqlite3_context, Int, FixedArray[Sqlite3_value]) -> Unit],
   xStep : FuncRef[(Sqlite3_context, Int, FixedArray[Sqlite3_value]) -> Unit],
-  xFinal : FuncRef[(Sqlite3_context) -> Unit]
+  xFinal : FuncRef[(Sqlite3_context) -> Unit],
 ) -> Int = "sqlite3_create_function16"
 
 //int sqlite3_create_function_v2(sqlite3 * db, const char * zFunctionName, int nArg, int eTextRep, void * pApp, void (*)(sqlite3_context *, int, sqlite3_value **) xFunc, void (*)(sqlite3_context *, int, sqlite3_value **) xStep, void (*)(sqlite3_context *) xFinal, void (*)(void *) xDestroy);
@@ -1075,7 +1042,7 @@ extern "C" fn sqlite3_create_function_v2(
   xFunc : FuncRef[(Sqlite3_context, Int, FixedArray[Sqlite3_value]) -> Unit],
   xStep : FuncRef[(Sqlite3_context, Int, FixedArray[Sqlite3_value]) -> Unit],
   xFinal : FuncRef[(Sqlite3_context) -> Unit],
-  xDestroy : FuncRef[(AnyType) -> Unit]
+  xDestroy : FuncRef[(AnyType) -> Unit],
 ) -> Int = "sqlite3_create_function_v2"
 //int sqlite3_create_module(sqlite3 * db, const char * zName, const sqlite3_module * p, void * pClientData);
 
@@ -1085,7 +1052,7 @@ extern "C" fn sqlite3_create_module(
   db : Sqlite3,
   zName : CStr,
   p : Sqlite3_module,
-  pClientData : AnyType
+  pClientData : AnyType,
 ) -> Int = "sqlite3_create_module"
 
 //int sqlite3_create_module_v2(sqlite3 * db, const char * zName, const sqlite3_module * p, void * pClientData, void (*)(void *) xDestroy);
@@ -1097,7 +1064,7 @@ extern "C" fn sqlite3_create_module_v2(
   zName : CStr,
   p : Sqlite3_module,
   pClientData : AnyType,
-  xDestroy : FuncRef[(AnyType) -> Unit]
+  xDestroy : FuncRef[(AnyType) -> Unit],
 ) -> Int = "sqlite3_create_module_v2"
 //int sqlite3_create_window_function(sqlite3 * db, const char * zFunctionName, int nArg, int eTextRep, void * pApp, void (*)(sqlite3_context *, int, sqlite3_value **) xStep, void (*)(sqlite3_context *) xFinal, void (*)(sqlite3_context *) xValue, void (*)(sqlite3_context *, int, sqlite3_value **) xInverse, void (*)(void *) xDestroy);
 
@@ -1113,7 +1080,7 @@ extern "C" fn sqlite3_create_window_function(
   xFinal : FuncRef[(Sqlite3_context) -> Unit],
   xValue : FuncRef[(Sqlite3_context) -> Unit],
   xInverse : FuncRef[(Sqlite3_context, Int, FixedArray[Sqlite3_value]) -> Unit],
-  xDestroy : FuncRef[(AnyType) -> Unit]
+  xDestroy : FuncRef[(AnyType) -> Unit],
 ) -> Int = "sqlite3_create_window_function"
 //int sqlite3_data_count(sqlite3_stmt * pStmt);
 
@@ -1154,7 +1121,7 @@ extern "C" fn sqlite3_db_status(
   op : Int,
   pCur : AnyType,
   pHiwtr : AnyType,
-  resetFlg : Int
+  resetFlg : Int,
 ) -> Int = "sqlite3_db_status"
 
 //int sqlite3_declare_vtab(sqlite3 *, const char * zSQL);
@@ -1173,7 +1140,7 @@ extern "C" fn sqlite3_deserialize(
   pData : CStr,
   szDb : Int64,
   szBuf : Int64,
-  mFlags : UInt
+  mFlags : UInt,
 ) -> Int = "sqlite3_deserialize"
 
 //int sqlite3_drop_modules(sqlite3 * db, const char ** azKeep);
@@ -1186,10 +1153,7 @@ extern "C" fn sqlite3_drop_modules(db : Sqlite3, azKeep : Ref[CStr]) -> Int = "s
 
 ///|
 #borrow(db)
-extern "C" fn sqlite3_enable_load_extension(
-  db : Sqlite3,
-  onoff : Int
-) -> Int = "sqlite3_enable_load_extension"
+extern "C" fn sqlite3_enable_load_extension(db : Sqlite3, onoff : Int) -> Int = "sqlite3_enable_load_extension"
 
 //int sqlite3_enable_shared_cache(int);
 
@@ -1217,7 +1181,7 @@ extern "C" fn sqlite3_exec(
   sql : CStr,
   callback : FuncRef[(AnyType, Int, FixedArray[CStr], FixedArray[CStr]) -> Int],
   data : AnyType,
-  errmsg : AnyType
+  errmsg : AnyType,
 ) -> Int = "sqlite3_exec"
 
 //int sqlite3_expired(sqlite3_stmt *);
@@ -1236,10 +1200,7 @@ extern "C" fn sqlite3_extended_errcode(db : Sqlite3) -> Int = "sqlite3_extended_
 
 ///|
 #borrow(db)
-extern "C" fn sqlite3_extended_result_codes(
-  db : Sqlite3,
-  onoff : Int
-) -> Int = "sqlite3_extended_result_codes"
+extern "C" fn sqlite3_extended_result_codes(db : Sqlite3, onoff : Int) -> Int = "sqlite3_extended_result_codes"
 
 //int sqlite3_file_control(sqlite3 *, const char * zDbName, int op, void *);
 
@@ -1249,7 +1210,7 @@ extern "C" fn sqlite3_file_control(
   db : Sqlite3,
   zDbName : CStr,
   op : Int,
-  data : AnyType
+  data : AnyType,
 ) -> Int = "sqlite3_file_control"
 
 //int sqlite3_finalize(sqlite3_stmt * pStmt);
@@ -1273,7 +1234,7 @@ extern "C" fn sqlite3_get_table(
   pazResult : Ref[Ref[CStr]],
   pnRow : Ref[Int],
   pnColumn : Ref[Int],
-  pzErrmsg : Ref[CStr]
+  pzErrmsg : Ref[CStr],
 ) -> Int = "sqlite3_get_table"
 
 //int sqlite3_global_recover();
@@ -1310,7 +1271,7 @@ extern "C" fn sqlite3_keyword_count() -> Int = "sqlite3_keyword_count"
 extern "C" fn sqlite3_keyword_name(
   i : Int,
   pzName : Ref[CStr],
-  pnName : Ref[Int]
+  pnName : Ref[Int],
 ) -> Int = "sqlite3_keyword_name"
 
 //int sqlite3_libversion_number();
@@ -1332,7 +1293,7 @@ extern "C" fn sqlite3_load_extension(
   db : Sqlite3,
   zFile : CStr,
   zProc : CStr,
-  pzErrMsg : AnyType
+  pzErrMsg : AnyType,
 ) -> Int = "sqlite3_load_extension"
 
 //int sqlite3_memory_alarm(void (*)(void *, sqlite3_int64, int), void *, sqlite3_int64);
@@ -1342,7 +1303,7 @@ extern "C" fn sqlite3_load_extension(
 extern "C" fn sqlite3_memory_alarm(
   xCallback : FuncRef[(AnyType, Int64, Int) -> Unit],
   pArg : AnyType,
-  iThreshold : Int64
+  iThreshold : Int64,
 ) -> Int = "sqlite3_memory_alarm"
 
 //int sqlite3_mutex_held(sqlite3_mutex *);
@@ -1372,10 +1333,7 @@ extern "C" fn sqlite3_open(filename : CStr, ppDb : Ref[Sqlite3]) -> Int = "sqlit
 
 ///|
 #borrow(filename, ppDb)
-extern "C" fn sqlite3_open16(
-  filename : AnyType,
-  ppDb : Ref[Sqlite3]
-) -> Int = "sqlite3_open16"
+extern "C" fn sqlite3_open16(filename : AnyType, ppDb : Ref[Sqlite3]) -> Int = "sqlite3_open16"
 
 //int sqlite3_open_v2(const char * filename, sqlite3 ** ppDb, int flags, const char * zVfs);
 
@@ -1385,7 +1343,7 @@ extern "C" fn sqlite3_open_v2(
   filename : CStr,
   ppDb : Ref[Sqlite3],
   flags : Int,
-  zVfs : CStr
+  zVfs : CStr,
 ) -> Int = "sqlite3_open_v2"
 
 //int sqlite3_os_end();
@@ -1405,7 +1363,7 @@ extern "C" fn sqlite3_os_init() -> Int = "sqlite3_os_init"
 extern "C" fn sqlite3_overload_function(
   db : Sqlite3,
   zFuncName : CStr,
-  nArg : Int
+  nArg : Int,
 ) -> Int = "sqlite3_overload_function"
 
 //int sqlite3_prepare(sqlite3 * db, const char * zSql, int nByte, sqlite3_stmt ** ppStmt, const char ** pzTail);
@@ -1417,7 +1375,7 @@ extern "C" fn sqlite3_prepare(
   zSql : CStr,
   nByte : Int,
   ppStmt : Ref[Sqlite3_stmt],
-  pzTail : Ref[CStr]
+  pzTail : Ref[CStr],
 ) -> Int = "sqlite3_prepare"
 
 //int sqlite3_prepare16(sqlite3 * db, const void * zSql, int nByte, sqlite3_stmt ** ppStmt, const void ** pzTail);
@@ -1429,7 +1387,7 @@ extern "C" fn sqlite3_prepare16(
   zSql : AnyType,
   nByte : Int,
   ppStmt : Ref[Sqlite3_stmt],
-  pzTail : Ref[AnyType]
+  pzTail : Ref[AnyType],
 ) -> Int = "sqlite3_prepare16"
 
 //int sqlite3_prepare16_v2(sqlite3 * db, const void * zSql, int nByte, sqlite3_stmt ** ppStmt, const void ** pzTail);
@@ -1441,7 +1399,7 @@ extern "C" fn sqlite3_prepare16_v2(
   zSql : AnyType,
   nByte : Int,
   ppStmt : Ref[Sqlite3_stmt],
-  pzTail : Ref[AnyType]
+  pzTail : Ref[AnyType],
 ) -> Int = "sqlite3_prepare16_v2"
 
 //int sqlite3_prepare16_v3(sqlite3 * db, const void * zSql, int nByte, unsigned int prepFlags, sqlite3_stmt ** ppStmt, const void ** pzTail);
@@ -1454,7 +1412,7 @@ extern "C" fn sqlite3_prepare16_v3(
   nByte : Int,
   prepFlags : UInt,
   ppStmt : Ref[Sqlite3_stmt],
-  pzTail : Ref[AnyType]
+  pzTail : Ref[AnyType],
 ) -> Int = "sqlite3_prepare16_v3"
 
 //int sqlite3_prepare_v2(sqlite3 * db, const char * zSql, int nByte, sqlite3_stmt ** ppStmt, const char ** pzTail);
@@ -1466,7 +1424,7 @@ extern "C" fn sqlite3_prepare_v2(
   zSql : CStr,
   nByte : Int,
   ppStmt : Ref[Sqlite3_stmt],
-  pzTail : Ref[CStr]
+  pzTail : Ref[CStr],
 ) -> Int = "sqlite3_prepare_v2"
 
 //int sqlite3_prepare_v3(sqlite3 * db, const char * zSql, int nByte, unsigned int prepFlags, sqlite3_stmt ** ppStmt, const char ** pzTail);
@@ -1479,7 +1437,7 @@ extern "C" fn sqlite3_prepare_v3(
   nByte : Int,
   prepFlags : UInt,
   ppStmt : Ref[Sqlite3_stmt],
-  pzTail : Ref[CStr]
+  pzTail : Ref[CStr],
 ) -> Int = "sqlite3_prepare_v3"
 //int sqlite3_release_memory(int);
 
@@ -1498,7 +1456,7 @@ extern "C" fn sqlite3_reset(pStmt : Sqlite3_stmt) -> Int = "sqlite3_reset"
 #borrow(context)
 extern "C" fn sqlite3_result_zeroblob64(
   context : Sqlite3_context,
-  n : UInt64
+  n : UInt64,
 ) -> Int = "sqlite3_result_zeroblob64"
 
 //int sqlite3_rtree_geometry_callback(sqlite3 * db, const char * zGeom, int (*)(sqlite3_rtree_geometry *, int, sqlite3_rtree_dbl *, int *) xGeom, void * pContext);
@@ -1509,7 +1467,7 @@ extern "C" fn sqlite3_rtree_geometry_callback(
   db : Sqlite3,
   zGeom : CStr,
   xGeom : FuncRef[(AnyType, Int, AnyType, AnyType) -> Int],
-  pContext : AnyType
+  pContext : AnyType,
 ) -> Int = "sqlite3_rtree_geometry_callback"
 
 //int sqlite3_rtree_query_callback(sqlite3 * db, const char * zQueryFunc, int (*)(sqlite3_rtree_query_info *) xQueryFunc, void * pContext, void (*)(void *) xDestructor);
@@ -1521,7 +1479,7 @@ extern "C" fn sqlite3_rtree_query_callback(
   zQueryFunc : CStr,
   xQueryFunc : FuncRef[(AnyType) -> Int],
   pContext : AnyType,
-  xDestructor : FuncRef[(AnyType) -> Unit]
+  xDestructor : FuncRef[(AnyType) -> Unit],
 ) -> Int = "sqlite3_rtree_query_callback"
 
 //int sqlite3_set_authorizer(sqlite3 *, int (*)(void *, int, const char *, const char *, const char *, const char *) xAuth, void * pUserData);
@@ -1531,7 +1489,7 @@ extern "C" fn sqlite3_rtree_query_callback(
 extern "C" fn sqlite3_set_authorizer(
   db : Sqlite3,
   xAuth : FuncRef[(AnyType, Int, CStr, CStr, CStr, CStr) -> Int],
-  pUserData : AnyType
+  pUserData : AnyType,
 ) -> Int = "sqlite3_set_authorizer"
 
 //int sqlite3_set_clientdata(sqlite3 *, const char *, void *, void (*)(void *));
@@ -1542,17 +1500,13 @@ extern "C" fn sqlite3_set_clientdata(
   db : Sqlite3,
   zName : CStr,
   pData : AnyType,
-  xDestructor : FuncRef[(AnyType) -> Unit]
+  xDestructor : FuncRef[(AnyType) -> Unit],
 ) -> Int = "sqlite3_set_clientdata"
 //int sqlite3_setlk_timeout(sqlite3 *, int ms, int flags);
 
 ///|
 #borrow(db)
-extern "C" fn sqlite3_setlk_timeout(
-  db : Sqlite3,
-  ms : Int,
-  flags : Int
-) -> Int = "sqlite3_setlk_timeout"
+extern "C" fn sqlite3_setlk_timeout(db : Sqlite3, ms : Int, flags : Int) -> Int = "sqlite3_setlk_timeout"
 //int sqlite3_shutdown();
 
 ///|
@@ -1569,7 +1523,7 @@ extern "C" fn sqlite3_sleep(ms : Int) -> Int = "sqlite3_sleep"
 #borrow(p1, p2)
 extern "C" fn sqlite3_snapshot_cmp(
   p1 : Sqlite3_snapshot,
-  p2 : Sqlite3_snapshot
+  p2 : Sqlite3_snapshot,
 ) -> Int = "sqlite3_snapshot_cmp"
 
 //int sqlite3_snapshot_get(sqlite3 * db, const char * zSchema, sqlite3_snapshot ** ppSnapshot);
@@ -1579,7 +1533,7 @@ extern "C" fn sqlite3_snapshot_cmp(
 extern "C" fn sqlite3_snapshot_get(
   db : Sqlite3,
   zSchema : CStr,
-  ppSnapshot : Ref[Sqlite3_snapshot]
+  ppSnapshot : Ref[Sqlite3_snapshot],
 ) -> Int = "sqlite3_snapshot_get"
 
 //int sqlite3_snapshot_open(sqlite3 * db, const char * zSchema, sqlite3_snapshot * pSnapshot);
@@ -1589,7 +1543,7 @@ extern "C" fn sqlite3_snapshot_get(
 extern "C" fn sqlite3_snapshot_open(
   db : Sqlite3,
   zSchema : CStr,
-  pSnapshot : Sqlite3_snapshot
+  pSnapshot : Sqlite3_snapshot,
 ) -> Int = "sqlite3_snapshot_open"
 
 //int sqlite3_snapshot_recover(sqlite3 * db, const char * zDb);
@@ -1605,7 +1559,7 @@ extern "C" fn sqlite3_status(
   op : Int,
   pCurrent : AnyType,
   pHighwater : AnyType,
-  resetFlag : Int
+  resetFlag : Int,
 ) -> Int = "sqlite3_status"
 
 //int sqlite3_status64(int op, sqlite3_int64 * pCurrent, sqlite3_int64 * pHighwater, int resetFlag);
@@ -1616,7 +1570,7 @@ extern "C" fn sqlite3_status64(
   op : Int,
   pCurrent : AnyType,
   pHighwater : AnyType,
-  resetFlag : Int
+  resetFlag : Int,
 ) -> Int = "sqlite3_status64"
 //int sqlite3_step(sqlite3_stmt *);
 
@@ -1634,10 +1588,7 @@ extern "C" fn sqlite3_stmt_busy(pStmt : Sqlite3_stmt) -> Int = "sqlite3_stmt_bus
 
 ///|
 #borrow(pStmt)
-extern "C" fn sqlite3_stmt_explain(
-  pStmt : Sqlite3_stmt,
-  eMode : Int
-) -> Int = "sqlite3_stmt_explain"
+extern "C" fn sqlite3_stmt_explain(pStmt : Sqlite3_stmt, eMode : Int) -> Int = "sqlite3_stmt_explain"
 
 //int sqlite3_stmt_isexplain(sqlite3_stmt * pStmt);
 
@@ -1659,7 +1610,7 @@ extern "C" fn sqlite3_stmt_scanstatus(
   pStmt : Sqlite3_stmt,
   idx : Int,
   iScanStatusOp : Int,
-  pOut : AnyType
+  pOut : AnyType,
 ) -> Int = "sqlite3_stmt_scanstatus"
 
 //int sqlite3_stmt_scanstatus_v2(sqlite3_stmt * pStmt, int idx, int iScanStatusOp, int flags, void * pOut);
@@ -1671,7 +1622,7 @@ extern "C" fn sqlite3_stmt_scanstatus_v2(
   idx : Int,
   iScanStatusOp : Int,
   flags : Int,
-  pOut : AnyType
+  pOut : AnyType,
 ) -> Int = "sqlite3_stmt_scanstatus_v2"
 
 //int sqlite3_stmt_status(sqlite3_stmt *, int op, int resetFlg);
@@ -1681,7 +1632,7 @@ extern "C" fn sqlite3_stmt_scanstatus_v2(
 extern "C" fn sqlite3_stmt_status(
   pStmt : Sqlite3_stmt,
   op : Int,
-  resetFlg : Int
+  resetFlg : Int,
 ) -> Int = "sqlite3_stmt_status"
 
 //int sqlite3_str_errcode(sqlite3_str *);
@@ -1712,11 +1663,7 @@ extern "C" fn sqlite3_stricmp(zLeft : CStr, zRight : CStr) -> Int = "sqlite3_str
 
 ///|
 #borrow(zGlob, zStr)
-extern "C" fn sqlite3_strlike(
-  zGlob : CStr,
-  zStr : CStr,
-  cEsc : UInt
-) -> Int = "sqlite3_strlike"
+extern "C" fn sqlite3_strlike(zGlob : CStr, zStr : CStr, cEsc : UInt) -> Int = "sqlite3_strlike"
 
 //int sqlite3_strnicmp(const char *, const char *, int);
 
@@ -1743,7 +1690,7 @@ extern "C" fn sqlite3_table_column_metadata(
   pzCollSeq : AnyType,
   pNotNull : AnyType,
   pPrimaryKey : AnyType,
-  pAutoinc : AnyType
+  pAutoinc : AnyType,
 ) -> Int = "sqlite3_table_column_metadata"
 
 //int sqlite3_test_control(int op);
@@ -1769,7 +1716,7 @@ extern "C" fn sqlite3_trace_v2(
   db : Sqlite3,
   uMask : UInt,
   xCallback : FuncRef[(UInt, AnyType, AnyType, AnyType) -> Int],
-  pCtx : AnyType
+  pCtx : AnyType,
 ) -> Int = "sqlite3_trace_v2"
 //int sqlite3_transfer_bindings(sqlite3_stmt *, sqlite3_stmt *);
 
@@ -1777,7 +1724,7 @@ extern "C" fn sqlite3_trace_v2(
 #borrow(pFrom, pTo)
 extern "C" fn sqlite3_transfer_bindings(
   pFrom : Sqlite3_stmt,
-  pTo : Sqlite3_stmt
+  pTo : Sqlite3_stmt,
 ) -> Int = "sqlite3_transfer_bindings"
 
 //int sqlite3_txn_state(sqlite3 *, const char * zSchema);
@@ -1793,7 +1740,7 @@ extern "C" fn sqlite3_txn_state(db : Sqlite3, zSchema : CStr) -> Int = "sqlite3_
 extern "C" fn sqlite3_unlock_notify(
   pBlocked : Sqlite3,
   xNotify : FuncRef[(AnyType, Int) -> Unit],
-  pNotifyArg : AnyType
+  pNotifyArg : AnyType,
 ) -> Int = "sqlite3_unlock_notify"
 
 //int sqlite3_uri_boolean(sqlite3_filename z, const char * zParam, int bDefault);
@@ -1803,7 +1750,7 @@ extern "C" fn sqlite3_unlock_notify(
 extern "C" fn sqlite3_uri_boolean(
   z : Sqlite3_filename,
   zParam : CStr,
-  bDefault : Int
+  bDefault : Int,
 ) -> Int = "sqlite3_uri_boolean"
 
 //int sqlite3_value_bytes(sqlite3_value *);
@@ -1858,10 +1805,7 @@ extern "C" fn sqlite3_value_type(value : Sqlite3_value) -> Int = "sqlite3_value_
 
 ///|
 #borrow(vfs)
-extern "C" fn sqlite3_vfs_register(
-  vfs : Sqlite3_vfs,
-  makeDflt : Int
-) -> Int = "sqlite3_vfs_register"
+extern "C" fn sqlite3_vfs_register(vfs : Sqlite3_vfs, makeDflt : Int) -> Int = "sqlite3_vfs_register"
 
 //int sqlite3_vfs_unregister(sqlite3_vfs *);
 
@@ -1888,7 +1832,7 @@ extern "C" fn sqlite3_vtab_distinct(pIdxInfo : Sqlite3_index_info) -> Int = "sql
 extern "C" fn sqlite3_vtab_in(
   pIdxInfo : Sqlite3_index_info,
   iCons : Int,
-  bHandle : Int
+  bHandle : Int,
 ) -> Int = "sqlite3_vtab_in"
 
 //int sqlite3_vtab_in_first(sqlite3_value * pVal, sqlite3_value ** ppOut);
@@ -1897,7 +1841,7 @@ extern "C" fn sqlite3_vtab_in(
 #borrow(pVal, ppOut)
 extern "C" fn sqlite3_vtab_in_first(
   pVal : Sqlite3_value,
-  ppOut : Ref[Sqlite3_value]
+  ppOut : Ref[Sqlite3_value],
 ) -> Int = "sqlite3_vtab_in_first"
 
 //int sqlite3_vtab_in_next(sqlite3_value * pVal, sqlite3_value ** ppOut);
@@ -1906,7 +1850,7 @@ extern "C" fn sqlite3_vtab_in_first(
 #borrow(pVal, ppOut)
 extern "C" fn sqlite3_vtab_in_next(
   pVal : Sqlite3_value,
-  ppOut : Ref[Sqlite3_value]
+  ppOut : Ref[Sqlite3_value],
 ) -> Int = "sqlite3_vtab_in_next"
 
 //int sqlite3_vtab_nochange(sqlite3_context *);
@@ -1928,7 +1872,7 @@ extern "C" fn sqlite3_vtab_on_conflict(db : Sqlite3) -> Int = "sqlite3_vtab_on_c
 extern "C" fn sqlite3_vtab_rhs_value(
   pIdxInfo : Sqlite3_index_info,
   j : Int,
-  ppVal : Ref[Sqlite3_value]
+  ppVal : Ref[Sqlite3_value],
 ) -> Int = "sqlite3_vtab_rhs_value"
 
 //int sqlite3_wal_autocheckpoint(sqlite3 * db, int N);
@@ -1952,7 +1896,7 @@ extern "C" fn sqlite3_wal_checkpoint_v2(
   zDb : CStr,
   eMode : Int,
   pnLog : AnyType,
-  pnCkpt : AnyType
+  pnCkpt : AnyType,
 ) -> Int = "sqlite3_wal_checkpoint_v2"
 
 //int sqlite3_win32_set_directory(unsigned long pub type, void * zValue);
@@ -1961,7 +1905,7 @@ extern "C" fn sqlite3_wal_checkpoint_v2(
 #borrow(zValue)
 extern "C" fn sqlite3_win32_set_directory(
   type_ : UInt64,
-  zValue : AnyType
+  zValue : AnyType,
 ) -> Int = "sqlite3_win32_set_directory"
 
 //int sqlite3_win32_set_directory16(unsigned long pub type, const void * zValue);
@@ -1970,7 +1914,7 @@ extern "C" fn sqlite3_win32_set_directory(
 #borrow(zValue)
 extern "C" fn sqlite3_win32_set_directory16(
   type_ : UInt64,
-  zValue : AnyType
+  zValue : AnyType,
 ) -> Int = "sqlite3_win32_set_directory16"
 
 //int sqlite3_win32_set_directory8(unsigned long pub type, const char * zValue);
@@ -1979,16 +1923,14 @@ extern "C" fn sqlite3_win32_set_directory16(
 #borrow(zValue)
 extern "C" fn sqlite3_win32_set_directory8(
   type_ : UInt64,
-  zValue : CStr
+  zValue : CStr,
 ) -> Int = "sqlite3_win32_set_directory8"
 
 //sqlite3 * sqlite3_context_db_handle(sqlite3_context *);
 
 ///|
 #borrow(context)
-extern "C" fn sqlite3_context_db_handle(
-  context : Sqlite3_context
-) -> Sqlite3 = "sqlite3_context_db_handle"
+extern "C" fn sqlite3_context_db_handle(context : Sqlite3_context) -> Sqlite3 = "sqlite3_context_db_handle"
 
 //sqlite3 * sqlite3_db_handle(sqlite3_stmt *);
 
@@ -2004,7 +1946,7 @@ extern "C" fn sqlite3_backup_init(
   pDest : Sqlite3,
   zDestName : CStr,
   pSource : Sqlite3,
-  zSourceName : CStr
+  zSourceName : CStr,
 ) -> Sqlite3_backup = "sqlite3_backup_init"
 
 //sqlite3_file * sqlite3_database_file_object(const char *);
@@ -2022,7 +1964,7 @@ extern "C" fn sqlite3_create_filename(
   zJournal : CStr,
   zWal : CStr,
   nParam : Int,
-  azParam : FixedArray[CStr]
+  azParam : FixedArray[CStr],
 ) -> Sqlite3_filename = "sqlite3_create_filename"
 
 //sqlite3_filename sqlite3_db_filename(sqlite3 * db, const char * zDbName);
@@ -2031,7 +1973,7 @@ extern "C" fn sqlite3_create_filename(
 #borrow(db, zDbName)
 extern "C" fn sqlite3_db_filename(
   db : Sqlite3,
-  zDbName : CStr
+  zDbName : CStr,
 ) -> Sqlite3_filename = "sqlite3_db_filename"
 
 //sqlite3_int64 sqlite3_changes64(sqlite3 *);
@@ -2044,10 +1986,7 @@ extern "C" fn sqlite3_changes64(db : Sqlite3) -> Int64 = "sqlite3_changes64"
 
 ///|
 #borrow(pStmt)
-extern "C" fn sqlite3_column_int64(
-  pStmt : Sqlite3_stmt,
-  iCol : Int
-) -> Int64 = "sqlite3_column_int64"
+extern "C" fn sqlite3_column_int64(pStmt : Sqlite3_stmt, iCol : Int) -> Int64 = "sqlite3_column_int64"
 
 //sqlite3_int64 sqlite3_hard_heap_limit64(sqlite3_int64 N);
 
@@ -2088,7 +2027,7 @@ extern "C" fn sqlite3_total_changes64(db : Sqlite3) -> Int64 = "sqlite3_total_ch
 extern "C" fn sqlite3_uri_int64(
   z : Sqlite3_filename,
   zParam : CStr,
-  bDefault : Int64
+  bDefault : Int64,
 ) -> Int64 = "sqlite3_uri_int64"
 
 //sqlite3_int64 sqlite3_value_int64(sqlite3_value *);
@@ -2114,7 +2053,7 @@ extern "C" fn sqlite3_mutex_alloc(id : Int) -> Sqlite3_mutex = "sqlite3_mutex_al
 #borrow(pDb, pStmt)
 extern "C" fn sqlite3_next_stmt(
   pDb : Sqlite3,
-  pStmt : Sqlite3_stmt
+  pStmt : Sqlite3_stmt,
 ) -> Sqlite3_stmt = "sqlite3_next_stmt"
 
 //sqlite3_str * sqlite3_str_new(sqlite3 *);
@@ -2135,7 +2074,7 @@ extern "C" fn sqlite3_msize(p : AnyType) -> UInt64 = "sqlite3_msize"
 #borrow(pStmt)
 extern "C" fn sqlite3_column_value(
   pStmt : Sqlite3_stmt,
-  iCol : Int
+  iCol : Int,
 ) -> Sqlite3_value = "sqlite3_column_value"
 
 //sqlite3_value * sqlite3_value_dup(const sqlite3_value *);
@@ -2157,7 +2096,7 @@ extern "C" fn sqlite3_serialize(
   db : Sqlite3,
   zSchema : CStr,
   piSize : AnyType,
-  mFlags : UInt
+  mFlags : UInt,
 ) -> CStr = "sqlite3_serialize"
 
 //unsigned int sqlite3_value_subtype(sqlite3_value *);
@@ -2171,7 +2110,7 @@ extern "C" fn sqlite3_value_subtype(value : Sqlite3_value) -> UInt = "sqlite3_va
 #borrow(context)
 extern "C" fn sqlite3_aggregate_context(
   context : Sqlite3_context,
-  nBytes : Int
+  nBytes : Int,
 ) -> AnyType = "sqlite3_aggregate_context"
 
 //void * sqlite3_commit_hook(sqlite3 *, int (*)(void *), void *);
@@ -2181,7 +2120,7 @@ extern "C" fn sqlite3_aggregate_context(
 extern "C" fn sqlite3_commit_hook(
   db : Sqlite3,
   xCallback : FuncRef[(AnyType) -> Int],
-  pArg : AnyType
+  pArg : AnyType,
 ) -> AnyType = "sqlite3_commit_hook"
 
 //void * sqlite3_get_auxdata(sqlite3_context *, int N);
@@ -2190,7 +2129,7 @@ extern "C" fn sqlite3_commit_hook(
 #borrow(context)
 extern "C" fn sqlite3_get_auxdata(
   context : Sqlite3_context,
-  n : Int
+  n : Int,
 ) -> AnyType = "sqlite3_get_auxdata"
 
 //void * sqlite3_get_clientdata(sqlite3 *, const char *);
@@ -2216,7 +2155,7 @@ extern "C" fn sqlite3_malloc64(n : UInt64) -> AnyType = "sqlite3_malloc64"
 extern "C" fn sqlite3_profile(
   db : Sqlite3,
   xProfile : FuncRef[(AnyType, CStr, UInt64) -> Unit],
-  pArg : AnyType
+  pArg : AnyType,
 ) -> AnyType = "sqlite3_profile"
 
 //void * sqlite3_realloc(void *, int);
@@ -2238,7 +2177,7 @@ extern "C" fn sqlite3_realloc64(pOld : AnyType, n : UInt64) -> AnyType = "sqlite
 extern "C" fn sqlite3_rollback_hook(
   db : Sqlite3,
   xCallback : FuncRef[(AnyType) -> Unit],
-  pArg : AnyType
+  pArg : AnyType,
 ) -> AnyType = "sqlite3_rollback_hook"
 
 //void * sqlite3_trace(sqlite3 *, void (*)(void *, const char *) xTrace, void *);
@@ -2248,7 +2187,7 @@ extern "C" fn sqlite3_rollback_hook(
 extern "C" fn sqlite3_trace(
   db : Sqlite3,
   xTrace : FuncRef[(AnyType, CStr) -> Unit],
-  pArg : AnyType
+  pArg : AnyType,
 ) -> AnyType = "sqlite3_trace"
 
 //void * sqlite3_update_hook(sqlite3 *, void (*)(void *, int, const char *, const char *, sqlite3_int64), void *);
@@ -2258,7 +2197,7 @@ extern "C" fn sqlite3_trace(
 extern "C" fn sqlite3_update_hook(
   db : Sqlite3,
   xCallback : FuncRef[(AnyType, Int, CStr, CStr, Int64) -> Unit],
-  pArg : AnyType
+  pArg : AnyType,
 ) -> AnyType = "sqlite3_update_hook"
 
 //void * sqlite3_user_data(sqlite3_context *);
@@ -2273,7 +2212,7 @@ extern "C" fn sqlite3_user_data(context : Sqlite3_context) -> AnyType = "sqlite3
 #borrow(value, zPType)
 extern "C" fn sqlite3_value_pointer(
   value : Sqlite3_value,
-  zPType : CStr
+  zPType : CStr,
 ) -> AnyType = "sqlite3_value_pointer"
 
 //void * sqlite3_wal_hook(sqlite3 *, int (*)(void *, sqlite3 *, const char *, int), void *);
@@ -2283,7 +2222,7 @@ extern "C" fn sqlite3_value_pointer(
 extern "C" fn sqlite3_wal_hook(
   db : Sqlite3,
   xCallback : FuncRef[(AnyType, Sqlite3, CStr, Int) -> Int],
-  pArg : AnyType
+  pArg : AnyType,
 ) -> AnyType = "sqlite3_wal_hook"
 
 //void sqlite3_free(void *);
@@ -2342,7 +2281,7 @@ extern "C" fn sqlite3_progress_handler(
   db : Sqlite3,
   n : Int,
   xProgress : FuncRef[(AnyType) -> Int],
-  pArg : AnyType
+  pArg : AnyType,
 ) -> Unit = "sqlite3_progress_handler"
 
 //void sqlite3_randomness(int N, void * P);
@@ -2363,7 +2302,7 @@ extern "C" fn sqlite3_result_blob(
   context : Sqlite3_context,
   z : AnyType,
   n : Int,
-  xDel : FuncRef[(AnyType) -> Unit]
+  xDel : FuncRef[(AnyType) -> Unit],
 ) -> Unit = "sqlite3_result_blob"
 
 //void sqlite3_result_blob64(sqlite3_context *, const void *, sqlite3_uint64, void (*)(void *));
@@ -2374,7 +2313,7 @@ extern "C" fn sqlite3_result_blob64(
   context : Sqlite3_context,
   z : AnyType,
   n : UInt64,
-  xDel : FuncRef[(AnyType) -> Unit]
+  xDel : FuncRef[(AnyType) -> Unit],
 ) -> Unit = "sqlite3_result_blob64"
 
 //void sqlite3_result_double(sqlite3_context *, double);
@@ -2383,7 +2322,7 @@ extern "C" fn sqlite3_result_blob64(
 #borrow(context)
 extern "C" fn sqlite3_result_double(
   context : Sqlite3_context,
-  value : Double
+  value : Double,
 ) -> Unit = "sqlite3_result_double"
 
 //void sqlite3_result_error(sqlite3_context *, const char *, int);
@@ -2393,7 +2332,7 @@ extern "C" fn sqlite3_result_double(
 extern "C" fn sqlite3_result_error(
   context : Sqlite3_context,
   z : CStr,
-  n : Int
+  n : Int,
 ) -> Unit = "sqlite3_result_error"
 
 //void sqlite3_result_error16(sqlite3_context *, const void *, int);
@@ -2403,7 +2342,7 @@ extern "C" fn sqlite3_result_error(
 extern "C" fn sqlite3_result_error16(
   context : Sqlite3_context,
   z : AnyType,
-  n : Int
+  n : Int,
 ) -> Unit = "sqlite3_result_error16"
 
 //void sqlite3_result_error_code(sqlite3_context *, int);
@@ -2412,7 +2351,7 @@ extern "C" fn sqlite3_result_error16(
 #borrow(context)
 extern "C" fn sqlite3_result_error_code(
   context : Sqlite3_context,
-  errCode : Int
+  errCode : Int,
 ) -> Unit = "sqlite3_result_error_code"
 
 //void sqlite3_result_error_nomem(sqlite3_context *);
@@ -2425,9 +2364,7 @@ extern "C" fn sqlite3_result_error_nomem(context : Sqlite3_context) -> Unit = "s
 
 ///|
 #borrow(context)
-extern "C" fn sqlite3_result_error_toobig(
-  context : Sqlite3_context
-) -> Unit = "sqlite3_result_error_toobig"
+extern "C" fn sqlite3_result_error_toobig(context : Sqlite3_context) -> Unit = "sqlite3_result_error_toobig"
 
 //void sqlite3_result_int(sqlite3_context *, int);
 
@@ -2435,7 +2372,7 @@ extern "C" fn sqlite3_result_error_toobig(
 #borrow(context)
 extern "C" fn sqlite3_result_int(
   context : Sqlite3_context,
-  value : Int
+  value : Int,
 ) -> Unit = "sqlite3_result_int"
 
 //void sqlite3_result_int64(sqlite3_context *, sqlite3_int64);
@@ -2444,7 +2381,7 @@ extern "C" fn sqlite3_result_int(
 #borrow(context)
 extern "C" fn sqlite3_result_int64(
   context : Sqlite3_context,
-  value : Int64
+  value : Int64,
 ) -> Unit = "sqlite3_result_int64"
 
 //void sqlite3_result_null(sqlite3_context *);
@@ -2461,7 +2398,7 @@ extern "C" fn sqlite3_result_pointer(
   context : Sqlite3_context,
   ptr : AnyType,
   zPType : CStr,
-  xDestructor : FuncRef[(AnyType) -> Unit]
+  xDestructor : FuncRef[(AnyType) -> Unit],
 ) -> Unit = "sqlite3_result_pointer"
 
 //void sqlite3_result_subtype(sqlite3_context *, unsigned int);
@@ -2470,7 +2407,7 @@ extern "C" fn sqlite3_result_pointer(
 #borrow(context)
 extern "C" fn sqlite3_result_subtype(
   context : Sqlite3_context,
-  subtype : UInt
+  subtype : UInt,
 ) -> Unit = "sqlite3_result_subtype"
 
 //void sqlite3_result_text(sqlite3_context *, const char *, int, void (*)(void *));
@@ -2481,7 +2418,7 @@ extern "C" fn sqlite3_result_text(
   context : Sqlite3_context,
   z : CStr,
   n : Int,
-  xDel : FuncRef[(AnyType) -> Unit]
+  xDel : FuncRef[(AnyType) -> Unit],
 ) -> Unit = "sqlite3_result_text"
 
 //void sqlite3_result_text16(sqlite3_context *, const void *, int, void (*)(void *));
@@ -2492,7 +2429,7 @@ extern "C" fn sqlite3_result_text16(
   context : Sqlite3_context,
   z : AnyType,
   n : Int,
-  xDel : FuncRef[(AnyType) -> Unit]
+  xDel : FuncRef[(AnyType) -> Unit],
 ) -> Unit = "sqlite3_result_text16"
 
 //void sqlite3_result_text16be(sqlite3_context *, const void *, int, void (*)(void *));
@@ -2503,7 +2440,7 @@ extern "C" fn sqlite3_result_text16be(
   context : Sqlite3_context,
   z : AnyType,
   n : Int,
-  xDel : FuncRef[(AnyType) -> Unit]
+  xDel : FuncRef[(AnyType) -> Unit],
 ) -> Unit = "sqlite3_result_text16be"
 
 //void sqlite3_result_text16le(sqlite3_context *, const void *, int, void (*)(void *));
@@ -2514,7 +2451,7 @@ extern "C" fn sqlite3_result_text16le(
   context : Sqlite3_context,
   z : AnyType,
   n : Int,
-  xDel : FuncRef[(AnyType) -> Unit]
+  xDel : FuncRef[(AnyType) -> Unit],
 ) -> Unit = "sqlite3_result_text16le"
 
 //void sqlite3_result_text64(sqlite3_context *, const char *, sqlite3_uint64, void (*)(void *), unsigned char encoding);
@@ -2526,7 +2463,7 @@ extern "C" fn sqlite3_result_text64(
   z : CStr,
   n : UInt64,
   xDel : FuncRef[(AnyType) -> Unit],
-  encoding : Byte
+  encoding : Byte,
 ) -> Unit = "sqlite3_result_text64"
 
 //void sqlite3_result_value(sqlite3_context *, sqlite3_value *);
@@ -2535,7 +2472,7 @@ extern "C" fn sqlite3_result_text64(
 #borrow(context, value)
 extern "C" fn sqlite3_result_value(
   context : Sqlite3_context,
-  value : Sqlite3_value
+  value : Sqlite3_value,
 ) -> Unit = "sqlite3_result_value"
 
 //void sqlite3_result_zeroblob(sqlite3_context *, int n);
@@ -2544,7 +2481,7 @@ extern "C" fn sqlite3_result_value(
 #borrow(context)
 extern "C" fn sqlite3_result_zeroblob(
   context : Sqlite3_context,
-  n : Int
+  n : Int,
 ) -> Unit = "sqlite3_result_zeroblob"
 //void sqlite3_set_auxdata(sqlite3_context *, int N, void *, void (*)(void *));
 
@@ -2554,7 +2491,7 @@ extern "C" fn sqlite3_set_auxdata(
   context : Sqlite3_context,
   n : Int,
   data : AnyType,
-  xDelete : FuncRef[(AnyType) -> Unit]
+  xDelete : FuncRef[(AnyType) -> Unit],
 ) -> Unit = "sqlite3_set_auxdata"
 
 //void sqlite3_set_last_insert_rowid(sqlite3 *, sqlite3_int64);
@@ -2563,7 +2500,7 @@ extern "C" fn sqlite3_set_auxdata(
 #borrow(db)
 extern "C" fn sqlite3_set_last_insert_rowid(
   db : Sqlite3,
-  rowid : Int64
+  rowid : Int64,
 ) -> Unit = "sqlite3_set_last_insert_rowid"
 
 //void sqlite3_snapshot_free(sqlite3_snapshot *);
@@ -2590,7 +2527,7 @@ extern "C" fn sqlite3_stmt_scanstatus_reset(pStmt : Sqlite3_stmt) -> Unit = "sql
 extern "C" fn sqlite3_str_append(
   pStr : Sqlite3_str,
   zIn : CStr,
-  n : Int
+  n : Int,
 ) -> Unit = "sqlite3_str_append"
 
 //void sqlite3_str_appendall(sqlite3_str *, const char * zIn);
@@ -2606,17 +2543,14 @@ extern "C" fn sqlite3_str_appendall(pStr : Sqlite3_str, zIn : CStr) -> Unit = "s
 extern "C" fn sqlite3_str_appendchar(
   pStr : Sqlite3_str,
   n : Int,
-  c : Byte
+  c : Byte,
 ) -> Unit = "sqlite3_str_appendchar"
 
 //void sqlite3_str_appendf(sqlite3_str *, const char * zFormat);
 
 ///|
 #borrow(pStr, zFormat)
-extern "C" fn sqlite3_str_appendf(
-  pStr : Sqlite3_str,
-  zFormat : CStr
-) -> Unit = "sqlite3_str_appendf"
+extern "C" fn sqlite3_str_appendf(pStr : Sqlite3_str, zFormat : CStr) -> Unit = "sqlite3_str_appendf"
 
 //void sqlite3_str_reset(sqlite3_str *);
 
@@ -2631,7 +2565,7 @@ extern "C" fn sqlite3_str_reset(pStr : Sqlite3_str) -> Unit = "sqlite3_str_reset
 extern "C" fn sqlite3_str_vappendf(
   pStr : Sqlite3_str,
   zFormat : CStr,
-  n : Int
+  n : Int,
 ) -> Unit = "sqlite3_str_vappendf"
 
 //void sqlite3_thread_cleanup();
