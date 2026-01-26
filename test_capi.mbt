@@ -291,6 +291,8 @@ test "SQLite open and close" {
   assert_false(Sqlite3::is_nullptr(db.val))
 
   // close database
+  let errmsg16 = sqlite3_errmsg16(db.val)
+  assert_false(any_is_null(errmsg16))
   close_db(db.val)
 }
 
@@ -474,8 +476,6 @@ test "error handling" {
   let errmsg_cstr = sqlite3_errmsg(db.val)
   let errmsg = CStr::convert_to_moonbit_string(errmsg_cstr)
   assert_false(errmsg.is_empty())
-  let errmsg16 = sqlite3_errmsg16(db.val)
-  assert_false(any_is_null(errmsg16))
   close_db(db.val)
 }
 
