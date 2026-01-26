@@ -1,111 +1,127 @@
 ///|
+#external
 pub type Sqlite3 // sqlite*
 
 ///|
+#external
 pub type Sqlite3_stmt // sqlite3_stmt*
 
 ///|
+#external
 pub type Sqlite3_context // sqlite3_context*
 
 ///|
+#external
 pub type Sqlite3_backup // sqlite3_backup*
 
 ///|
+#external
 pub type Sqlite3_str // sqlite3_str*
 
 ///|
+#external
 pub type Sqlite3_value // sqlite3_value*
 
 ///|
+#external
 pub type Sqlite3_blob // sqlite3_blob*
 
 ///|
+#external
 pub type Sqlite3_mutex // sqlite3_mutex*
 
 ///|
+#external
 pub type Sqlite3_vfs // sqlite3_vfs*
 
 ///|
+#external
 pub type Sqlite3_file // sqlite3_file*
 
 ///|
+#external
 pub type Sqlite3_filename // sqlite3_filename
 
 ///|
+#external
 pub type Sqlite3_snapshot // sqlite3_snapshot*
 
 ///|
+#external
 pub type Sqlite3_index_info // sqlite3_index_info*
 
 ///|
+#external
 pub type Sqlite3_module // sqlite3_module*
 
 ///|
+#external
 pub type CStr // char*
 
 ///|
+#external
 pub type AnyType // void*
 
 ///|
-#owned(ptr)
+#borrow(ptr)
 extern "C" fn Sqlite3::is_nullptr(ptr : Sqlite3) -> Bool = "is_nullptr"
 
 ///|
-#owned(ptr)
+#borrow(ptr)
 extern "C" fn Sqlite3_stmt::is_nullptr(ptr : Sqlite3_stmt) -> Bool = "is_nullptr"
 
 ///|
-#owned(ptr)
+#borrow(ptr)
 extern "C" fn Sqlite3_context::is_nullptr(ptr : Sqlite3_context) -> Bool = "is_nullptr"
 
 ///|
-#owned(ptr)
+#borrow(ptr)
 extern "C" fn Sqlite3_backup::is_nullptr(ptr : Sqlite3_backup) -> Bool = "is_nullptr"
 
 ///|
-#owned(ptr)
+#borrow(ptr)
 extern "C" fn Sqlite3_str::is_nullptr(ptr : Sqlite3_str) -> Bool = "is_nullptr"
 
 ///|
-#owned(ptr)
+#borrow(ptr)
 extern "C" fn Sqlite3_value::is_nullptr(ptr : Sqlite3_value) -> Bool = "is_nullptr"
 
 ///|
-#owned(ptr)
+#borrow(ptr)
 extern "C" fn Sqlite3_blob::is_nullptr(ptr : Sqlite3_blob) -> Bool = "is_nullptr"
 
 ///|
-#owned(ptr)
+#borrow(ptr)
 extern "C" fn Sqlite3_mutex::is_nullptr(ptr : Sqlite3_mutex) -> Bool = "is_nullptr"
 
 ///|
-#owned(ptr)
+#borrow(ptr)
 extern "C" fn Sqlite3_vfs::is_nullptr(ptr : Sqlite3_vfs) -> Bool = "is_nullptr"
 
 ///|
-#owned(ptr)
+#borrow(ptr)
 extern "C" fn Sqlite3_file::is_nullptr(ptr : Sqlite3_file) -> Bool = "is_nullptr"
 
 ///|
-#owned(ptr)
+#borrow(ptr)
 extern "C" fn Sqlite3_filename::is_nullptr(ptr : Sqlite3_filename) -> Bool = "is_nullptr"
 
 ///|
-#owned(ptr)
+#borrow(ptr)
 extern "C" fn Sqlite3_snapshot::is_nullptr(ptr : Sqlite3_snapshot) -> Bool = "is_nullptr"
 
 ///|
-#owned(ptr)
+#borrow(ptr)
 extern "C" fn Sqlite3_index_info::is_nullptr(
   ptr : Sqlite3_index_info
 ) -> Bool = "is_nullptr"
 
 ///|
-#owned(ptr)
+#borrow(ptr)
 extern "C" fn Sqlite3_module::is_nullptr(ptr : Sqlite3_module) -> Bool = "is_nullptr"
 
 ///|
-#owned(ptr)
+#borrow(ptr)
 extern "C" fn CStr::is_nullptr(ptr : CStr) -> Bool = "is_nullptr"
 ///|
 #borrow(ptr)
@@ -115,35 +131,35 @@ extern "C" fn CStr::to_void_ptr(ptr : CStr) -> AnyType = "cstr_ptr_to_void_ptr"
 extern "C" fn Sqlite3::init() -> Sqlite3 = "sqlite3_ptr_init"
 
 ///|
-#owned(ptr)
+#borrow(ptr)
 extern "C" fn Sqlite3::to_void_ptr(ptr : Sqlite3) -> AnyType = "sqlite3_ptr_to_void_ptr"
 
 ///|
-#owned(ptr)
+#borrow(ptr)
 extern "C" fn Sqlite3::from_void_ptr(ptr : AnyType) -> Sqlite3 = "sqlite3_ptr_from_void_ptr"
 
 ///|
 extern "C" fn Sqlite3_stmt::init() -> Sqlite3_stmt = "sqlite3_stmt_ptr_init"
 
 ///|
-#owned(ptr)
+#borrow(ptr)
 extern "C" fn Sqlite3_stmt::from_void_ptr(ptr : AnyType) -> Sqlite3_stmt = "sqlite3_stmt_ptr_from_void_ptr"
 
 ///|
-#owned(ptr)
+#borrow(ptr)
 extern "C" fn Sqlite3_stmt::to_void_ptr(ptr : Sqlite3_stmt) -> AnyType = "sqlite3_stmt_ptr_to_void_ptr"
 
 ///|
 extern "C" fn Sqlite3_context::init() -> Sqlite3_context = "sqlite3_context_ptr_init"
 
 ///|
-#owned(ptr)
+#borrow(ptr)
 extern "C" fn Sqlite3_context::from_void_ptr(
   ptr : AnyType
 ) -> Sqlite3_context = "sqlite3_context_ptr_from_void_ptr"
 
 ///|
-#owned(ptr)
+#borrow(ptr)
 extern "C" fn Sqlite3_context::to_void_ptr(
   ptr : Sqlite3_context
 ) -> AnyType = "sqlite3_context_ptr_to_void_ptr"
@@ -152,92 +168,92 @@ extern "C" fn Sqlite3_context::to_void_ptr(
 extern "C" fn Sqlite3_backup::init() -> Sqlite3_backup = "sqlite3_backup_ptr_init"
 
 ///|
-#owned(ptr)
+#borrow(ptr)
 extern "C" fn Sqlite3_backup::from_void_ptr(
   ptr : AnyType
 ) -> Sqlite3_backup = "sqlite3_backup_ptr_from_void_ptr"
 
 ///|
-#owned(ptr)
+#borrow(ptr)
 extern "C" fn Sqlite3_backup::to_void_ptr(ptr : Sqlite3_backup) -> AnyType = "sqlite3_backup_ptr_to_void_ptr"
 
 ///|
 extern "C" fn Sqlite3_str::init() -> Sqlite3_str = "sqlite3_str_ptr_init"
 
 ///|
-#owned(ptr)
+#borrow(ptr)
 extern "C" fn Sqlite3_str::from_void_ptr(ptr : AnyType) -> Sqlite3_str = "sqlite3_str_ptr_from_void_ptr"
 
 ///|
-#owned(ptr)
+#borrow(ptr)
 extern "C" fn Sqlite3_str::to_void_ptr(ptr : Sqlite3_str) -> AnyType = "sqlite3_str_ptr_to_void_ptr"
 
 ///|
 extern "C" fn Sqlite3_value::init() -> Sqlite3_value = "sqlite3_value_ptr_init"
 
 ///|
-#owned(ptr)
+#borrow(ptr)
 extern "C" fn Sqlite3_value::from_void_ptr(ptr : AnyType) -> Sqlite3_value = "sqlite3_value_ptr_from_void_ptr"
 
 ///|
-#owned(ptr)
+#borrow(ptr)
 extern "C" fn Sqlite3_value::to_void_ptr(ptr : Sqlite3_value) -> AnyType = "sqlite3_value_ptr_to_void_ptr"
 
 ///|
 extern "C" fn Sqlite3_blob::init() -> Sqlite3_blob = "sqlite3_blob_ptr_init"
 
 ///|
-#owned(ptr)
+#borrow(ptr)
 extern "C" fn Sqlite3_blob::from_void_ptr(ptr : AnyType) -> Sqlite3_blob = "sqlite3_blob_ptr_from_void_ptr"
 
 ///|
-#owned(ptr)
+#borrow(ptr)
 extern "C" fn Sqlite3_blob::to_void_ptr(ptr : Sqlite3_blob) -> AnyType = "sqlite3_blob_ptr_to_void_ptr"
 
 ///|
 extern "C" fn Sqlite3_mutex::init() -> Sqlite3_mutex = "sqlite3_mutex_ptr_init"
 
 ///|
-#owned(ptr)
+#borrow(ptr)
 extern "C" fn Sqlite3_mutex::from_void_ptr(ptr : AnyType) -> Sqlite3_mutex = "sqlite3_mutex_ptr_from_void_ptr"
 
 ///|
-#owned(ptr)
+#borrow(ptr)
 extern "C" fn Sqlite3_mutex::to_void_ptr(ptr : Sqlite3_mutex) -> AnyType = "sqlite3_mutex_ptr_to_void_ptr"
 
 ///|
 extern "C" fn Sqlite3_vfs::init() -> Sqlite3_vfs = "sqlite3_vfs_ptr_init"
 
 ///|
-#owned(ptr)
+#borrow(ptr)
 extern "C" fn Sqlite3_vfs::from_void_ptr(ptr : AnyType) -> Sqlite3_vfs = "sqlite3_vfs_ptr_from_void_ptr"
 
 ///|
-#owned(ptr)
+#borrow(ptr)
 extern "C" fn Sqlite3_vfs::to_void_ptr(ptr : Sqlite3_vfs) -> AnyType = "sqlite3_vfs_ptr_to_void_ptr"
 
 ///|
 extern "C" fn Sqlite3_file::init() -> Sqlite3_file = "sqlite3_file_ptr_init"
 
 ///|
-#owned(ptr)
+#borrow(ptr)
 extern "C" fn Sqlite3_file::from_void_ptr(ptr : AnyType) -> Sqlite3_file = "sqlite3_file_ptr_from_void_ptr"
 
 ///|
-#owned(ptr)
+#borrow(ptr)
 extern "C" fn Sqlite3_file::to_void_ptr(ptr : Sqlite3_file) -> AnyType = "sqlite3_file_ptr_to_void_ptr"
 
 ///|
 extern "C" fn Sqlite3_filename::init() -> Sqlite3_filename = "sqlite3_filename_ptr_init"
 
 ///|
-#owned(ptr)
+#borrow(ptr)
 extern "C" fn Sqlite3_filename::from_void_ptr(
   ptr : AnyType
 ) -> Sqlite3_filename = "sqlite3_filename_ptr_from_void_ptr"
 
 ///|
-#owned(ptr)
+#borrow(ptr)
 extern "C" fn Sqlite3_filename::to_void_ptr(
   ptr : Sqlite3_filename
 ) -> AnyType = "sqlite3_filename_ptr_to_void_ptr"
@@ -246,13 +262,13 @@ extern "C" fn Sqlite3_filename::to_void_ptr(
 extern "C" fn Sqlite3_snapshot::init() -> Sqlite3_snapshot = "sqlite3_snapshot_ptr_init"
 
 ///|
-#owned(ptr)
+#borrow(ptr)
 extern "C" fn Sqlite3_snapshot::from_void_ptr(
   ptr : AnyType
 ) -> Sqlite3_snapshot = "sqlite3_snapshot_ptr_from_void_ptr"
 
 ///|
-#owned(ptr)
+#borrow(ptr)
 extern "C" fn Sqlite3_snapshot::to_void_ptr(
   ptr : Sqlite3_snapshot
 ) -> AnyType = "sqlite3_snapshot_ptr_to_void_ptr"
@@ -261,13 +277,13 @@ extern "C" fn Sqlite3_snapshot::to_void_ptr(
 extern "C" fn Sqlite3_index_info::init() -> Sqlite3_index_info = "sqlite3_index_info_ptr_init"
 
 ///|
-#owned(ptr)
+#borrow(ptr)
 extern "C" fn Sqlite3_index_info::from_void_ptr(
   ptr : AnyType
 ) -> Sqlite3_index_info = "sqlite3_index_info_ptr_from_void_ptr"
 
 ///|
-#owned(ptr)
+#borrow(ptr)
 extern "C" fn Sqlite3_index_info::to_void_ptr(
   ptr : Sqlite3_index_info
 ) -> AnyType = "sqlite3_index_info_ptr_to_void_ptr"
@@ -276,25 +292,25 @@ extern "C" fn Sqlite3_index_info::to_void_ptr(
 extern "C" fn Sqlite3_module::init() -> Sqlite3_module = "sqlite3_module_ptr_init"
 
 ///|
-#owned(ptr)
+#borrow(ptr)
 extern "C" fn Sqlite3_module::to_void_ptr(ptr : Sqlite3_module) -> AnyType = "sqlite3_module_ptr_to_void_ptr"
 
 ///|
-#owned(ptr)
+#borrow(ptr)
 extern "C" fn Sqlite3_module::from_void_ptr(
   ptr : AnyType
 ) -> Sqlite3_module = "sqlite3_module_ptr_from_void_ptr"
 
 ///|
-#owned(str)
+#borrow(str)
 extern "C" fn CStr::from_string(str : String) -> CStr = "moonbit_str_to_c_str"
 
 ///|
-#owned(str)
+#borrow(str)
 extern "C" fn CStr::convert_to_moonbit_string(str : CStr) -> String = "cstr_to_moonbit_str"
 
 ///|
-#owned(str)
+#borrow(str)
 extern "C" fn CStr::convert_to_moonbit_string_with_length(
   str : CStr,
   len : UInt
@@ -303,19 +319,19 @@ extern "C" fn CStr::convert_to_moonbit_string_with_length(
 //char * sqlite3_expanded_sql(sqlite3_stmt * pStmt);
 
 ///|
-#owned(pStmt)
+#borrow(pStmt)
 extern "C" fn sqlite3_expanded_sql(pStmt : Sqlite3_stmt) -> CStr = "sqlite3_expanded_sql"
 
 //char * sqlite3_mprintf(const char *);
 
 ///|
-#owned(zFormat)
+#borrow(zFormat)
 extern "C" fn sqlite3_mprintf(zFormat : CStr) -> CStr = "sqlite3_mprintf"
 
 //char * sqlite3_snprintf(int, char *, const char *);
 
 ///|
-#owned(zBuf, zFormat)
+#borrow(zBuf, zFormat)
 extern "C" fn sqlite3_snprintf(
   n : Int,
   zBuf : CStr,
@@ -325,25 +341,25 @@ extern "C" fn sqlite3_snprintf(
 //char * sqlite3_str_finish(sqlite3_str *);
 
 ///|
-#owned(pStr)
+#borrow(pStr)
 extern "C" fn sqlite3_str_finish(pStr : Sqlite3_str) -> CStr = "sqlite3_str_finish"
 
 //char * sqlite3_str_value(sqlite3_str *);
 
 ///|
-#owned(pStr)
+#borrow(pStr)
 extern "C" fn sqlite3_str_value(pStr : Sqlite3_str) -> CStr = "sqlite3_str_value"
 
 //char * sqlite3_vmprintf(const char *, int);
 
 ///|
-#owned(zFormat)
+#borrow(zFormat)
 extern "C" fn sqlite3_vmprintf(zFormat : CStr, n : Int) -> CStr = "sqlite3_vmprintf"
 
 //char * sqlite3_vsnprintf(int, char *, const char *, int);
 
 ///|
-#owned(zBuf, zFormat)
+#borrow(zBuf, zFormat)
 extern "C" fn sqlite3_vsnprintf(
   n : Int,
   zBuf : CStr,

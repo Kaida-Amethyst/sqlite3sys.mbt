@@ -34,7 +34,7 @@ sqlite3_blob* sqlite3_blob_ptr_init() { return NULL; }
 sqlite3_mutex* sqlite3_mutex_ptr_init() { return NULL; }
 sqlite3_vfs* sqlite3_vfs_ptr_init() { return NULL; }
 sqlite3_file* sqlite3_file_ptr_init() { return NULL; }
-sqlite3_filename* sqlite3_filename_ptr_init() { return NULL; }
+sqlite3_filename sqlite3_filename_ptr_init() { return NULL; }
 sqlite3_snapshot* sqlite3_snapshot_ptr_init() { return NULL; }
 sqlite3_index_info* sqlite3_index_info_ptr_init() { return NULL; }
 sqlite3_module* sqlite3_module_ptr_init() { return NULL; }
@@ -49,7 +49,7 @@ sqlite3_blob* sqlite3_blob_ptr_from_void_ptr(void *ptr) { return (sqlite3_blob *
 sqlite3_mutex* sqlite3_mutex_ptr_from_void_ptr(void *ptr) { return (sqlite3_mutex *)ptr; }
 sqlite3_vfs* sqlite3_vfs_ptr_from_void_ptr(void *ptr) { return (sqlite3_vfs *)ptr; }
 sqlite3_file* sqlite3_file_ptr_from_void_ptr(void *ptr) { return (sqlite3_file *)ptr; }
-sqlite3_filename* sqlite3_filename_ptr_from_void_ptr(void *ptr) { return (sqlite3_filename *)ptr; }
+sqlite3_filename sqlite3_filename_ptr_from_void_ptr(void *ptr) { return (sqlite3_filename)ptr; }
 sqlite3_snapshot* sqlite3_snapshot_ptr_from_void_ptr(void *ptr) { return (sqlite3_snapshot *)ptr; }
 sqlite3_index_info* sqlite3_index_info_ptr_from_void_ptr(void *ptr) { return (sqlite3_index_info *)ptr; }
 sqlite3_module* sqlite3_module_ptr_from_void_ptr(void *ptr) { return (sqlite3_module *)ptr; }
@@ -64,7 +64,7 @@ void* sqlite3_blob_ptr_to_void_ptr(sqlite3_blob *ptr) { return (void *)ptr; }
 void* sqlite3_mutex_ptr_to_void_ptr(sqlite3_mutex *ptr) { return (void *)ptr; }
 void* sqlite3_vfs_ptr_to_void_ptr(sqlite3_vfs *ptr) { return (void *)ptr; }
 void* sqlite3_file_ptr_to_void_ptr(sqlite3_file *ptr) { return (void *)ptr; }
-void* sqlite3_filename_ptr_to_void_ptr(sqlite3_filename *ptr) { return (void *)ptr; }
+void* sqlite3_filename_ptr_to_void_ptr(sqlite3_filename ptr) { return (void *)ptr; }
 void* sqlite3_snapshot_ptr_to_void_ptr(sqlite3_snapshot *ptr) { return (void *)ptr; }
 void* sqlite3_index_info_ptr_to_void_ptr(sqlite3_index_info *ptr) { return (void *)ptr; }
 void* sqlite3_module_ptr_to_void_ptr(sqlite3_module *ptr) { return (void *)ptr; }
