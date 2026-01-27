@@ -1,6 +1,9 @@
 {
   "is-main": false,
   "supported-targets" : ["native"],
+  "import": [
+    "moonbitlang/core/encoding/utf8"
+  ],
   "native-stub" : [
     "wrap.c"
   ],
