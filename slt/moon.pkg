@@ -1,0 +1,10 @@
+import {
+  "gmlewis/md5",
+  "moonbitlang/core/env",
+  "moonbitlang/core/encoding/utf8",
+  "moonbitlang/x/fs"
+} 
+
+options(
+  "is-main" : true
+)

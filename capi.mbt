@@ -1951,7 +1951,8 @@ extern "C" fn sqlite3_backup_init(
 
 //sqlite3_file * sqlite3_database_file_object(const char *);
 
-///|
+///| Note: The argument must be a journal/WAL filename passed to VFS xOpen.
+/// Using a normal database filename is undefined and can crash (SIGBUS).
 #borrow(zName)
 extern "C" fn sqlite3_database_file_object(zName : CStr) -> Sqlite3_file = "sqlite3_database_file_object"
 

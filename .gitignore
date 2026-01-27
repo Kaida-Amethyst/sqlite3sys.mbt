@@ -6,3 +6,5 @@ diag.json
 _build/
 _build
 target
+sqllogictest
+*.test
