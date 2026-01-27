@@ -1,0 +1,12 @@
+{
+  "import" : [
+    "Kaida-Amethyst/sqlite3sys",
+    "gmlewis/md5",
+    "moonbitlang/core/encoding/utf8"
+  ],
+  "link" : {
+    "native" : {
+      "cc-link-flags" : "-lsqlite3"
+    }
+  },
+}

@@ -12,10 +12,10 @@
 
 ### 1.1 设计哲学
 
-1. **零手动内存管理 (Zero Manual Memory Management)** : 利用 MoonBit 的 `Finalizer` 机制，确保数据库连接和预编译语句在不再使用时自动释放，杜绝 C 堆内存泄露。
-2. **强类型 (Strong Typing)** : 通过 `SqlValue` 枚举屏蔽 SQLite 的动态类型，提供安全的类型转换。
-3. **错误显式化 (Explicit Errors)** : 使用 MoonBit 的 Error Handling 机制 (`raise`) 清晰地报告 SQL 错误和 API 误用。
-4. **零开销抽象 (Zero-Cost Abstraction)** : 在保证安全的前提下，尽量减少不必要的内存拷贝和对象分配。
+1. **零手动内存管理 (Zero Manual Memory Management)**  : 利用 MoonBit 的 `Finalizer` 机制，确保数据库连接和预编译语句在不再使用时自动释放，杜绝 C 堆内存泄露。
+2. **强类型 (Strong Typing)**  : 通过 `SqlValue` 枚举屏蔽 SQLite 的动态类型，提供安全的类型转换。
+3. **错误显式化 (Explicit Errors)**  : 使用 MoonBit 的 Error Handling 机制 (`raise`) 清晰地报告 SQL 错误和 API 误用。
+4. **零开销抽象 (Zero-Cost Abstraction)**  : 在保证安全的前提下，尽量减少不必要的内存拷贝和对象分配。
 
 ### 1.2 需要明确的工程语义 (Operational Semantics)
 
@@ -27,9 +27,9 @@
 
 系统分为三层：
 
-1. **用户层 (User Layer)** : 用户编写的 MoonBit 代码，操作 `Connection` 和 `Statement` 对象。
-2. **抽象层 (Abstraction Layer)** : MoonBit 编写的高级库 (`sqlite3.mbt`)。负责类型转换、错误检查和对象生命周期管理。
-3. **本地层 (Native Layer)** : C 语言编写的胶水代码 (`wrap.c`) 和 FFI 定义 (`capi.mbt`)。负责直接与 `libsqlite3` 交互，并利用 `moonbit_make_external_object` 桥接 GC。
+1. **用户层 (User Layer)**  : 用户编写的 MoonBit 代码，操作 `Connection` 和 `Statement` 对象。
+2. **抽象层 (Abstraction Layer)**  : MoonBit 编写的高级库 (`sqlite3.mbt`)。负责类型转换、错误检查和对象生命周期管理。
+3. **本地层 (Native Layer)**  : C 语言编写的胶水代码 (`wrap.c`) 和 FFI 定义 (`capi.mbt`)。负责直接与 `libsqlite3` 交互，并利用 `moonbit_make_external_object` 桥接 GC。
 
 ### 2.1 生命周期管理 (Lifecycle Management)
 
@@ -184,12 +184,14 @@ pub fn as_int(self: SqlValue) -> Int64?
 #### 参数绑定与类型读取 (Binding & Column Mapping)
 
 - 绑定规则：
+
   - `Null` -> `sqlite3_bind_null`
   - `Integer` -> `sqlite3_bind_int64`
   - `Real` -> `sqlite3_bind_double`
   - `Text` -> `sqlite3_bind_text` (建议 `SQLITE_TRANSIENT`)
   - `Blob` -> `sqlite3_bind_blob` (建议 `SQLITE_TRANSIENT`)
 - 读取规则：
+
   - `sqlite3_column_type` 为 `SQLITE_INTEGER` -> `Integer`
   - `SQLITE_FLOAT` -> `Real`
   - `SQLITE_TEXT` -> `Text`
@@ -236,6 +238,7 @@ impl Connection {
 #### Connection 关闭语义 (Close Semantics)
 
 - 若存在未 finalize 的 Statement：
+
   - 允许 `sqlite3_close_v2` 关闭并延迟释放，但应明确 Statement 仍可继续工作直至 finalize；
   - 或选择直接报错 `Misuse`。必须在文档中固定其一。
 - 建议 V1 采用：**允许 close_v2 并延迟释放**，简化资源管理；并在 Statement.finalize 后确保最终释放。
@@ -254,10 +257,10 @@ pub struct Statement {
 
 impl Statement {
     // 绑定参数并执行，不返回结果行（用于 INSERT/UPDATE）
-    pub fn execute(self: Statement, params: Array[SqlValue]) -> Unit raise SqlError
+    pub fn execute(self: Statement, params?: Array[SqlValue]=[]) -> Unit raise SqlError
     
     // 绑定参数并执行，返回游标（用于 SELECT）
-    pub fn query(self: Statement, params: Array[SqlValue]) -> Cursor raise SqlError
+    pub fn query(self: Statement, params?: Array[SqlValue] = []) -> Cursor raise SqlError
     
     // 重置语句，以便重新绑定参数
     pub fn reset(self: Statement) -> Unit raise SqlError
@@ -346,7 +349,7 @@ void mb_udf_trampoline(sqlite3_context *ctx, int argc, sqlite3_value **argv) {
 }
 ```
 
-**替代方案 (如果 FFI 暂不支持反向调用闭包)** :
+**替代方案 (如果 FFI 暂不支持反向调用闭包)**  :
 仅在 MoonBit 侧硬编码几个用于 SLT 的标准辅助函数 (如 `md5_mock`)，并在 C 侧静态注册它们。这足以跑通测试，但这牺牲了通用性。
 **最终建议**: 在 V1 阶段，如果无法通用地传递闭包，先硬编码支持 SLT 所需的函数。
 
@@ -382,6 +385,7 @@ void mb_udf_trampoline(sqlite3_context *ctx, int argc, sqlite3_value **argv) {
 
 ---
 
+
 ## 9. 示例代码 (Examples)
 
 以下示例用于帮助工程实现与用户理解，演示常见用法与语义边界。
@@ -389,11 +393,10 @@ void mb_udf_trampoline(sqlite3_context *ctx, int argc, sqlite3_value **argv) {
 ### 示例 1：打开内存库并执行建表
 
 ```moonbit
-fn main() -> Unit raise SqlError {
+fn main_err() -> Unit raise SqlError {
   let conn = open_in_memory()
   conn.execute(
     "CREATE TABLE t(id INTEGER PRIMARY KEY, name TEXT)",
-    []
   )
   conn.close()
 }
@@ -402,11 +405,11 @@ fn main() -> Unit raise SqlError {
 ### 示例 2：插入数据并读取 last_insert_rowid
 
 ```moonbit
-fn main() -> Unit raise SqlError {
+fn main_err() -> Unit raise SqlError {
   let conn = open("example.db")
   conn.execute(
     "INSERT INTO t(name) VALUES (?)",
-    [Text("alice")]
+    params = [Text("alice")]
   )
   let id = conn.last_insert_rowid()
   println("last id: \{id}")
