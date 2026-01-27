@@ -1,6 +1,6 @@
 {
   "is-main" : true,
   "import" : [
-    "Kaida-Amethyst/sqlite3sys/sqlite3"
+    "Kaida-Amethyst/sqlite3"
   ]
 }

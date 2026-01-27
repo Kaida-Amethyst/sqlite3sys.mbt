@@ -1,6 +1,6 @@
 {
   "import" : [
-    "Kaida-Amethyst/sqlite3sys",
+    "Kaida-Amethyst/sqlite3/sqlite3sys",
     "gmlewis/md5",
     "moonbitlang/core/encoding/utf8"
   ],

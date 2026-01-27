@@ -1,5 +1,5 @@
 {
-  "name": "Kaida-Amethyst/sqlite3sys",
+  "name": "Kaida-Amethyst/sqlite3",
   "version": "0.1.0",
   "deps": {
     "gmlewis/md5": "0.19.23",
